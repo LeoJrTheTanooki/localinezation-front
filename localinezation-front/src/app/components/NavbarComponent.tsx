@@ -9,6 +9,7 @@ import {
   Button,
 } from "flowbite-react";
 import { Permanent_Marker } from "next/font/google";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
@@ -16,12 +17,26 @@ const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
 const NavbarComponent = () => {
   useEffect(() => {}, []);
 
+  const router = useRouter();
+  const handlePageChange = (route: string) => {
+    router.push(route);
+  };
+
   return (
     <>
-      <Navbar fluid className=" bg-purple-600 text-white">
-        <Navbar.Brand>
-        <img src="/assets/localinezationLogo.png" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-        </Navbar.Brand>
+      <Navbar
+        fluid
+        className=" bg-purple-600 text-white border-purple-800 border-t-4"
+      >
+        <button>
+          <Navbar.Brand onClick={() => handlePageChange("/")}>
+            <img
+              src="/assets/localinezationLogo.png"
+              className="mr-3 h-6 sm:h-9"
+              alt="Flowbite React Logo"
+            />
+          </Navbar.Brand>
+        </button>
         <div className="flex gap-5">
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -34,9 +49,9 @@ const NavbarComponent = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                 />
               </svg>
@@ -65,33 +80,24 @@ const NavbarComponent = () => {
             }
           >
             <Dropdown.Item className="gap-2">
+              <Avatar img="/assets/americanFlag.png" rounded />
+              <span>English (US)</span>
+            </Dropdown.Item>
+            <Dropdown.Item className="gap-2">
               <Avatar img="/assets/mexicanFlag.png" rounded />
-              <span> Spanish (Latin American)</span>
+              <span>Spanish (Latin American)</span>
             </Dropdown.Item>
           </Dropdown>
-          <Button className=" font-bold bg-fuchsia-300 text-black">
+          <Button className=" font-bold bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white">
             Login
           </Button>
         </div>
-        {/* <Navbar.Toggle /> */}
-
-        {/* <Navbar.Collapse>
-          <Navbar.Link className=" text-white" href="#">
-            About
-          </Navbar.Link>
-          <Navbar.Link className=" text-white" href="#">
-            Services
-          </Navbar.Link>
-          <Navbar.Link className=" text-white" href="#">
-            Pricing
-          </Navbar.Link>
-          <Navbar.Link className=" text-white" href="#">
-            Contact
-          </Navbar.Link>
-        </Navbar.Collapse> */}
       </Navbar>
 
-      <Navbar fluid className="bg-fuchsia-300 text-sm">
+      <Navbar
+        fluid
+        className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4"
+      >
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Navbar.Link className="font-bold" href="#">
@@ -106,7 +112,6 @@ const NavbarComponent = () => {
             About Us
           </Navbar.Link>
         </Navbar.Collapse>
-        {/* Submit a Media&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Favorites&nbsp;&nbsp;&nbsp;- About Us */}
       </Navbar>
     </>
   );
