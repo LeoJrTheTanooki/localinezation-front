@@ -38,7 +38,7 @@ const NavbarComponent = () => {
           </Navbar.Brand>
         </button>
         <div className="flex gap-5">
-          <div className="relative">
+          <div className="relative hidden md:block">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
                 className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -103,11 +103,11 @@ const NavbarComponent = () => {
           <Navbar.Link className="font-bold" href="#">
             Submit a Media
           </Navbar.Link>
-          <li>-</li>
+          <li className=" hidden md:list-item">-</li>
           <Navbar.Link className="font-bold" href="#">
             Favorites
           </Navbar.Link>
-          <li>-</li>
+          <li className=" hidden md:list-item">-</li>
           <Navbar.Link className="font-bold" href="#">
             About Us
           </Navbar.Link>
