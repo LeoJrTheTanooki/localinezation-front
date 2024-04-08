@@ -22,7 +22,7 @@ const Homepage = () => {
         {/* <div className=" flex flex-col"> */}
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             onClick={() => handlePageChange("/MediaPage")}
           >
             <img
@@ -36,7 +36,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -50,7 +50,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -64,7 +64,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -78,7 +78,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -92,7 +92,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -106,7 +106,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -120,7 +120,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -134,7 +134,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -148,7 +148,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -162,7 +162,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
@@ -176,7 +176,7 @@ const Homepage = () => {
         </div>
         <div className=" flex justify-center">
           <Card
-            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-[90%]"
+            className=" bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
             href="#"
           >
             <img
