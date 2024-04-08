@@ -26,7 +26,7 @@ const Homepage = () => {
             onClick={() => handlePageChange("/MediaPage")}
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/onePieceGrandBattle2.png"
               alt=""
             />
@@ -40,7 +40,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/visAVis.png"
               alt=""
             />
@@ -54,7 +54,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/motuPatlu.png"
               alt=""
             />
@@ -68,7 +68,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/pollyanna.png"
               alt=""
             />
@@ -82,7 +82,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/osuTatakaeOuendan.png"
               alt=""
             />
@@ -96,7 +96,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/skam.png"
               alt=""
             />
@@ -110,7 +110,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/bronBroen.png"
               alt=""
             />
@@ -124,7 +124,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/onePieceGrandAdventure.png"
               alt=""
             />
@@ -138,7 +138,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src="/assets/BoxArts/magiciansQuest3ds.png"
               alt=""
             />
@@ -152,7 +152,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src={sampleImage}
               alt=""
             />
@@ -166,7 +166,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src={sampleImage}
               alt=""
             />
@@ -180,7 +180,7 @@ const Homepage = () => {
             href="#"
           >
             <img
-              className=" h-full w-max self-center"
+              className=" h-[270px] w-max self-center"
               src={sampleImage}
               alt=""
             />
