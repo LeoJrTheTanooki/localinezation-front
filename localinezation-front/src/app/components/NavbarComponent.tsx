@@ -88,7 +88,7 @@ const NavbarComponent = () => {
               <span>Spanish (Latin American)</span>
             </Dropdown.Item>
           </Dropdown>
-          <Button className=" font-bold bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white">
+          <Button className=" font-bold bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white" onClick={() => handlePageChange("/LoginPage")}>
             Login
           </Button>
         </div>

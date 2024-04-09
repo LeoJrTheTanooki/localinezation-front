@@ -14,7 +14,7 @@ const Homepage = () => {
   const handlePageChange = (route: string) => {
     router.push(route);
   };
-
+  
   return (
     <>
       <h1 className=" text-center font-bold text-4xl py-7">Recently Added</h1>
