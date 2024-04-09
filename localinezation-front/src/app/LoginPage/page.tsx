@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const page = () => {
+const LoginPage = () => {
     const router = useRouter();
     const handlePageChange = (route: string) => {
         router.push(route);
@@ -39,4 +39,4 @@ const page = () => {
     )
 }
 
-export default page
+export default LoginPage
