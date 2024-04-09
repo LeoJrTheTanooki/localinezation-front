@@ -43,7 +43,7 @@ const page = () => {
               Having trouble logging in?
             </a>
             <br />
-            <button className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold">
+            <button className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold" onClick={() => handlePageChange('/')}>
               Login
             </button>
           </div>
