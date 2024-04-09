@@ -1,3 +1,5 @@
+'use client'
+
 import { Label, TextInput, FileInput, Button } from 'flowbite-react'
 import React from 'react'
 
