@@ -9,9 +9,9 @@ const page = () => {
         router.push(route);
     };
     return (
-        <div className="min-w-screen min-h-[90vh] flex justify-center items-center p-24">
-            <div id="heroImg" className="bg-flagBG w-[80%] h-[75vh] flex justify-center items-center rounded-3xl">
-                <div id="loginBG" className="bg-purple-600 w-[40%] h-[80%] flex flex-col justify-around items-center text-center rounded-3xl p-12">
+        <div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
+            <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[80%] h-[75vh] flex justify-center items-center rounded-3xl">
+                <div id="loginBG" className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-[80%] flex flex-col justify-around items-center text-center rounded-3xl p-12">
                     <div className="flex flex-col">
                         <div id="username" className="mb-6">
                             <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">Username</label>
