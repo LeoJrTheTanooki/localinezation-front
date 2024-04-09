@@ -1,8 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const page = () => {
+    const router = useRouter()
+    const handlePageChange = (route: string) => {
+        router.push(route)
+    }
   return (
     <div className="min-w-screen min-h-[90vh] flex justify-center items-center p-24">
       <div
