@@ -12,8 +12,8 @@ const MediaPage = (props: any) => {
   };
 
   return (
-    <>
-      <div className=" grid grid-cols-2 gap-5 py-7">
+    <div className=" grid justify-center">
+      <div className=" grid grid-cols-2 gap-5 py-7 w-max">
         <div className="justify-self-end">
           <img src="/assets/BoxArts/onePieceGrandBattle2.png" alt="" />
         </div>
@@ -39,7 +39,7 @@ const MediaPage = (props: any) => {
             </li>
           </ul>
         </div>
-        <div className=" justify-self-end">
+        <div className=" justify-self-center">
           <Button
             className=" bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
             onClick={() => handlePageChange("/RequestUploadPage")}
@@ -47,7 +47,7 @@ const MediaPage = (props: any) => {
             Request a Line to Translate
           </Button>
         </div>
-        <div>
+        <div className=" justify-self-center">
           <Button
             className=" bg-indigo-900 enabled:hover:bg-indigo-950"
             onClick={() => handlePageChange("/TranslationUploadPage")}
@@ -112,7 +112,7 @@ const MediaPage = (props: any) => {
           <div className=" justify-self-end">Report User</div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
