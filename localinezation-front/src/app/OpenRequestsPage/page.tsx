@@ -40,6 +40,7 @@ const OpenRequestsPage = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
+          className=" bg-slate-600"
         ></iframe>
       </div>
       <div className=" grid grid-cols-2">
