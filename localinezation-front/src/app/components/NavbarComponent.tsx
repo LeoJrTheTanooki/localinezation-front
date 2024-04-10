@@ -28,7 +28,7 @@ const NavbarComponent = () => {
         fluid
         className=" bg-purple-600 text-white border-purple-800 border-t-4"
       >
-        <button>
+        <button className=" self-start">
           <Navbar.Brand onClick={() => handlePageChange("/")}>
             <img
               src="/assets/localinezationLogo.png"

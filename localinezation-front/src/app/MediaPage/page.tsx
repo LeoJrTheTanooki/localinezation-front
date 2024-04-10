@@ -12,49 +12,57 @@ const MediaPage = (props: any) => {
   };
 
   return (
-    <>
-      <div className=" grid grid-cols-2">
-        <div>
+    <div className=" grid justify-center">
+      <div className=" grid grid-cols-2 gap-5 py-7 w-max">
+        <div className="justify-self-end">
           <img src="/assets/BoxArts/onePieceGrandBattle2.png" alt="" />
         </div>
-        <div>
+        <div className=" font-bold">
           <p>Name: One Piece: Grand Battle 2</p>
           <p>Type: Video Game</p>
           <p>Platform: PSX</p>
           <p>Original Language: Japanese</p>
           <p>Current Translations</p>
-          <ul>
+          <ul className=" font-normal">
             <li>
-              <button className=" text-blue-600">English</button>
+              <button className="text-blue-600 italic underline">
+                English
+              </button>
             </li>
             <li>
-              <button className=" text-blue-600">
+              <button className="text-blue-600 italic underline">
                 Spanish (Latin American)
               </button>
             </li>
             <li>
-              <button className=" text-blue-600">French</button>
+              <button className="text-blue-600 italic underline">French</button>
             </li>
           </ul>
         </div>
-        <div>
-          <Button onClick={() => handlePageChange("/RequestUploadPage")}>
+        <div className=" justify-self-center">
+          <Button
+            className=" bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
+            onClick={() => handlePageChange("/RequestUploadPage")}
+          >
             Request a Line to Translate
           </Button>
         </div>
-        <div>
-          <Button onClick={() => handlePageChange("/TranslationUploadPage")}>
+        <div className=" justify-self-center">
+          <Button
+            className=" bg-indigo-900 enabled:hover:bg-indigo-950"
+            onClick={() => handlePageChange("/TranslationUploadPage")}
+          >
             Submit a Translation
           </Button>
         </div>
       </div>
-      <div className="grid border-b-2 border-black">
-        <div className="bg-purple-600 text-center text-white">
+      <div className="grid justify-center">
+        <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
           Current Translators
         </div>
-        <div className=" border-2 border-b-0 border-black grid grid-cols-2">
+        <div className=" border-2 border-t-0 border-black grid grid-cols-2">
           <div className=" col-span-2">
-            G0dU50pp_800:{" "}
+            <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
             <button
               className=" text-blue-600"
               onClick={() => handlePageChange("/OpenRequestsPage")}
@@ -69,28 +77,42 @@ const MediaPage = (props: any) => {
           <div>User Score:</div>
           <div className=" justify-self-end">Report User</div>
         </div>
-        <div className=" border-2 border-b-0 border-black">
-          <div>
-            G0dU50pp_800:{" "}
-            <button className=" text-blue-600">Main Menu Options</button> |{" "}
-            <button className=" text-blue-600">Battle Settings</button> |{" "}
+        <div className=" border-2 border-t-0 border-black grid grid-cols-2">
+          <div className=" col-span-2">
+            <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
+            <button
+              className=" text-blue-600"
+              onClick={() => handlePageChange("/OpenRequestsPage")}
+            >
+              Main Menu Options
+            </button>{" "}
+            | <button className=" text-blue-600">Battle Settings</button> |{" "}
             <button className=" text-blue-600">Treasure</button> |{" "}
             <button className=" text-blue-600">Options</button> |{" "}
             <button className=" text-blue-600">Move Names</button>
           </div>
+          <div>User Score:</div>
+          <div className=" justify-self-end">Report User</div>
         </div>
-        <div className=" border-2 border-b-0 border-black">
-          <div>
-            G0dU50pp_800:{" "}
-            <button className=" text-blue-600">Main Menu Options</button> |{" "}
-            <button className=" text-blue-600">Battle Settings</button> |{" "}
+        <div className=" border-2 border-t-0 border-black grid grid-cols-2">
+          <div className=" col-span-2">
+            <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
+            <button
+              className=" text-blue-600"
+              onClick={() => handlePageChange("/OpenRequestsPage")}
+            >
+              Main Menu Options
+            </button>{" "}
+            | <button className=" text-blue-600">Battle Settings</button> |{" "}
             <button className=" text-blue-600">Treasure</button> |{" "}
             <button className=" text-blue-600">Options</button> |{" "}
             <button className=" text-blue-600">Move Names</button>
           </div>
+          <div>User Score:</div>
+          <div className=" justify-self-end">Report User</div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
