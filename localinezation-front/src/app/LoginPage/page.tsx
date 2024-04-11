@@ -6,6 +6,35 @@ import { createAccount, getLoggedInUserData, login } from "@/utils/Dataservices"
 import { IToken } from "@/Interfaces/Interfaces";
 
 const LoginPage = () => {
+    const [modalMessage, setModalMessage] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const Modal = ({ isOpen, message }) => {
+        if (!isOpen) return null;
+
+        return (
+            <div className="fixed inset-0 bg-gray-900 bg-opacity-70 overflow-y-auto h-full w-full flex items-center justify-center">
+                <div className="bg-white rounded-md shadow-lg mx-4" style={{ minWidth: '300px', maxWidth: '500px' }}>
+                    <div className="text-center p-5">
+                        <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                            <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900 mt-3">{message}</h3>
+                        <div className="mt-5">
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                type="button">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
 
 
     const [username, setUsername] = useState<string>("");
@@ -22,8 +51,19 @@ const LoginPage = () => {
         }
 
         if (!loginSwitchBool) {
-            //Create account logic in here
-            createAccount(userData);
+            try {
+                const success = await createAccount(userData);
+                if (success) {
+                    setModalMessage("You have successfully created an account, you can click the login button to login into your account");
+                } else {
+                    setModalMessage("This Username already exist");
+                }
+                setIsModalOpen(true);
+            } catch (error) {
+                console.error(error);
+                setModalMessage("An error occurred while creating the account.");
+                setIsModalOpen(true);
+            }
         } else {
             //Login logic in here
 
@@ -86,6 +126,11 @@ const LoginPage = () => {
                 </div>)
             :
             (<div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
+                
+               
+                {isModalOpen && <Modal isOpen={isModalOpen} message={modalMessage} />}
+   
+                
                 <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[80%] h-[75vh] flex justify-center items-center rounded-3xl">
                     <div id="loginBG" className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-[80%] flex flex-col justify-around items-center text-center rounded-3xl p-12">
                         <div className="flex flex-col">

@@ -28,7 +28,14 @@ export const createAccount = async (createdUser: IUserInfo) => {
     }
 
     const data = await res.json();
-    console.log(data);
+    
+    if (data == true) {
+        console.log("you have succesfully created an account");
+    } else {
+        console.log("this account already exist");
+    }
+    return data; 
+    
 }
 
 export const login = async (loginUser: IUserInfo) => {
