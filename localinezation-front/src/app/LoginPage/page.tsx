@@ -84,7 +84,7 @@ const LoginPage = () => {
             if (token.token != null) {
                 localStorage.setItem("Token", token.token)
                 getLoggedInUserData(username);
-                router.push('/MediaPage');
+                router.push('/AccountDashboardPage');
             } else {
                 alert("Login Failed");
             }
