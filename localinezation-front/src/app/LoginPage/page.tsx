@@ -154,8 +154,8 @@ const LoginPage = () => {
             (<div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
                 
             
-            
-                isModalOpen && <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />
+               
+                {isModalOpen && <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />}
 
 
                 
