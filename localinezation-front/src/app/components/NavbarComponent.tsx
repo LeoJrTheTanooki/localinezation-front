@@ -83,10 +83,10 @@ const NavbarComponent = () => {
               <Avatar img="/assets/americanFlag.png" rounded />
               <span>English (US)</span>
             </Dropdown.Item>
-            <Dropdown.Item className="gap-2">
+            {/* <Dropdown.Item className="gap-2">
               <Avatar img="/assets/mexicanFlag.png" rounded />
               <span>Spanish (Latin American)</span>
-            </Dropdown.Item>
+            </Dropdown.Item> */}
           </Dropdown>
           <Button className=" font-bold bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white" onClick={() => handlePageChange("/LoginPage")}>
             Login
@@ -100,19 +100,19 @@ const NavbarComponent = () => {
       >
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link className="font-bold" href="#">
+          <Navbar.Link className="font-bold" href="#" disabled title="Work in Progress">
             Submit a Media
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" href="#">
+          <Navbar.Link className="font-bold" href="#" disabled title="Work in Progress">
             Favorites
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" href="#">
+          <Navbar.Link className="font-bold" href="#" disabled title="Work in Progress">
             About Us
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" onClick={() => handlePageChange("/AccountDashboardPage")}>
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AccountDashboardPage")}>
             Account
           </Navbar.Link>
         </Navbar.Collapse>

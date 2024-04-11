@@ -13,7 +13,7 @@ const MediaPage = (props: any) => {
 
   return (
     <div className=" grid justify-center">
-      <div className=" grid grid-cols-2 gap-5 py-7 w-max">
+      <div className=" grid grid-cols-2 gap-5 py-7 w-max mx-auto">
         <div className="justify-self-end">
           <img src="/assets/BoxArts/onePieceGrandBattle2.png" alt="" />
         </div>
@@ -56,7 +56,7 @@ const MediaPage = (props: any) => {
           </Button>
         </div>
       </div>
-      <div className="grid justify-center">
+      <div className="w-[1000px]">
         <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
           Current Translators
         </div>
@@ -67,46 +67,13 @@ const MediaPage = (props: any) => {
               className=" text-blue-600"
               onClick={() => handlePageChange("/OpenRequestsPage")}
             >
-              Main Menu Options
-            </button>{" "}
-            | <button className=" text-blue-600">Battle Settings</button> |{" "}
-            <button className=" text-blue-600">Treasure</button> |{" "}
-            <button className=" text-blue-600">Options</button> |{" "}
-            <button className=" text-blue-600">Move Names</button>
-          </div>
-          <div>User Score:</div>
-          <div className=" justify-self-end">Report User</div>
-        </div>
-        <div className=" border-2 border-t-0 border-black grid grid-cols-2">
-          <div className=" col-span-2">
-            <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
-            <button
-              className=" text-blue-600"
-              onClick={() => handlePageChange("/OpenRequestsPage")}
-            >
-              Main Menu Options
-            </button>{" "}
-            | <button className=" text-blue-600">Battle Settings</button> |{" "}
-            <button className=" text-blue-600">Treasure</button> |{" "}
-            <button className=" text-blue-600">Options</button> |{" "}
-            <button className=" text-blue-600">Move Names</button>
-          </div>
-          <div>User Score:</div>
-          <div className=" justify-self-end">Report User</div>
-        </div>
-        <div className=" border-2 border-t-0 border-black grid grid-cols-2">
-          <div className=" col-span-2">
-            <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
-            <button
-              className=" text-blue-600"
-              onClick={() => handlePageChange("/OpenRequestsPage")}
-            >
-              Main Menu Options
-            </button>{" "}
-            | <button className=" text-blue-600">Battle Settings</button> |{" "}
-            <button className=" text-blue-600">Treasure</button> |{" "}
-            <button className=" text-blue-600">Options</button> |{" "}
-            <button className=" text-blue-600">Move Names</button>
+              Opening Movie
+            </button>{" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">Main Menu Options</button>{" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">Battle Settings</button>{" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">Treasure</button>{" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">Options</button>{" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">Move Names</button>
           </div>
           <div>User Score:</div>
           <div className=" justify-self-end">Report User</div>

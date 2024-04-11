@@ -83,6 +83,7 @@ const LoginPage = () => {
             //Check to see if logged in
             if (token.token != null) {
                 localStorage.setItem("Token", token.token)
+                localStorage.setItem("username", username)
                 getLoggedInUserData(username);
                 router.push('/AccountDashboardPage');
             } else {
@@ -102,7 +103,7 @@ const LoginPage = () => {
 
 
 
-    const [loginSwitchBool, setLoginSwitchBool] = useState<boolean>(false)
+    const [loginSwitchBool, setLoginSwitchBool] = useState<boolean>(true)
     const router = useRouter();
     const handlePageChange = (route:string) => {
         router.push(route);
