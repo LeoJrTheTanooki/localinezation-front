@@ -18,6 +18,11 @@ export interface IToken {
     token: string
 }
 
+// Updated IToken interface to have modal appear when failed login
+// export interface IToken {
+//     token: string | null;
+// }
+
 //For login and Create account fetch
 
 export interface IUserInfo {

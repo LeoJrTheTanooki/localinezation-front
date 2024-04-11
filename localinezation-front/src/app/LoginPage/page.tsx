@@ -5,11 +5,17 @@ import React, { useState } from "react";
 import { createAccount, getLoggedInUserData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 
+interface ModalProps {
+    isOpen: boolean;
+    message: string;
+    onClose: () => void; 
+}
+
 const LoginPage = () => {
     const [modalMessage, setModalMessage] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const Modal = ({ isOpen, message }) => {
+    const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
         if (!isOpen) return null;
 
         return (
@@ -44,21 +50,24 @@ const LoginPage = () => {
 
 
     const handleSubmit = async () => {
-        //Putting our user data inside of an object so we can put it in our Post fetch
         let userData = {
             username: username,
             password: password
-        }
+        };
 
         if (!loginSwitchBool) {
             try {
                 const success = await createAccount(userData);
                 if (success) {
-                    setModalMessage("You have successfully created an account, you can click the login button to login into your account");
+                     setModalMessage("You have successfully created an account, you can now login.");
+    setIsModalOpen(true);
+                    
+                
+               
                 } else {
-                    setModalMessage("This Username already exist");
+                    setModalMessage("This Username already exists.");
+                    setIsModalOpen(true);
                 }
-                setIsModalOpen(true);
             } catch (error) {
                 console.error(error);
                 setModalMessage("An error occurred while creating the account.");
@@ -84,6 +93,13 @@ const LoginPage = () => {
 
 
 
+   
+
+   
+
+
+
+
 
 
     const [loginSwitchBool, setLoginSwitchBool] = useState<boolean>(false)
@@ -92,6 +108,16 @@ const LoginPage = () => {
         router.push(route);
     };
 
+    // this function is to handle closing the modal and switching to the login form
+    const handleCloseModalAndSwitchToLogin = () => {
+        console.log("Closing modal and switching to login");
+        setIsModalOpen(false);
+        //  to switch to the login form after closing the modal
+        setLoginSwitchBool(true);
+    };
+    
+
+    
     return (
         loginSwitchBool ?
             (
@@ -127,9 +153,11 @@ const LoginPage = () => {
             :
             (<div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
                 
-               
-                {isModalOpen && <Modal isOpen={isModalOpen} message={modalMessage} />}
-   
+            
+                // {isModalOpen && <Modal isOpen={isModalOpen} message={modalMessage} onClose={() => setIsModalOpen(false)} />}
+                {isModalOpen && <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />}
+
+
                 
                 <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[80%] h-[75vh] flex justify-center items-center rounded-3xl">
                     <div id="loginBG" className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-[80%] flex flex-col justify-around items-center text-center rounded-3xl p-12">
