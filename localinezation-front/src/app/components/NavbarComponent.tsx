@@ -111,6 +111,10 @@ const NavbarComponent = () => {
           <Navbar.Link className="font-bold" href="#">
             About Us
           </Navbar.Link>
+          <li className=" hidden md:list-item">-</li>
+          <Navbar.Link className="font-bold" onClick={() => handlePageChange("/AccountDashboardPage")}>
+            Account
+          </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </>
