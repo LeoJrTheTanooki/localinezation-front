@@ -1,7 +1,9 @@
 import { IBlogItems, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
-const url = "https://localinazationapi.azurewebsites.net"
+ const url = "https://localinazationapi.azurewebsites.net"
+//const url = "http://localhost:5071"
+
 
 let userData: IUserData
 
@@ -69,4 +71,3 @@ export const checkToken = () => {
     }
     return result
 }
-
