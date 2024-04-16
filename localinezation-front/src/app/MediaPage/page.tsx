@@ -1,27 +1,100 @@
 "use client";
 
 import { Button } from "flowbite-react";
+import PageData from "@/utils/PageData.json";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const MediaPage = (props: any) => {
-  console.log(props);
   const router = useRouter();
   const handlePageChange = (route: string) => {
     router.push(route);
   };
 
+  const DataDefault = {
+    title: "Unknown",
+    coverArt:
+      "",
+    originalLanguage: "Unknown",
+    type: "Unknown",
+    platform: "No Known Platform",
+    openRequests: [
+      {
+        requestLanguage: [
+          {
+            hsirebbig: [
+              {
+                requestName: "",
+                requestDialogue: "",
+                requestReferences: [""],
+                submittedTranslations: [
+                  {
+                    translatorUserName: "",
+                    isGuest: true,
+                    translatedDialogue: "",
+                    userScores: [0],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
+  interface IMediaData {
+    title: string
+    coverArt: string
+    originalLanguage: string
+    type: string
+    platform: string
+    openRequests: Array<{
+      requestLanguage: Array<{
+        hsirebbig: Array<{
+          requestName: string
+          requestDialogue: string
+          requestReferences: Array<string>
+          submittedTranslations: Array<{
+            translatorUserName: string
+            isGuest: boolean
+            translatedDialogue: string
+            userScores: Array<number>
+          }>
+        }>
+      }>
+    }>
+  }
+
+  const [queryNum, setQueryNum] = useState<number>(0);
+  // console.log(queryNum);
+
+  const [title, setTitle] = useState<string>("Unknown");
+
+  const [mediaList, setMediaList] = useState<any>(PageData);
+
+  const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search).get("id");
+    if (query) setQueryNum(parseInt(query));
+  }, []);
+
+  useEffect(() => {
+    setCurrentMedia(mediaList[queryNum]);
+  }, [queryNum]);
+
   return (
     <div className=" grid justify-center">
       <div className=" grid grid-cols-2 gap-5 py-7 w-max mx-auto">
         <div className="justify-self-end">
-          <img src="/assets/BoxArts/onePieceGrandBattle2.png" alt="" />
+          <img className=" h-80" src={currentMedia.coverArt} alt="" />
         </div>
         <div className=" font-bold">
-          <p>Name: One Piece: Grand Battle 2</p>
-          <p>Type: Video Game</p>
-          <p>Platform: PSX</p>
-          <p>Original Language: Japanese</p>
+          <p>Name: {currentMedia.title}</p>
+          <p>Type: {currentMedia.type}</p>
+          <p>Platform: {currentMedia.platform}</p>
+          <p>Original Language: {currentMedia.originalLanguage}</p>
           <p>Current Translations</p>
           <ul className=" font-normal">
             <li>
@@ -68,12 +141,27 @@ const MediaPage = (props: any) => {
               onClick={() => handlePageChange("/OpenRequestsPage")}
             >
               Opening Movie
-            </button>{" | "}
-            <button disabled className=" text-blue-600 disabled:text-blue-400">Main Menu Options</button>{" | "}
-            <button disabled className=" text-blue-600 disabled:text-blue-400">Battle Settings</button>{" | "}
-            <button disabled className=" text-blue-600 disabled:text-blue-400">Treasure</button>{" | "}
-            <button disabled className=" text-blue-600 disabled:text-blue-400">Options</button>{" | "}
-            <button disabled className=" text-blue-600 disabled:text-blue-400">Move Names</button>
+            </button>
+            {" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">
+              Main Menu Options
+            </button>
+            {" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">
+              Battle Settings
+            </button>
+            {" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">
+              Treasure
+            </button>
+            {" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">
+              Options
+            </button>
+            {" | "}
+            <button disabled className=" text-blue-600 disabled:text-blue-400">
+              Move Names
+            </button>
           </div>
           <div>User Score:</div>
           <div className=" justify-self-end">Report User</div>
