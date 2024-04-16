@@ -206,7 +206,7 @@ const Homepage = () => {
         </div> */}
 
         {mediaList?.map((media: any, mediaIndex: number) => (
-          <MediaCard mediaObject={media} index={mediaIndex} />
+          <MediaCard key={mediaIndex} mediaObject={media} index={mediaIndex} />
         ))}
       </div>
     </>
