@@ -4,6 +4,7 @@ import { Button } from "flowbite-react";
 import PageData from "@/utils/PageData.json";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { IMediaData } from "@/Interfaces/Interfaces";
 
 const MediaPage = (props: any) => {
   const router = useRouter();
@@ -19,45 +20,9 @@ const MediaPage = (props: any) => {
     platform: "No Known Platform",
   };
 
-  interface IMediaData {
-    title: string;
-    coverArt: string;
-    originalLanguage: string;
-    type: string;
-    platform: string;
-    requestLanguage?: Array<{
-      englishUsa?: Array<ILanguageData>;
-      spanishLatAm?: Array<ILanguageData>;
-      spanishEu?: Array<ILanguageData>;
-      englishUk?: Array<ILanguageData>;
-      french?: Array<ILanguageData>;
-      japanese?: Array<ILanguageData>;
-      chineseTrad?: Array<ILanguageData>;
-      chineseSimple?: Array<ILanguageData>;
-      norwegian?: Array<ILanguageData>;
-      swedish?: Array<ILanguageData>;
-      irish?: Array<ILanguageData>;
-    }>;
-  }
 
-  interface ILanguageData {
-    openRequests?: Array<{
-      requestName: string;
-      requestDialogue?: string;
-      requestReferences?: Array<string>;
-      submittedTranslations?: Array<{
-        translatorUserName: string;
-        isGuest: boolean;
-        translatedDialogue: string;
-        userScores?: Array<number>;
-      }>;
-    }>;
-  }
 
   const [queryNum, setQueryNum] = useState<number>(-1);
-  // console.log(queryNum);
-
-  const [title, setTitle] = useState<string>("Unknown");
 
   const [mediaList, setMediaList] = useState<any>(PageData);
 
@@ -77,30 +42,35 @@ const MediaPage = (props: any) => {
   }, [queryNum]);
 
   useEffect(() => {
-    console.log(currentMedia);
     if (currentMedia.requestLanguage) {
-      const test = currentMedia.requestLanguage.map(
+      const languageListJsx = currentMedia.requestLanguage.map(
         (media: any, index: number) => {
           let language = Object.keys(media)[0];
-          console.log(language);
-
+          let formattedLang;
           switch (language) {
             case "englishUsa":
-              language = "English (US)";
+              formattedLang = "English (US)";
               break;
             case "spanishLatAm":
-              language = "Spanish (Latin American)";
+              formattedLang = "Spanish (Latin American)";
               break;
             case "french":
-              language = "French";
+              formattedLang = "French";
               break;
           }
 
           if (language) {
             return (
               <li key={index}>
-                <button className="text-blue-600 italic underline">
-                  {language}
+                <button
+                  className="text-blue-600 italic underline"
+                  onClick={() =>
+                    handlePageChange(
+                      `/OpenRequestsPage?id=${queryNum}&language=${language}`
+                    )
+                  }
+                >
+                  {formattedLang}
                 </button>
               </li>
             );
@@ -109,7 +79,7 @@ const MediaPage = (props: any) => {
           }
         }
       );
-      setListedLanguages(test);
+      setListedLanguages(languageListJsx);
     }
   }, [currentMedia]);
 
@@ -162,7 +132,9 @@ const MediaPage = (props: any) => {
             <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
             <button
               className=" text-blue-600"
-              onClick={() => handlePageChange("/OpenRequestsPage")}
+              onClick={() =>
+                handlePageChange("/OpenRequestsPage?id=0&language=englishUsa")
+              }
             >
               Opening Movie
             </button>
