@@ -4,6 +4,7 @@ import { Button } from "flowbite-react";
 import PageData from "@/utils/PageData.json";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { IMediaData } from "@/Interfaces/Interfaces";
 
 const MediaPage = (props: any) => {
   const router = useRouter();
@@ -13,67 +14,21 @@ const MediaPage = (props: any) => {
 
   const DataDefault = {
     title: "Unknown",
-    coverArt:
-      "",
+    coverArt: "",
     originalLanguage: "Unknown",
     type: "Unknown",
     platform: "No Known Platform",
-    openRequests: [
-      {
-        requestLanguage: [
-          {
-            hsirebbig: [
-              {
-                requestName: "",
-                requestDialogue: "",
-                requestReferences: [""],
-                submittedTranslations: [
-                  {
-                    translatorUserName: "",
-                    isGuest: true,
-                    translatedDialogue: "",
-                    userScores: [0],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
   };
 
-  interface IMediaData {
-    title: string
-    coverArt: string
-    originalLanguage: string
-    type: string
-    platform: string
-    openRequests: Array<{
-      requestLanguage: Array<{
-        hsirebbig: Array<{
-          requestName: string
-          requestDialogue: string
-          requestReferences: Array<string>
-          submittedTranslations: Array<{
-            translatorUserName: string
-            isGuest: boolean
-            translatedDialogue: string
-            userScores: Array<number>
-          }>
-        }>
-      }>
-    }>
-  }
 
-  const [queryNum, setQueryNum] = useState<number>(0);
-  // console.log(queryNum);
 
-  const [title, setTitle] = useState<string>("Unknown");
+  const [queryNum, setQueryNum] = useState<number>(-1);
 
   const [mediaList, setMediaList] = useState<any>(PageData);
 
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
+
+  const [listedLanguages, setListedLanguages] = useState<any>();
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
@@ -81,8 +36,52 @@ const MediaPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-    setCurrentMedia(mediaList[queryNum]);
+    if (queryNum != -1) {
+      setCurrentMedia(mediaList[queryNum]);
+    }
   }, [queryNum]);
+
+  useEffect(() => {
+    if (currentMedia.requestLanguage) {
+      const languageListJsx = currentMedia.requestLanguage.map(
+        (media: any, index: number) => {
+          let language = Object.keys(media)[0];
+          let formattedLang;
+          switch (language) {
+            case "englishUsa":
+              formattedLang = "English (US)";
+              break;
+            case "spanishLatAm":
+              formattedLang = "Spanish (Latin American)";
+              break;
+            case "french":
+              formattedLang = "French";
+              break;
+          }
+
+          if (language) {
+            return (
+              <li key={index}>
+                <button
+                  className="text-blue-600 italic underline"
+                  onClick={() =>
+                    handlePageChange(
+                      `/OpenRequestsPage?id=${queryNum}&language=${language}`
+                    )
+                  }
+                >
+                  {formattedLang}
+                </button>
+              </li>
+            );
+          } else {
+            return <li key={index}>No Available Languages</li>;
+          }
+        }
+      );
+      setListedLanguages(languageListJsx);
+    }
+  }, [currentMedia]);
 
   return (
     <div className=" grid justify-center">
@@ -97,19 +96,11 @@ const MediaPage = (props: any) => {
           <p>Original Language: {currentMedia.originalLanguage}</p>
           <p>Current Translations</p>
           <ul className=" font-normal">
-            <li>
-              <button className="text-blue-600 italic underline">
-                English
-              </button>
-            </li>
-            <li>
-              <button className="text-blue-600 italic underline">
-                Spanish (Latin American)
-              </button>
-            </li>
-            <li>
-              <button className="text-blue-600 italic underline">French</button>
-            </li>
+            {currentMedia.requestLanguage ? (
+              <>{listedLanguages}</>
+            ) : (
+              <li>No Available Languages</li>
+            )}
           </ul>
         </div>
         <div className=" justify-self-center">
@@ -133,12 +124,17 @@ const MediaPage = (props: any) => {
         <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
           Current Translators
         </div>
+        {/* Language should default to language that is stored in localstorage,
+            the langauge in local storage should default itself based on geolocation
+            and logic for that should be set in the Navbar */}
         <div className=" border-2 border-t-0 border-black grid grid-cols-2">
           <div className=" col-span-2">
             <span className=" font-bold italic mr-1">G0dU50pp_800:</span>
             <button
               className=" text-blue-600"
-              onClick={() => handlePageChange("/OpenRequestsPage")}
+              onClick={() =>
+                handlePageChange("/OpenRequestsPage?id=0&language=englishUsa")
+              }
             >
               Opening Movie
             </button>

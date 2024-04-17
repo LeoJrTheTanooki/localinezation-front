@@ -5,11 +5,11 @@
     "originalLanguage": "Japanese",
     "type": "Video Game",
     "platform": "PSX",
-    "openRequests": [
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "englishUsa": [
+            "openRequests": [
               {
                 "requestName": "Opening Movie",
                 "requestDialogue": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
@@ -53,10 +53,15 @@
                   }
                 ]
               }
-            ],
-            "spanishLatAm": {}
+            ]
           }
         ]
+      },
+      {
+        "spanishLatAm": []
+      },
+      {
+        "french": []
       }
     ]
   },
@@ -66,11 +71,11 @@
     "originalLanguage": "Spanish (Latin American)",
     "type": "TV Show",
     "platform": "Unavailable",
-    "openRequests": [
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "hsirebbig": [
+            "openRequests": [
               {
                 "requestName": "",
                 "requestDialogue": "",
@@ -96,11 +101,11 @@
     "originalLanguage": "Japanese",
     "type": "Video Game",
     "platform": "Nintendo DS",
-    "openRequests": [
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "hsirebbig": [
+            "openRequests": [
               {
                 "requestName": "",
                 "requestDialogue": "",
@@ -126,11 +131,11 @@
     "originalLanguage": "Indian",
     "type": "TV Show",
     "platform": "Netflix",
-    "openRequests": [
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "englishUsa": [
+            "openRequests": [
               {
                 "requestName": "Motu obsesses over Italian food",
                 "requestDialogue": "",
@@ -170,12 +175,12 @@
     "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
     "originalLanguage": "Gibberish",
     "type": "Vaporware",
-    "platform": "",
-    "openRequests": [
+    "platform": "Concrete Matter",
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "hsirebbig": [
+            "openRequests": [
               {
                 "requestName": "",
                 "requestDialogue": "",
@@ -200,12 +205,12 @@
     "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
     "originalLanguage": "Gibberish",
     "type": "Vaporware",
-    "platform": "",
-    "openRequests": [
+    "platform": "Concrete Matter",
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "hsirebbig": [
+            "openRequests": [
               {
                 "requestName": "",
                 "requestDialogue": "",
@@ -230,12 +235,12 @@
     "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
     "originalLanguage": "Gibberish",
     "type": "Vaporware",
-    "platform": "",
-    "openRequests": [
+    "platform": "Concrete Matter",
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "hsirebbig": [
+            "openRequests": [
               {
                 "requestName": "",
                 "requestDialogue": "",
@@ -260,12 +265,12 @@
     "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
     "originalLanguage": "Gibberish",
     "type": "Vaporware",
-    "platform": "",
-    "openRequests": [
+    "platform": "Concrete Matter",
+    "requestLanguage": [
       {
-        "requestLanguage": [
+        "englishUsa": [
           {
-            "hsirebbig": [
+            "openRequests": [
               {
                 "requestName": "",
                 "requestDialogue": "",
@@ -290,28 +295,9 @@
     "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
     "originalLanguage": "Gibberish",
     "type": "Vaporware",
-    "platform": "",
-    "openRequests": [
+    "platform": "Concrete Matter",
+    "requestLanguage": [
       {
-        "requestLanguage": [
-          {
-            "hsirebbig": [
-              {
-                "requestName": "",
-                "requestDialogue": "",
-                "requestReferences": [""],
-                "submittedTranslations": [
-                  {
-                    "translatorUserName": "",
-                    "isGuest": true,
-                    "translatedDialogue": "",
-                    "userScores": [0]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
       }
     ]
   }

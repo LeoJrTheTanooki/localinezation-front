@@ -1,9 +1,56 @@
 "use client";
 
+import { ILanguageData, IMediaData } from "@/Interfaces/Interfaces";
+import PageData from "@/utils/PageData.json";
 import { Button } from "flowbite-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const OpenRequestsPage = () => {
+  const RequestsDefault = {
+    openRequests: [],
+  };
+
+  const [currentMedia, setCurrentMedia] =
+    useState<ILanguageData>(RequestsDefault);
+  const [mediaRequests, setMediaRequests] = useState<any>(PageData);
+  const [queryNum, setQueryNum] = useState<number>(-1);
+  const [langQuery, setLangQuery] = useState<string>("");
+  const [requestName, setRequestName] = useState<string>("null");
+
+  useEffect(() => {
+    const idQuery = new URLSearchParams(window.location.search).get("id");
+    const langQuery = new URLSearchParams(window.location.search).get(
+      "language"
+    );
+    if (idQuery) setQueryNum(parseInt(idQuery));
+    if (langQuery) setLangQuery(langQuery);
+  }, []);
+
+  useEffect(() => {
+    function findLanguage(obj: any) {
+      return Object.keys(obj)[0] == langQuery;
+    }
+
+    if (queryNum >= 0) {
+      const requestData =
+        mediaRequests[queryNum].requestLanguage.find(findLanguage)[
+          `${langQuery}`
+        ][0];
+      console.log(requestData);
+      setCurrentMedia(requestData);
+    }
+  }, [queryNum, langQuery]);
+
+  // useEffect(() => {
+  //   if (currentMedia.openRequests)
+  //     setRequestName(currentMedia.openRequests[0].requestName);
+  // }, [currentMedia]);
+
+  useEffect(() => {
+    console.log(currentMedia);
+    // console.log(requestName);
+  }, [currentMedia, requestName]);
+
   return (
     <div className=" grid grid-cols-2 gap-5">
       <div className=" grid grid-cols-2">
@@ -30,11 +77,11 @@ const OpenRequestsPage = () => {
         </div>
       </div>
       <div>
-        <h2 className=" text-3xl">Opening Movie</h2>
+        <h2 className=" text-3xl">{requestName}</h2>
         <iframe
           width="560"
           height="315"
-            src="https://www.youtube-nocookie.com/embed/Xy0qeXbrDsE?si=qq1qwPb-TjU8ABFb"
+          src="https://www.youtube-nocookie.com/embed/Xy0qeXbrDsE?si=qq1qwPb-TjU8ABFb"
           // src="https://invidious.privacydev.net/embed/Xy0qeXbrDsE"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
