@@ -24,7 +24,9 @@ const OpenRequestsPage = () => {
   >;
 
   const [requestsArray, setRequestsArray] =
-    useState<Array<ILanguageData["openRequests"]>>(requestsDefault);
+    useState<
+    // Array<ILanguageData["openRequests"]>
+    any>(requestsDefault);
   const [currentRequest, setCurrentRequest] =
     useState<ILanguageData["openRequests"]>();
   const [requestIndex, setRequestIndex] = useState<number>(0);
@@ -130,8 +132,7 @@ const OpenRequestsPage = () => {
       <div>
         <h2 className=" text-3xl">
           {requestsArray.length != 0
-            ? // Unsure of how to resolve errors on page, page itself loads fine on local, unsure of Vercel
-              requestsArray[requestIndex]?.requestName
+            ? requestsArray[requestIndex]?.requestName
             : "null"}
         </h2>
         <iframe
@@ -153,8 +154,7 @@ const OpenRequestsPage = () => {
           </div>
           <div className=" border-2 border-b-0 border-black">
             {requestsArray.length != 0
-              ? // Unsure of how to resolve errors on page, page itself loads fine on local, unsure of Vercel
-                requestsArray[requestIndex]?.submittedTranslations[0]
+              ? requestsArray[requestIndex]?.submittedTranslations[0]
                   ?.translatorUserName +
                 ": " +
                 requestsArray[requestIndex]?.submittedTranslations[0]
