@@ -34,7 +34,9 @@ const Homepage = () => {
 
   return (
     <>
-      <h1 className=" text-center font-bold text-4xl py-7">Recently Added</h1>
+      <div className="headerBG w-fit bg-gray-500 p-4">
+        <h1 className=" text-center font-bold text-4xl py-7">Recently Added</h1>
+      </div>
       <div className=" grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 pt-0">
         {/* <div className=" flex justify-center">
           <Card
