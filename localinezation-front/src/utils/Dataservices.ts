@@ -72,7 +72,7 @@ export const getLoggedInUserData = async (username: string) => {
         userData = data;
 
         // Log the response data to the console
-        console.log("(Dataservice.ts:75...Received data:", data);
+        console.log("(Dataservice.ts:75); Received data:", data);
         //json example response:
         //{
         // "userId": 1,
