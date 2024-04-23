@@ -72,7 +72,12 @@ export const getLoggedInUserData = async (username: string) => {
         userData = data;
 
         // Log the response data to the console
-        console.log("Received data:", data);
+        console.log("(Dataservice.ts:75...Received data:", data);
+        //json example response:
+        //{
+        // "userId": 1,
+        //  "publisherName": "Test1"
+        //}
     } catch (error) {
         console.error("Error fetching user data:", error);
     }
