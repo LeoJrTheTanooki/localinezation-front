@@ -24,20 +24,17 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <Navbar
-        fluid
-        className=" bg-purple-600 text-white border-purple-800 border-t-4"
-      >
+      <Navbar fluid className=" bg-purple-600 text-white border-purple-800 border-t-4">
         <button className=" self-start">
-          <Navbar.Brand onClick={() => handlePageChange("/")}>
+          <Navbar.Brand onClick={() => handlePageChange("/")} >
             <img
               src="/assets/localinezationLogo.png"
-              className="mr-3 h-6 sm:h-9"
+              className="mr-3 text-center"
               alt="Flowbite React Logo"
             />
           </Navbar.Brand>
         </button>
-        <div className="flex gap-5">
+        <div className="flex w-full max-w-[550px] gap-5 justify-between">
           <div className="relative hidden md:block">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
@@ -79,25 +76,21 @@ const NavbarComponent = () => {
               </>
             }
           >
+
             <Dropdown.Item className="gap-2">
               <Avatar img="/assets/americanFlag.png" rounded />
               <span>English (US)</span>
             </Dropdown.Item>
-            {/* <Dropdown.Item className="gap-2">
-              <Avatar img="/assets/mexicanFlag.png" rounded />
-              <span>Spanish (Latin American)</span>
-            </Dropdown.Item> */}
+
           </Dropdown>
-          <Button className=" font-bold bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white" onClick={() => handlePageChange("/LoginPage")}>
+
+          <Button className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white" onClick={() => handlePageChange("/LoginPage")}>
             Login
           </Button>
         </div>
       </Navbar>
 
-      <Navbar
-        fluid
-        className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4"
-      >
+      <Navbar fluid className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4">
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Navbar.Link className="font-bold" href="#" disabled title="Work in Progress">
