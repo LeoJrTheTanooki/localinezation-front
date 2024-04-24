@@ -63,7 +63,7 @@ export interface ILanguageData {
     requestName: string;
     requestDialogue?: string;
     requestReferences?: Array<string>;
-    submittedTranslations?: Array<{
+    submittedTranslations: Array<{
       translatorUserName: string;
       isGuest: boolean;
       translatedDialogue: string;

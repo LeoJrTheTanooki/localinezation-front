@@ -3,17 +3,15 @@
 import React, { useEffect, useState } from "react";
 
 const AccountDashboardPage = () => {
-  const currentUsernameFetch = () => {
-    if (localStorage.getItem("currentUsername")) {
-      return localStorage.getItem("currentUsername");
-    } else {
-      return "";
-    }
-  };
   const [currentUsername, setCurrentUsername] = useState<string | null>("");
 
   useEffect(() => {
-    setCurrentUsername(currentUsernameFetch());
+    console.log(localStorage.getItem("username"));
+    if (localStorage.getItem("username")) {
+      setCurrentUsername(localStorage.getItem("username"));
+    } else {
+      setCurrentUsername(null);
+    }
   }, []);
 
   return (

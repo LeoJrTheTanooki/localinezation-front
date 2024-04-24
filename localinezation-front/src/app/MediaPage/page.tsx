@@ -28,7 +28,7 @@ const MediaPage = (props: any) => {
 
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
 
-  const [listedLanguages, setListedLanguages] = useState<any>();
+  const [listedLanguages, setListedLanguages] = useState<React.JSX.Element[]>();
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
@@ -42,9 +42,11 @@ const MediaPage = (props: any) => {
   }, [queryNum]);
 
   useEffect(() => {
+    console.log(currentMedia.requestLanguage)
     if (currentMedia.requestLanguage) {
       const languageListJsx = currentMedia.requestLanguage.map(
-        (media: any, index: number) => {
+        (media: object, index: number) => {
+          console.log(media)
           let language = Object.keys(media)[0];
           let formattedLang;
           switch (language) {
@@ -60,6 +62,7 @@ const MediaPage = (props: any) => {
           }
 
           if (language) {
+            console.log('pass')
             return (
               <li key={index}>
                 <button
@@ -75,6 +78,7 @@ const MediaPage = (props: any) => {
               </li>
             );
           } else {
+            console.log('fail')
             return <li key={index}>No Available Languages</li>;
           }
         }

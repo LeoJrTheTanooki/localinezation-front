@@ -14,7 +14,10 @@
                 "requestName": "Opening Movie",
                 "requestDialogue": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
                 "requestReferences": [
-                  "https://invidious.privacydev.net/embed/Xy0qeXbrDsE"
+                  {
+                    "src": "https://www.youtube.com/watch?v=Xy0qeXbrDsE",
+                    "isVideo": true
+                  }
                 ],
                 "submittedTranslations": [
                   {
@@ -29,8 +32,15 @@
                 "requestName": "Main Menu Options",
                 "requestDialogue": "イベントバトル | グランドバトル | 修行 | お宝 | オプション",
                 "requestReferences": [
-                  "https://images.launchbox-app.com/4ecefa66-9989-42fa-8c3e-bbd1e5918951.png",
-                  "https://youtu.be/dQHhZFa5DsY?si=zlo9arPC9YItMy8h&t=140"
+                  {
+                    "src": "https://images.launchbox-app.com/4ecefa66-9989-42fa-8c3e-bbd1e5918951.png",
+
+                    "isVideo": false
+                  },
+                  {
+                    "src": "https://youtu.be/dQHhZFa5DsY?si=zlo9arPC9YItMy8h&t=140",
+                    "isVideo": true
+                  }
                 ],
                 "submittedTranslations": [
                   {
@@ -61,7 +71,6 @@
         "spanishLatAm": []
       },
       {
-        "french": []
       }
     ]
   },
@@ -79,37 +88,7 @@
               {
                 "requestName": "",
                 "requestDialogue": "",
-                "requestReferences": [""],
-                "submittedTranslations": [
-                  {
-                    "translatorUserName": "",
-                    "isGuest": true,
-                    "translatedDialogue": "",
-                    "userScores": [0]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Osu! Tatakae! Ouendan",
-    "coverArt": "/assets/BoxArts/osuTatakaeOuendan.png",
-    "originalLanguage": "Japanese",
-    "type": "Video Game",
-    "platform": "Nintendo DS",
-    "requestLanguage": [
-      {
-        "englishUsa": [
-          {
-            "openRequests": [
-              {
-                "requestName": "",
-                "requestDialogue": "",
-                "requestReferences": [""],
+                "requestReferences": [],
                 "submittedTranslations": [
                   {
                     "translatorUserName": "",
@@ -139,7 +118,9 @@
               {
                 "requestName": "Motu obsesses over Italian food",
                 "requestDialogue": "",
-                "requestReferences": ["https://youtu.be/MixfE6OHMRA"],
+                "requestReferences": [
+                  { "src": "https://youtu.be/MixfE6OHMRA", "isVideo": true }
+                ],
                 "submittedTranslations": [
                   {
                     "translatorUserName": "चाववालाचैम्पियन",
@@ -149,18 +130,33 @@
                   }
                 ]
               }
-            ],
-            "french": [
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Pollyanna",
+    "coverArt": "/assets/BoxArts/pollyanna.png",
+    "originalLanguage": "Japanese",
+    "type": "Magazine",
+    "platform": "1101.com",
+    "requestLanguage": [
+      {
+        "englishUsa": [
+          {
+            "openRequests": [
               {
-                "requestName": "Lorem ipsum dolor sit",
-                "requestDialogue": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro a corporis dolore modi unde harum ducimus quis sint, pariatur obcaecati asperiores eos soluta illo minus eaque saepe consequuntur voluptas quae.",
+                "requestName": "",
+                "requestDialogue": "",
                 "requestReferences": [],
                 "submittedTranslations": [
                   {
-                    "translatorUserName": "BaguetteBike",
+                    "translatorUserName": "",
                     "isGuest": true,
-                    "translatedDialogue": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nemo recusandae dolore aliquid ab nulla voluptate iure voluptatibus explicabo libero, nesciunt deserunt ad expedita commodi nobis. Fugiat vel amet veritatis!",
-                    "userScores": [3, 4, 2, 3, 4, 4]
+                    "translatedDialogue": "",
+                    "userScores": [0]
                   }
                 ]
               }
@@ -171,11 +167,11 @@
     ]
   },
   {
-    "title": "SampleTitle",
-    "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
-    "originalLanguage": "Gibberish",
-    "type": "Vaporware",
-    "platform": "Concrete Matter",
+    "title": "Osu! Tatakae! Ouendan",
+    "coverArt": "/assets/BoxArts/osuTatakaeOuendan.png",
+    "originalLanguage": "Japanese",
+    "type": "Video Game",
+    "platform": "Nintendo DS",
     "requestLanguage": [
       {
         "englishUsa": [
@@ -184,7 +180,37 @@
               {
                 "requestName": "",
                 "requestDialogue": "",
-                "requestReferences": [""],
+                "requestReferences": [],
+                "submittedTranslations": [
+                  {
+                    "translatorUserName": "",
+                    "isGuest": true,
+                    "translatedDialogue": "",
+                    "userScores": [0]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Skam",
+    "coverArt": "/assets/BoxArts/skam.png",
+    "originalLanguage": "Norwegian",
+    "type": "TV Show",
+    "platform": "Netflix",
+    "requestLanguage": [
+      {
+        "englishUsa": [
+          {
+            "openRequests": [
+              {
+                "requestName": "",
+                "requestDialogue": "",
+                "requestReferences": [],
                 "submittedTranslations": [
                   {
                     "translatorUserName": "",
@@ -214,7 +240,7 @@
               {
                 "requestName": "",
                 "requestDialogue": "",
-                "requestReferences": [""],
+                "requestReferences": [],
                 "submittedTranslations": [
                   {
                     "translatorUserName": "",
@@ -244,7 +270,7 @@
               {
                 "requestName": "",
                 "requestDialogue": "",
-                "requestReferences": [""],
+                "requestReferences": [],
                 "submittedTranslations": [
                   {
                     "translatorUserName": "",
@@ -266,39 +292,6 @@
     "originalLanguage": "Gibberish",
     "type": "Vaporware",
     "platform": "Concrete Matter",
-    "requestLanguage": [
-      {
-        "englishUsa": [
-          {
-            "openRequests": [
-              {
-                "requestName": "",
-                "requestDialogue": "",
-                "requestReferences": [""],
-                "submittedTranslations": [
-                  {
-                    "translatorUserName": "",
-                    "isGuest": true,
-                    "translatedDialogue": "",
-                    "userScores": [0]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "SampleTitle",
-    "coverArt": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fscott-the-woz%2Fimages%2F3%2F30%2FAbove70OnMetacritic.png%2Frevision%2Flatest%3Fcb%3D20190805093408&f=1&nofb=1&ipt=e6b2d9c7ec8fde28a87e20f05ea256c7e024fb05ab47058c7f8e36083bdbc10a&ipo=images",
-    "originalLanguage": "Gibberish",
-    "type": "Vaporware",
-    "platform": "Concrete Matter",
-    "requestLanguage": [
-      {
-      }
-    ]
+    "requestLanguage": [{}]
   }
 ]

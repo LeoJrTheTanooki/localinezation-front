@@ -6,146 +6,195 @@ import { Button } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 
 const OpenRequestsPage = () => {
-  const requestsDefault = Array<
-    [
-      {
-        requestName: "string";
-        requestDialogue: "string";
-        requestReferences: [""];
-        submittedTranslations: [
-          {
-            translatorUserName: "string";
-            isGuest: true;
-            translatedDialogue: "string";
-          }
-        ];
-      }
-    ]
-  >;
+  const requestsDefault = Array<{
+    requestName: "string";
+    requestDialogue: "string";
+    requestReferences: Array<"string">;
+    submittedTranslations: Array<{
+      translatorUserName: "string";
+      isGuest: true;
+      translatedDialogue: "string";
+      userScores: [];
+    }>;
+  }>;
 
+  // <Array<ILanguageData["openRequests"]>
   const [requestsArray, setRequestsArray] =
-    useState<
-    // Array<ILanguageData["openRequests"]>
-    any>(requestsDefault);
-  const [currentRequest, setCurrentRequest] =
-    useState<ILanguageData["openRequests"]>();
-  const [requestIndex, setRequestIndex] = useState<number>(0);
+    useState<ILanguageData["openRequests"]>(requestsDefault);
   const [mediaRequests, setMediaRequests] = useState<any>(PageData);
   const [queryNum, setQueryNum] = useState<number>(-1);
   const [langQuery, setLangQuery] = useState<string>("");
-  const [requestList, setRequestList] = useState<any>();
+  const [requestList, setRequestList] = useState<React.JSX.Element[]>();
+  const [coverArt, setCoverArt] = useState<string>("");
+  const [requestIndex, setRequestIndex] = useState<number>(0);
+  const [referenceIndex, setReferenceIndex] = useState<number>(0);
+  const [translationIndex, setTranslationIndex] = useState<number>(0);
 
   useEffect(() => {
-    if (requestsArray.length != 0) {
-      const requestListJsx = requestsArray.map((request: any, index: any) => {
-        console.log(request.requestName);
+    const idQueryEffect = new URLSearchParams(window.location.search).get("id");
+    const langQueryEffect = new URLSearchParams(window.location.search).get(
+      "language"
+    );
+    if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
+    if (langQueryEffect) setLangQuery(langQueryEffect);
+  }, []);
+
+  // Setting data to variables based on set query variables
+  useEffect(() => {
+    function findLanguage(obj: object) {
+      return Object.keys(obj)[0] == langQuery;
+    }
+
+    try {
+      setCoverArt(mediaRequests[queryNum].coverArt);
+      const requestData =
+        mediaRequests[queryNum].requestLanguage.find(findLanguage)[
+          `${langQuery}`
+        ][0];
+      setRequestsArray(requestData.openRequests);
+    } catch (error) {
+      console.log(`error caught: ${error}`);
+    }
+    if (requestsArray && requestsArray.length != 0) {
+      const requestListJsx = requestsArray.map((request: any, index: number) => {
         return (
-          <li
-            key={index}
-            onClick={() => {
-              console.log(requestsArray[index]);
-              setRequestIndex(index);
-            }}
-          >
-            {request.requestName}
+          <li key={index}>
+            <button
+              className="text-blue-600 italic underline"
+              onClick={() => {
+                setReferenceIndex(0);
+                setRequestIndex(index);
+              }}
+            >
+              {request.requestName}
+            </button>
           </li>
         );
       });
       setRequestList(requestListJsx);
     }
-  }, [requestsArray]);
+  }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
-  // Getting queries and setting to respective variables on init
-  useEffect(() => {
-    const idQuery = new URLSearchParams(window.location.search).get("id");
-    const langQuery = new URLSearchParams(window.location.search).get(
-      "language"
-    );
-    if (idQuery) setQueryNum(parseInt(idQuery));
-    if (langQuery) setLangQuery(langQuery);
-  }, []);
-
-  // Setting data to variables based on set query variables
-  useEffect(() => {
-    function findLanguage(obj: any) {
-      return Object.keys(obj)[0] == langQuery;
+  // Function source: https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url#8260383
+  // Modified to account for timestamps when applicable
+  function youtube_parser(url: string) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    if (match) {
+      const timeStart = new URLSearchParams(match[0]).get("t");
+      if (timeStart != null) {
+        return match && match[7].length == 11
+          ? match[7] + `?start=${timeStart}`
+          : false;
+      } else {
+        return match && match[7].length == 11 ? match[7] : false;
+      }
     }
+  }
 
-    if (queryNum >= 0) {
-      const requestData =
-        mediaRequests[queryNum].requestLanguage.find(findLanguage)[
-          `${langQuery}`
-        ][0];
-      console.log(requestData.openRequests);
-      setRequestsArray(requestData.openRequests);
-      // if (requestData.length != 0) {
-      //   setCurrentRequest(requestData);
-      // }
+  const srcFormat = (param: any) => {
+    const currentReference = param.requestReferences[referenceIndex];
+    if (currentReference.isVideo) {
+      const videoSrc = youtube_parser(currentReference.src);
+
+      return (
+        <iframe
+          width="560"
+          height="315"
+          src={`https://www.youtube-nocookie.com/embed/${videoSrc}`}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          className=" bg-slate-600"
+        />
+      );
+    } else {
+      return <img src={currentReference.src} className=" h-[315px]" alt="" />;
     }
-  }, [queryNum, langQuery]);
+  };
 
-  // Changing data based on current index
-  // useEffect(() => {
-  //   console.log(requestsArray)
-  //   setCurrentRequest()
-  // }, [requestIndex]);
-
-  // useEffect(() => {
-  //   if (requestsArray.openRequests)
-  //     setRequestName(requestsArray.openRequests[0].requestName);
-  // }, [requestsArray]);
+  const indexLoop = (
+    param: any,
+    index: number,
+    setIndex: React.Dispatch<React.SetStateAction<number>>,
+    isIncrememting: boolean
+  ) => {
+    if (isIncrememting) {
+      index++;
+      if (param.length > index) {
+        setIndex(index);
+      } else {
+        setIndex(0);
+      }
+    } else {
+      index--;
+      if (index > -1) {
+        setIndex(index);
+      } else {
+        setIndex(param.length - 1);
+      }
+    }
+  };
 
   return (
     <div className=" grid grid-cols-2 gap-5">
       <div className=" grid grid-cols-2">
-        <img src="/assets/BoxArts/onePieceGrandBattle2.png" alt="" />
+        <img src={coverArt} alt="" />
         <div>
           <h2 className=" text-3xl">Open Requests For Title</h2>
           <ul>
-            {/* <li>
-              <button className=" text-blue-600">Main Menu Options</button>
-            </li>
-            <li>
-              <button className=" text-blue-600">Battle Settings</button>
-            </li>
-            <li>
-              <button className=" text-blue-600">Treasure</button>
-            </li>
-            <li>
-              <button className=" text-blue-600">Options</button>
-            </li>
-            <li>
-              <button className=" text-blue-600">Opening Movie</button>
-            </li> */}
-
-            {requestsArray.length != 0 ? (
-              <>
-                {/* <li>Pass</li> */}
-                {requestList}
-              </>
+            {requestsArray && requestsArray.length != 0 ? (
+              <>{requestList}</>
             ) : (
-              <li>Fail</li>
+              <li>No Requests
+
+
+
+              </li>
             )}
           </ul>
         </div>
       </div>
       <div>
         <h2 className=" text-3xl">
-          {requestsArray.length != 0
+          {requestsArray && requestsArray.length != 0
             ? requestsArray[requestIndex]?.requestName
             : "null"}
         </h2>
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube-nocookie.com/embed/Xy0qeXbrDsE?si=qq1qwPb-TjU8ABFb"
-          // src="https://invidious.privacydev.net/embed/Xy0qeXbrDsE"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          className=" bg-slate-600"
-        ></iframe>
+
+        <div className="flex justify-between">
+          <button
+            onClick={() => {
+              if (requestsArray)
+                indexLoop(
+                  requestsArray[requestIndex].requestReferences,
+                  referenceIndex,
+                  setReferenceIndex,
+                  false
+                );
+            }}
+          >
+            Left
+          </button>
+          {requestsArray && requestsArray.length != 0
+            ? srcFormat(requestsArray[requestIndex])
+            : "null"}
+          <button
+            onClick={() => {
+              if (requestsArray)
+              indexLoop(
+                requestsArray[requestIndex].requestReferences,
+                referenceIndex,
+                setReferenceIndex,
+                true
+              );
+            }}
+          >
+            Right
+          </button>
+        </div>
       </div>
       <div className=" grid grid-cols-2">
         <div className="grid border-b-2 border-black col-span-2">
@@ -153,13 +202,17 @@ const OpenRequestsPage = () => {
             Current Translators
           </div>
           <div className=" border-2 border-b-0 border-black">
-            {requestsArray.length != 0
-              ? requestsArray[requestIndex]?.submittedTranslations[0]
-                  ?.translatorUserName +
+            {requestsArray && requestsArray.length > 0
+              ? requestsArray[requestIndex]?.submittedTranslations[
+                  translationIndex
+                ]?.translatorUserName +
                 ": " +
-                requestsArray[requestIndex]?.submittedTranslations[0]
-                  ?.translatedDialogue
+                requestsArray[requestIndex]?.submittedTranslations[
+                  translationIndex
+                ]?.translatedDialogue
               : ""}
+
+
             <div className=" flex">
               <div className=" mr-3">User Score: </div>
               <div>Your Score: </div>
@@ -170,13 +223,43 @@ const OpenRequestsPage = () => {
           <Button disabled>Report</Button>
         </div>
         <div>
-          <Button disabled>Next User</Button>
+          <Button
+            onClick={() => {
+              if (requestsArray)
+                indexLoop(
+                requestsArray[requestIndex]?.submittedTranslations,
+                translationIndex,
+                setTranslationIndex,
+                true
+              );
+            }}
+          >
+            Next User
+          </Button>
+        </div>
+        <div>
+          <Button
+            onClick={() => {
+              if (requestsArray)
+                indexLoop(
+                requestsArray[requestIndex]?.submittedTranslations,
+                translationIndex,
+                setTranslationIndex,
+                true
+              );
+            }}
+          >
+See All Translations          </Button>
         </div>
       </div>
       <div>
         <div className="grid border-b-2 border-black">
           <div className="bg-purple-600 text-center text-white">
-            Your Translation for “Opening Movie”
+            Your Translation for “{" "}
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestName
+              : "null"}
+            ”
           </div>
           <div className=" border-2 border-b-0 border-black">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
@@ -191,13 +274,11 @@ const OpenRequestsPage = () => {
         </div>
         <div className="flex justify-end">
           <div>
-            <Button disabled>Next User</Button>
+            <Button disabled>Create Translation</Button>
           </div>
         </div>
       </div>
     </div>
-
-    // invidious.privacydev.net
   );
 };
 
