@@ -100,7 +100,7 @@ const NavbarComponent = () => {
       >
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link className="font-bold" href="#" disabled title="Work in Progress">
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/SubmitMediaPage")}>
             Submit a Media
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>

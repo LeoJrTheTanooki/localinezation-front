@@ -22,7 +22,7 @@ const MediaCard = (props: any) => {
           <img
             className=" h-[270px] w-max self-center"
             src={props.mediaObject.coverArt}
-            alt={props.mediaObject.title + 'cover'}
+            alt={props.mediaObject.title + ' cover'}
           />
         <p className=" font-bold">{props.mediaObject.title}</p>
         <p>{props.mediaObject.originalLanguage}</p>
