@@ -57,10 +57,30 @@ export const login = async (loginUser: IUserInfo) => {
 
 }
 
+// export const getLoggedInUserData = async (username: string) => {
+//     const res = await fetch(url + '/User/GetUserByUsername/' + username);
+//     const data = await res.json();
+//     userData = data;
+// }
 export const getLoggedInUserData = async (username: string) => {
-    const res = await fetch(url + '/User/GetUserByUsername/' + username);
-    const data = await res.json();
-    userData = data;
+    try {
+        const res = await fetch(url + '/User/GetUserByUsername/' + username);
+        if (!res.ok) {
+            throw new Error(`Failed to fetch user data: ${res.status}`);
+        }
+        const data = await res.json();
+        userData = data;
+
+        // Log the response data to the console
+        console.log("(Dataservice.ts:75); Received data:", data);
+        //json example response:
+        //{
+        // "userId": 1,
+        //  "publisherName": "Test1"
+        //}
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+    }
 }
 
 export const loggedinData = () => {
