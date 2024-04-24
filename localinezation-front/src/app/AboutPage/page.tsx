@@ -26,7 +26,7 @@ const AboutPage = () => {
                         If you want to <span className="font-bold">REQUEST</span> a media to be submitted, first check the recent translations page or use the search bar to see if that media has already been requested before, and if it hasnt then use the <span className="font-bold">SUBMIT A MEDIA</span> page.</p>
 
                     <p className="indent-8">
-                        If you are looking to <span className="font-bold">TRANSLATE</span>, make sure that you have correctly selected your origin language and language to translate to, located to the left of your name in the top corner of the page, and then find 
+                        If you are looking to <span className="font-bold">TRANSLATE</span>, make sure that you have correctly selected your origin language and language to translate to, located to the left of your name in the top corner of the page, and then find something to translate!
                     </p>
                 </div>
             </div>
