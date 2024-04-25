@@ -62,7 +62,6 @@ const MediaPage = (props: any) => {
           }
 
           if (language) {
-            console.log('pass')
             return (
               <li key={index}>
                 <button

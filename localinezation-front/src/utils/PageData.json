@@ -68,7 +68,25 @@
         ]
       },
       {
-        "spanishLatAm": []
+        "spanishLatAm": [
+          {
+            "openRequests": [
+              {
+                "requestName": "Introducción",
+                "requestDialogue": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
+                "requestReferences": [],
+                "submittedTranslations": [
+                  {
+                    "translatorUserName": "G0dU50pp_800",
+                    "isGuest": false,
+                    "translatedDialogue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
+                    "userScores": [5, 4, 5, 5, 3, 4]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },

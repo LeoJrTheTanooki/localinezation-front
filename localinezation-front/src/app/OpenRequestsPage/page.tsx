@@ -2,7 +2,8 @@
 
 import { ILanguageData, IMediaData } from "@/Interfaces/Interfaces";
 import PageData from "@/utils/PageData.json";
-import { Button } from "flowbite-react";
+import { Button, Dropdown } from "flowbite-react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const OpenRequestsPage = () => {
@@ -56,31 +57,33 @@ const OpenRequestsPage = () => {
       console.log(`error caught: ${error}`);
     }
     if (requestsArray && requestsArray.length != 0) {
-      const requestListJsx = requestsArray.map((request: any, index: number) => {
-        return (
-          <li key={index}>
-            <button
-              className="text-blue-600 italic underline"
-              onClick={() => {
-                setReferenceIndex(0);
-                setRequestIndex(index);
-              }}
-            >
-              {request.requestName}
-            </button>
-          </li>
-        );
-      });
+      const requestListJsx = requestsArray.map(
+        (request: any, index: number) => {
+          return (
+            <li key={index}>
+              <button
+                className="text-blue-600 italic underline"
+                onClick={() => {
+                  setReferenceIndex(0);
+                  setRequestIndex(index);
+                }}
+              >
+                {request.requestName}
+              </button>
+            </li>
+          );
+        }
+      );
       setRequestList(requestListJsx);
     }
   }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
   // Function source: https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url#8260383
   // Modified to account for timestamps when applicable
-  function youtube_parser(url: string) {
-    var regExp =
+  const youtube_parser = (url: string) => {
+    const regExp =
       /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    var match = url.match(regExp);
+    const match = url.match(regExp);
     if (match) {
       const timeStart = new URLSearchParams(match[0]).get("t");
       if (timeStart != null) {
@@ -91,27 +94,29 @@ const OpenRequestsPage = () => {
         return match && match[7].length == 11 ? match[7] : false;
       }
     }
-  }
+  };
 
   const srcFormat = (param: any) => {
     const currentReference = param.requestReferences[referenceIndex];
-    if (currentReference.isVideo) {
-      const videoSrc = youtube_parser(currentReference.src);
+    if (currentReference) {
+      if (currentReference.isVideo) {
+        const videoSrc = youtube_parser(currentReference.src);
 
-      return (
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube-nocookie.com/embed/${videoSrc}`}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          className=" bg-slate-600"
-        />
-      );
-    } else {
-      return <img src={currentReference.src} className=" h-[315px]" alt="" />;
+        return (
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube-nocookie.com/embed/${videoSrc}`}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className=" bg-slate-600"
+          />
+        );
+      } else {
+        return <img src={currentReference.src} className=" h-[315px]" alt="" />;
+      }
     }
   };
 
@@ -138,8 +143,39 @@ const OpenRequestsPage = () => {
     }
   };
 
+  const router = useRouter();
+  const handlePageChange = (route: string) => {
+    router.push(route);
+  };
+
   return (
-    <div className=" grid grid-cols-2 gap-5">
+    <div className=" grid grid-cols-2 2 m-5 gap-5">
+        <div className="mb-2 block col-span-2">
+          <p>
+            Media Type <span className=" text-red-600">*</span>
+          </p>
+          <div className="border-2 border-black w-max rounded-md p-1 justify-between">
+            <Dropdown id="type" label={langQuery ? langQuery : "null"} inline>
+              <Dropdown.Item
+                onClick={() => {
+                  setLangQuery("englishUsa");
+                  window.history.pushState(null, 'Change to English', `OpenRequestsPage?id=${queryNum}&language=englishUsa`)
+                  // OpenRequestsPage?id=0&language=spanishLatAm
+                }}
+              >
+                English (US)
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  setLangQuery("spanishLatAm");
+                  window.history.pushState(null, 'Change to Spanish', `OpenRequestsPage?id=${queryNum}&language=spanishLatAm`)
+                }}
+              >
+                Spanish (Latin American)
+              </Dropdown.Item>
+            </Dropdown>
+          </div>
+        </div>
       <div className=" grid grid-cols-2">
         <img src={coverArt} alt="" />
         <div>
@@ -148,11 +184,7 @@ const OpenRequestsPage = () => {
             {requestsArray && requestsArray.length != 0 ? (
               <>{requestList}</>
             ) : (
-              <li>No Requests
-
-
-
-              </li>
+              <li>No Requests</li>
             )}
           </ul>
         </div>
@@ -184,12 +216,12 @@ const OpenRequestsPage = () => {
           <button
             onClick={() => {
               if (requestsArray)
-              indexLoop(
-                requestsArray[requestIndex].requestReferences,
-                referenceIndex,
-                setReferenceIndex,
-                true
-              );
+                indexLoop(
+                  requestsArray[requestIndex].requestReferences,
+                  referenceIndex,
+                  setReferenceIndex,
+                  true
+                );
             }}
           >
             Right
@@ -212,7 +244,6 @@ const OpenRequestsPage = () => {
                 ]?.translatedDialogue
               : ""}
 
-
             <div className=" flex">
               <div className=" mr-3">User Score: </div>
               <div>Your Score: </div>
@@ -227,11 +258,11 @@ const OpenRequestsPage = () => {
             onClick={() => {
               if (requestsArray)
                 indexLoop(
-                requestsArray[requestIndex]?.submittedTranslations,
-                translationIndex,
-                setTranslationIndex,
-                true
-              );
+                  requestsArray[requestIndex]?.submittedTranslations,
+                  translationIndex,
+                  setTranslationIndex,
+                  true
+                );
             }}
           >
             Next User
@@ -242,14 +273,15 @@ const OpenRequestsPage = () => {
             onClick={() => {
               if (requestsArray)
                 indexLoop(
-                requestsArray[requestIndex]?.submittedTranslations,
-                translationIndex,
-                setTranslationIndex,
-                true
-              );
+                  requestsArray[requestIndex]?.submittedTranslations,
+                  translationIndex,
+                  setTranslationIndex,
+                  true
+                );
             }}
           >
-See All Translations          </Button>
+            See All Translations{" "}
+          </Button>
         </div>
       </div>
       <div>
@@ -274,7 +306,16 @@ See All Translations          </Button>
         </div>
         <div className="flex justify-end">
           <div>
-            <Button disabled>Create Translation</Button>
+            <Button
+              className=" bg-indigo-900 enabled:hover:bg-indigo-950"
+              onClick={() =>
+                handlePageChange(
+                  `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&request=${requestIndex}`
+                )
+              }
+            >
+              Submit a Translation
+            </Button>{" "}
           </div>
         </div>
       </div>

@@ -1,5 +1,12 @@
 "use client";
-import { Label, TextInput, FileInput, Button, Radio } from "flowbite-react";
+import {
+  Label,
+  TextInput,
+  FileInput,
+  Button,
+  Radio,
+  Dropdown,
+} from "flowbite-react";
 import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
@@ -29,92 +36,124 @@ const SubmitMediaPage = () => {
     <div className="grid grid-flow-dense grid-cols-2 border border-red-600">
       <form className="max-w-md flex flex-col gap-4 border border-blue-600">
         <div>
-          <div className="mb-2 block">
-            <Label htmlFor="title" value="Title of Media*" />
-          </div>
-          <TextInput
-            id="title"
-            type="text"
-            required
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-          <div className="mb-2 block">
-            <Label htmlFor="type" value="Media Type*" />
-          </div>
-          <TextInput
-            id="type"
-            type="text"
-            required
-            onChange={(e) => {
-              setType(e.target.value);
-            }}
-          />
-          <div className="mb-2 block">
-            <Label htmlFor="platform" value="Platforms Media Is On*" />
-          </div>
-          <TextInput
-            id="platform"
-            type="text"
-            required
-            onChange={(e) => {
-              setPlatform(e.target.value);
-            }}
-          />
-          <div className="mb-2 block">
-            <Label
-              htmlFor="originalLanguage"
-              value="Original Language(s) of Media*"
+          <div className="mb-2">
+            <p>
+              Title of Media <span className=" text-red-600">*</span>
+            </p>
+            <TextInput
+              id="title"
+              type="text"
+              required
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
             />
           </div>
-          <TextInput
-            id="originalLanguage"
-            type="text"
-            required
-            onChange={(e) => {
-              setOriginalLanguage(e.target.value);
-            }}
-          />
           <div className="mb-2 block">
-            <Label htmlFor="coverArt" value="Media Cover Art*" />
+            <p>
+              Media Type <span className=" text-red-600">*</span>
+            </p>
+            <div className="border-2 border-black w-max rounded-md p-1">
+              <Dropdown
+                id="type"
+                label={type ? type : "Select Media Type"}
+                inline
+              >
+                <Dropdown.Item
+                  onClick={() => {
+                    setType("Video Game");
+                  }}
+                >
+                  Video Game
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setType("TV Show/Movie");
+                  }}
+                >
+                  TV Show/Movie
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setType("Comic/Magazine");
+                  }}
+                >
+                  Comic/Magazine
+                </Dropdown.Item>
+              </Dropdown>
+            </div>
           </div>
-          <FileInput
-            id="coverArt"
-            accept="image/png, image/jpeg, image/webp"
-            helperText="PNG or JPG (MAX. ???x???px)."
-            onChange={(e) => {
-              if (e.target.files) {
-                setCoverArt(URL.createObjectURL(e.target.files[0]));
-              }
-            }}
-          />
+          <div className="mb-2 block">
+            <p>
+              Platforms Media Is On <span className=" text-red-600">*</span>
+            </p>
+            <TextInput
+              id="platform"
+              type="text"
+              required
+              onChange={(e) => {
+                setPlatform(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-2 block">
+            <p>
+              Original Language(s) of Media{" "}
+              <span className=" text-red-600">*</span>
+            </p>
+
+            <TextInput
+              id="originalLanguage"
+              type="text"
+              required
+              onChange={(e) => {
+                setOriginalLanguage(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-2 block">
+            <p>
+              Media Cover Art <span className=" text-red-600">*</span>
+            </p>
+
+            <FileInput
+              id="coverArt"
+              accept="image/png, image/jpeg, image/webp"
+              helperText="PNG or JPG (MAX. ???x???px)."
+              onChange={(e) => {
+                if (e.target.files) {
+                  setCoverArt(URL.createObjectURL(e.target.files[0]));
+                }
+              }}
+            />
+          </div>
+          <div className=" mb-2">
+            <legend className="mb-2">Would you like to request a line?</legend>
+            <div className="flex items-center gap-2">
+              <Radio
+                id="requestYes"
+                name="requestRadio"
+                value={1}
+                onChange={() => {
+                  setDisplayRequest(true);
+                }}
+              />
+              <Label htmlFor="requestYes">Yes</Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Radio
+                id="requestNo"
+                name="requestRadio"
+                value={0}
+                defaultChecked
+                onChange={() => {
+                  setDisplayRequest(false);
+                }}
+              />
+              <Label htmlFor="requestNo">No</Label>
+            </div>
+          </div>
           <Button onClick={() => handlePageChange("/")}>Submit Media</Button>
-          <legend className="mb-4">Would you like to request a line?</legend>
-          <div className="flex items-center gap-2">
-            <Radio
-              id="requestYes"
-              name="requestRadio"
-              value={1}
-              onChange={() => {
-                setDisplayRequest(true);
-              }}
-            />
-            <Label htmlFor="requestYes">Yes</Label>
-          </div>
-          <div className="flex items-center gap-2">
-            <Radio
-              id="requestNo"
-              name="requestRadio"
-              value={0}
-              defaultChecked
-              onChange={() => {
-                setDisplayRequest(false);
-              }}
-            />
-            <Label htmlFor="requestNo">No</Label>
-          </div>
-          {/* Make a radio that asks if the user wants to request a specific line, and if it's checked the request form appears on the botton */}
         </div>
       </form>
 
@@ -167,7 +206,6 @@ const SubmitMediaPage = () => {
               multiple
               accept="image/png, image/jpeg, image/webp"
               helperText="PNG, JPG or GIF (MAX. ???x???px)."
-              
             />{" "}
             <div className="mb-2 block">
               <Label htmlFor="videoLink" value="Video Link" />
