@@ -61,11 +61,11 @@ Video Link
               helperText="PNG, JPG or GIF (MAX. ???x???px)."
             />{" "}
             <div className="mb-2 block">
-              <Label htmlFor="dialogueRequest" value="Video Link" />
+              <Label htmlFor="videoLink" value="Video Link" />
             </div>
             <TextInput
               // onChange={handleTags}
-              id="dialogueRequest"
+              id="videoLink"
               type="text"
               // placeholder="Enter Tags"
             />

@@ -9,12 +9,21 @@ const SubmitMediaPage = () => {
   const handlePageChange = (route: string) => {
     router.push(route);
   };
+
+  // Media Request Variables
   const [title, setTitle] = useState<string>("");
-  const [coverArt, setCoverArt] = useState<any>("");
+  const [coverArt, setCoverArt] = useState<string>("");
   const [originalLanguage, setOriginalLanguage] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [platform, setPlatform] = useState<string>("");
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
+
+  // Translation Request Variables
+  const [requestName, setRequestName] = useState<string>("");
+  const [languageSelect, setLanguageSelect] = useState<string>("");
+  const [dialogueRequest, setDialogueRequest] = useState<string>("");
+  const [screenshots, setScreenshots] = useState<Array<any>>([]);
+  const [videoLink, setVideoLink] = useState<string>("");
 
   return (
     <div className="grid grid-flow-dense grid-cols-2 border border-red-600">
@@ -80,9 +89,6 @@ const SubmitMediaPage = () => {
               }
             }}
           />
-          {/* <input type="file" name="" id="" onChange={(e) => {
-            console.log(e.target.files)
-          }} /> */}
           <Button onClick={() => handlePageChange("/")}>Submit Media</Button>
           <legend className="mb-4">Would you like to request a line?</legend>
           <div className="flex items-center gap-2">
@@ -119,16 +125,14 @@ const SubmitMediaPage = () => {
               <Label htmlFor="requestName" value="Request*" />
             </div>
             <TextInput
-              // onChange={handleTitle}
               id="requestName"
               type="text"
-              // placeholder="Enter Title"
               required
+              onChange={(e) => {
+                setRequestName(e.target.value);
+              }}
+              value={requestName}
             />
-            {/* 
-  Screenshots
-  Video Link
-              */}
             <div className="mb-2 block">
               <Label
                 htmlFor="languageSelect"
@@ -136,20 +140,24 @@ const SubmitMediaPage = () => {
               />
             </div>
             <TextInput
-              // onChange={handleDescription}
               id="languageSelect"
               type="text"
-              // placeholder="Enter Title"
               required
+              onChange={(e) => {
+                setLanguageSelect(e.target.value);
+              }}
+              value={languageSelect}
             />
             <div className="mb-2 block">
               <Label htmlFor="dialogueRequest" value="Original Dialogue" />
             </div>
             <TextInput
-              // onChange={handleTags}
               id="dialogueRequest"
               type="text"
-              // placeholder="Enter Tags"
+              onChange={(e) => {
+                setDialogueRequest(e.target.value);
+              }}
+              value={dialogueRequest}
             />
             <div className="mb-2 block">
               <Label htmlFor="screenshots" value="Screenshots" />
@@ -159,15 +167,18 @@ const SubmitMediaPage = () => {
               multiple
               accept="image/png, image/jpeg, image/webp"
               helperText="PNG, JPG or GIF (MAX. ???x???px)."
+              
             />{" "}
             <div className="mb-2 block">
-              <Label htmlFor="dialogueRequest" value="Video Link" />
+              <Label htmlFor="videoLink" value="Video Link" />
             </div>
             <TextInput
-              // onChange={handleTags}
-              id="dialogueRequest"
+              id="videoLink"
               type="text"
-              // placeholder="Enter Tags"
+              onChange={(e) => {
+                setVideoLink(e.target.value);
+              }}
+              value={videoLink}
             />
             <Button onClick={() => handlePageChange("/OpenRequestsPage")}>
               Submit Request
@@ -178,7 +189,11 @@ const SubmitMediaPage = () => {
         ""
       )}
 
-      <div className={`grid ${displayRequest ? 'md:col-span-2' : 'col-span-1'} justify-center border border-green-600`}>
+      <div
+        className={`grid ${
+          displayRequest ? "md:col-span-2" : "col-span-1"
+        } justify-center border border-green-600`}
+      >
         <div className=" grid grid-cols-2 gap-5 py-7 w-max mx-auto">
           <div className="justify-self-end">
             <img className=" h-80" src={coverArt} alt="" />
@@ -233,7 +248,5 @@ const SubmitMediaPage = () => {
     </div>
   );
 };
-
-// Make a preview of the Media Page on the side of the forms
 
 export default SubmitMediaPage;

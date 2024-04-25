@@ -2,7 +2,6 @@
 
 import MediaCard from "@/utils/MediaCard";
 import PageData from "@/utils/PageData.json";
-import { Card } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -33,14 +32,16 @@ const Homepage = () => {
   }, []);
 
   return (
-    <>
-      <h1 className=" text-center font-bold text-4xl py-7">Recently Added</h1>
-      <div className=" grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 pt-0">
+    <div>
+      <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
+        <h1 className=" text-center font-bold text-gray-700 text-4xl py-7">Translation Requests</h1>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 pt-0 mb-10 max-w-[1440px] justify-center mx-auto">
         {mediaList?.map((media: any, mediaIndex: number) => (
           <MediaCard key={mediaIndex} mediaObject={media} index={mediaIndex} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
