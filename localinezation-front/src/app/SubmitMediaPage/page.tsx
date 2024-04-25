@@ -178,7 +178,7 @@ const SubmitMediaPage = () => {
         ""
       )}
 
-      <div className=" grid col-span-2 justify-center border border-green-600">
+      <div className={`grid ${displayRequest ? 'md:col-span-2' : 'col-span-1'} justify-center border border-green-600`}>
         <div className=" grid grid-cols-2 gap-5 py-7 w-max mx-auto">
           <div className="justify-self-end">
             <img className=" h-80" src={coverArt} alt="" />
@@ -212,7 +212,7 @@ const SubmitMediaPage = () => {
             </Button>
           </div>
         </div>
-        <div className="w-[1000px]">
+        <div className="">
           <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
             Current Translators
           </div>
