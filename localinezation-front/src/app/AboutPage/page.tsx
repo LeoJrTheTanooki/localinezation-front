@@ -36,7 +36,7 @@ const AboutPage = () => {
                 </div>
                 <div id="textBox" className="p-6 text-xl">
                     <p className="indent-8">
-                        LocaLINEzation was made to help break the langauge barrier between foreign fans of any given media. While it doesn't provide full translations, it helps to make cracks into a given media's language barrier in hopes of eventually leading to a full translation and/or localization of said media. Individuals are also able to participate in the translation while improving their own skillsets in the process, and potentially getting a vital role in a full translation.
+                        LocaLINEzation was made to help break the langauge barrier between foreign fans of any given media. While it doesn&rsquo;t  provide full translations, it helps to make cracks into a given media&rsquo;s language barrier in hopes of eventually leading to a full translation and/or localization of said media. Individuals are also able to participate in the translation while improving their own skillsets in the process, and potentially getting a vital role in a full translation.
                     </p>
                 </div>
             </div>

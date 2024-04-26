@@ -76,6 +76,7 @@ const OpenRequestsPage = () => {
           if (currentLanguage) {
             return (
               <Dropdown.Item
+                key={index}
                 onClick={() => {
                   setLangQuery(currentLanguage);
                   window.history.pushState(
@@ -306,7 +307,12 @@ const OpenRequestsPage = () => {
                 Your Score:
                 <Rating>
                   <Rating.Star
-                    filled={yourScoreHover >= 1 || yourScore >= 1 && yourScoreHover == 0 ? true : false}
+                    filled={
+                      yourScoreHover >= 1 ||
+                      (yourScore >= 1 && yourScoreHover == 0)
+                        ? true
+                        : false
+                    }
                     onMouseEnter={() => {
                       setYourScoreHover(1);
                     }}
@@ -314,11 +320,16 @@ const OpenRequestsPage = () => {
                       setYourScoreHover(0);
                     }}
                     onClick={() => {
-                      setYourScore(1)
+                      setYourScore(1);
                     }}
                   />
                   <Rating.Star
-                    filled={yourScoreHover >= 2 || yourScore >= 2 && yourScoreHover == 0 ? true : false}
+                    filled={
+                      yourScoreHover >= 2 ||
+                      (yourScore >= 2 && yourScoreHover == 0)
+                        ? true
+                        : false
+                    }
                     onMouseEnter={() => {
                       setYourScoreHover(2);
                     }}
@@ -326,11 +337,16 @@ const OpenRequestsPage = () => {
                       setYourScoreHover(0);
                     }}
                     onClick={() => {
-                      setYourScore(2)
+                      setYourScore(2);
                     }}
                   />
                   <Rating.Star
-                    filled={yourScoreHover >= 3 || yourScore >= 3 && yourScoreHover == 0 ? true : false}
+                    filled={
+                      yourScoreHover >= 3 ||
+                      (yourScore >= 3 && yourScoreHover == 0)
+                        ? true
+                        : false
+                    }
                     onMouseEnter={() => {
                       setYourScoreHover(3);
                     }}
@@ -338,11 +354,16 @@ const OpenRequestsPage = () => {
                       setYourScoreHover(0);
                     }}
                     onClick={() => {
-                      setYourScore(3)
+                      setYourScore(3);
                     }}
                   />
                   <Rating.Star
-                    filled={yourScoreHover >= 4 || yourScore >= 4 && yourScoreHover == 0 ? true : false}
+                    filled={
+                      yourScoreHover >= 4 ||
+                      (yourScore >= 4 && yourScoreHover == 0)
+                        ? true
+                        : false
+                    }
                     onMouseEnter={() => {
                       setYourScoreHover(4);
                     }}
@@ -350,11 +371,16 @@ const OpenRequestsPage = () => {
                       setYourScoreHover(0);
                     }}
                     onClick={() => {
-                      setYourScore(4)
+                      setYourScore(4);
                     }}
                   />
                   <Rating.Star
-                    filled={yourScoreHover >= 5 || yourScore >= 5 && yourScoreHover == 0 ? true : false}
+                    filled={
+                      yourScoreHover >= 5 ||
+                      (yourScore >= 5 && yourScoreHover == 0)
+                        ? true
+                        : false
+                    }
                     onMouseEnter={() => {
                       setYourScoreHover(5);
                     }}
@@ -362,7 +388,7 @@ const OpenRequestsPage = () => {
                       setYourScoreHover(0);
                     }}
                     onClick={() => {
-                      setYourScore(5)
+                      setYourScore(5);
                     }}
                   />
                 </Rating>
