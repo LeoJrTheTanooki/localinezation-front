@@ -8,9 +8,10 @@ const MediaCard = (props: any) => {
   };
 
   return (
+    <div>
       <div
         data-testid="flowbite-card"
-        className="h-96 w-80 flex flex-col bg-purple-600 hover:bg-fuchsia-300 text-white text-center rounded-lg border border-gray-200 dark:border-gray-700"
+        className="h-96 w-80 flex flex-col bg-purple-600 hover:bg-purple-900 text-white text-center rounded-lg border border-gray-200 dark:border-gray-700"
         onClick={() => handlePageChange(`/MediaPage?id=${props.index}`)}
       >
         <div className="flex h-fit min-w-80 flex-col justify-center gap-2 p-6">
@@ -23,6 +24,7 @@ const MediaCard = (props: any) => {
         <p className=" mt-3 font-bold">{props.mediaObject.title}</p>
         <p>{props.mediaObject.originalLanguage + " | " + props.mediaObject.type}</p>
         </div>
+      </div>
       </div>
   );
 };
