@@ -1,10 +1,6 @@
-import { Card } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-// Task: Figure out how to populate MediaPage with data based on passed array
-
-// Change 'any' to '[InsertNameHere]Interface' when done
 const MediaCard = (props: any) => {
   const router = useRouter();
   const handlePageChange = (route: string) => {
@@ -25,9 +21,8 @@ const MediaCard = (props: any) => {
             src={props.mediaObject.coverArt}
             alt={props.mediaObject.title + ' cover'}
           />
-        <p className=" font-bold">{props.mediaObject.title}</p>
+        <p className=" mt-3 font-bold">{props.mediaObject.title}</p>
         <p>{props.mediaObject.originalLanguage + " | " + props.mediaObject.type}</p>
-        <p>{}</p>
         </div>
       </div>
     </div>
