@@ -67,7 +67,10 @@ export interface ILanguageData {
       translatorUserName: string;
       isGuest: boolean;
       translatedDialogue: string;
-      userScores?: Array<number>;
+      userScores?: Array<{
+        userId: number,
+        userScore: number
+      }>;
     }>;
   }>;
 }

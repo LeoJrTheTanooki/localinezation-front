@@ -42,11 +42,9 @@ const MediaPage = (props: any) => {
   }, [queryNum]);
 
   useEffect(() => {
-    console.log(currentMedia.requestLanguage)
     if (currentMedia.requestLanguage) {
       const languageListJsx = currentMedia.requestLanguage.map(
         (media: object, index: number) => {
-          console.log(media)
           let language = Object.keys(media)[0];
           let formattedLang;
           switch (language) {

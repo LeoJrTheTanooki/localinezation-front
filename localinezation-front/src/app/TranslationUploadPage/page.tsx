@@ -206,7 +206,7 @@ const TranslationUploadPage = () => {
       </div>
 
       <div>
-        <div className="bg-purple-600 text-white">
+        <div className="bg-purple-600 text-white p-2">
           <p>
             <span className=" font-bold">
             Request:{" "}

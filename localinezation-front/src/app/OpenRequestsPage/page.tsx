@@ -2,9 +2,10 @@
 
 import { ILanguageData, IMediaData } from "@/Interfaces/Interfaces";
 import PageData from "@/utils/PageData.json";
-import { Button, Dropdown } from "flowbite-react";
+import { Button, Dropdown, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { langFormat } from "../components/CustomFunctions";
 
 const OpenRequestsPage = () => {
   const requestsDefault = Array<{
@@ -30,6 +31,9 @@ const OpenRequestsPage = () => {
   const [requestIndex, setRequestIndex] = useState<number>(0);
   const [referenceIndex, setReferenceIndex] = useState<number>(0);
   const [translationIndex, setTranslationIndex] = useState<number>(0);
+  const [dropdownItems, setDropdownItems] = useState<React.JSX.Element[]>();
+  const [yourScoreHover, setYourScoreHover] = useState<any>();
+  const [yourScore, setYourScore] = useState<any>();
 
   useEffect(() => {
     const idQueryEffect = new URLSearchParams(window.location.search).get("id");
@@ -53,6 +57,41 @@ const OpenRequestsPage = () => {
           `${langQuery}`
         ][0];
       setRequestsArray(requestData.openRequests);
+      const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
+        (language: object, index: number) => {
+          let currentLanguage = Object.keys(language)[0];
+          let formattedLang: string = "";
+          switch (currentLanguage) {
+            case "englishUsa":
+              formattedLang = "English (US)";
+              break;
+            case "spanishLatAm":
+              formattedLang = "Spanish (Latin American)";
+              break;
+            case "french":
+              formattedLang = "French";
+              break;
+          }
+
+          if (currentLanguage) {
+            return (
+              <Dropdown.Item
+                onClick={() => {
+                  setLangQuery(currentLanguage);
+                  window.history.pushState(
+                    null,
+                    `Change to ${formattedLang}`,
+                    `OpenRequestsPage?id=${queryNum}&language=${currentLanguage}`
+                  );
+                }}
+              >
+                {formattedLang}
+              </Dropdown.Item>
+            );
+          }
+        }
+      );
+      setDropdownItems(dropdownJsx);
     } catch (error) {
       console.log(`error caught: ${error}`);
     }
@@ -150,13 +189,17 @@ const OpenRequestsPage = () => {
 
   return (
     <div className=" grid grid-cols-2 2 m-5 gap-5">
-        <div className="mb-2 block col-span-2">
-          <p>
-            Media Type <span className=" text-red-600">*</span>
-          </p>
-          <div className="border-2 border-black w-max rounded-md p-1 justify-between">
-            <Dropdown id="type" label={langQuery ? langQuery : "null"} inline>
-              <Dropdown.Item
+      <div className="mb-2 block col-span-2">
+        <p>
+          Media Type <span className=" text-red-600">*</span>
+        </p>
+        <div className="border-2 border-black w-max rounded-md p-1 justify-between">
+          <Dropdown
+            id="type"
+            label={langQuery ? langFormat(langQuery) : "null"}
+            inline
+          >
+            {/* <Dropdown.Item
                 onClick={() => {
                   setLangQuery("englishUsa");
                   window.history.pushState(null, 'Change to English', `OpenRequestsPage?id=${queryNum}&language=englishUsa`)
@@ -172,10 +215,11 @@ const OpenRequestsPage = () => {
                 }}
               >
                 Spanish (Latin American)
-              </Dropdown.Item>
-            </Dropdown>
-          </div>
+              </Dropdown.Item> */}
+            {dropdownItems}
+          </Dropdown>
         </div>
+      </div>
       <div className=" grid grid-cols-2">
         <img src={coverArt} alt="" />
         <div>
@@ -245,8 +289,84 @@ const OpenRequestsPage = () => {
               : ""}
 
             <div className=" flex">
-              <div className=" mr-3">User Score: </div>
-              <div>Your Score: </div>
+              <div className=" mr-3 flex">
+                User Score:
+                <Rating>
+                  <Rating.Star />
+                  <Rating.Star />
+                  <Rating.Star />
+                  <Rating.Star />
+                  <Rating.Star filled={false} />
+                  <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                    4.95 out of 5
+                  </p>
+                </Rating>
+              </div>
+              <div className=" flex">
+                Your Score:
+                <Rating>
+                  <Rating.Star
+                    filled={yourScoreHover >= 1 || yourScore >= 1 && yourScoreHover == 0 ? true : false}
+                    onMouseEnter={() => {
+                      setYourScoreHover(1);
+                    }}
+                    onMouseLeave={() => {
+                      setYourScoreHover(0);
+                    }}
+                    onClick={() => {
+                      setYourScore(1)
+                    }}
+                  />
+                  <Rating.Star
+                    filled={yourScoreHover >= 2 || yourScore >= 2 && yourScoreHover == 0 ? true : false}
+                    onMouseEnter={() => {
+                      setYourScoreHover(2);
+                    }}
+                    onMouseLeave={() => {
+                      setYourScoreHover(0);
+                    }}
+                    onClick={() => {
+                      setYourScore(2)
+                    }}
+                  />
+                  <Rating.Star
+                    filled={yourScoreHover >= 3 || yourScore >= 3 && yourScoreHover == 0 ? true : false}
+                    onMouseEnter={() => {
+                      setYourScoreHover(3);
+                    }}
+                    onMouseLeave={() => {
+                      setYourScoreHover(0);
+                    }}
+                    onClick={() => {
+                      setYourScore(3)
+                    }}
+                  />
+                  <Rating.Star
+                    filled={yourScoreHover >= 4 || yourScore >= 4 && yourScoreHover == 0 ? true : false}
+                    onMouseEnter={() => {
+                      setYourScoreHover(4);
+                    }}
+                    onMouseLeave={() => {
+                      setYourScoreHover(0);
+                    }}
+                    onClick={() => {
+                      setYourScore(4)
+                    }}
+                  />
+                  <Rating.Star
+                    filled={yourScoreHover >= 5 || yourScore >= 5 && yourScoreHover == 0 ? true : false}
+                    onMouseEnter={() => {
+                      setYourScoreHover(5);
+                    }}
+                    onMouseLeave={() => {
+                      setYourScoreHover(0);
+                    }}
+                    onClick={() => {
+                      setYourScore(5)
+                    }}
+                  />
+                </Rating>
+              </div>
             </div>
           </div>
         </div>
