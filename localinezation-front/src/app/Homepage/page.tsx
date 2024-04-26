@@ -34,7 +34,7 @@ const Homepage = () => {
   return (
     <div>
       <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
-        <h1 className=" text-center font-bold text-gray-700 text-4xl py-7">Translation Requests</h1>
+        <h1 className="text-center font-bold text-gray-700 text-4xl py-7">Translation Requests</h1>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 pt-0 mb-10 max-w-[1440px] justify-center mx-auto">
         {mediaList?.map((media: any, mediaIndex: number) => (

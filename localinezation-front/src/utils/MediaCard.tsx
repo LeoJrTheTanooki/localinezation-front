@@ -18,14 +18,16 @@ const MediaCard = (props: any) => {
         className="flex rounded-lg border border-gray-200 shadow-md dark:border-gray-700 dark:bg-gray-800 flex-col bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
         onClick={() => handlePageChange(`/MediaPage?id=${props.index}`)}
       >
-        <div className="flex h-full flex-col justify-center gap-4 p-6">
+        <div className="flex h-fit min-w-80 flex-col justify-center gap-2 p-6">
           <img
-            className=" h-[270px] w-max self-center"
+            className="self-center max-h-96"
+            style={{maxHeight:"250px"}}
             src={props.mediaObject.coverArt}
             alt={props.mediaObject.title + ' cover'}
           />
         <p className=" font-bold">{props.mediaObject.title}</p>
-        <p>{props.mediaObject.originalLanguage}</p>
+        <p>{props.mediaObject.originalLanguage + " | " + props.mediaObject.type}</p>
+        <p>{}</p>
         </div>
       </div>
     </div>

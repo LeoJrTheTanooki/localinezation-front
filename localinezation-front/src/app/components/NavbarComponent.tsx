@@ -15,7 +15,7 @@ import React, { useEffect } from "react";
 const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
 
 const NavbarComponent = () => {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const router = useRouter();
   const handlePageChange = (route: string) => {
@@ -93,6 +93,10 @@ const NavbarComponent = () => {
       <Navbar fluid className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4">
         <Navbar.Toggle />
         <Navbar.Collapse>
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/")}>
+            Translation Requests
+          </Navbar.Link>
+          <li className=" hidden md:list-item">-</li>
           <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/SubmitMediaPage")}>
             Submit a Media
           </Navbar.Link>
@@ -101,7 +105,7 @@ const NavbarComponent = () => {
             Favorites
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" href="#" disabled title="Work in Progress">
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AboutPage")}>
             About Us
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
