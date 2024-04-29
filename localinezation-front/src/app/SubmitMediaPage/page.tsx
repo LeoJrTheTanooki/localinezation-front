@@ -38,7 +38,7 @@ const SubmitMediaPage = () => {
         <div>
           <div className="mb-2">
             <p>
-              Title of Media <span className=" text-red-600">*</span>
+              Title of Media <span className="text-red-600">*</span>
             </p>
             <TextInput
               id="title"
@@ -51,9 +51,9 @@ const SubmitMediaPage = () => {
           </div>
           <div className="mb-2 block">
             <p>
-              Media Type <span className=" text-red-600">*</span>
+              Media Type <span className="text-red-600">*</span>
             </p>
-            <div className="border-2 border-black w-max rounded-md p-1">
+            <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
               <Dropdown
                 id="type"
                 label={type ? type : "Select Media Type"}
@@ -85,7 +85,7 @@ const SubmitMediaPage = () => {
           </div>
           <div className="mb-2 block">
             <p>
-              Platforms Media Is On <span className=" text-red-600">*</span>
+              Platforms Media Is On <span className="text-red-600">*</span>
             </p>
             <TextInput
               id="platform"
@@ -99,7 +99,7 @@ const SubmitMediaPage = () => {
           <div className="mb-2 block">
             <p>
               Original Language(s) of Media{" "}
-              <span className=" text-red-600">*</span>
+              <span className="text-red-600">*</span>
             </p>
 
             <TextInput
@@ -113,7 +113,7 @@ const SubmitMediaPage = () => {
           </div>
           <div className="mb-2 block">
             <p>
-              Media Cover Art <span className=" text-red-600">*</span>
+              Media Cover Art <span className="text-red-600">*</span>
             </p>
 
             <FileInput
@@ -127,7 +127,7 @@ const SubmitMediaPage = () => {
               }}
             />
           </div>
-          <div className=" mb-2">
+          <div className="mb-2">
             <legend className="mb-2">Would you like to request a line?</legend>
             <div className="flex items-center gap-2">
               <Radio
@@ -232,11 +232,11 @@ const SubmitMediaPage = () => {
           displayRequest ? "md:col-span-2" : "col-span-1"
         } justify-center border border-green-600`}
       >
-        <div className=" grid grid-cols-2 gap-5 py-7 w-max mx-auto">
+        <div className="grid grid-cols-2 gap-5 py-7 w-max mx-auto">
           <div className="justify-self-end">
-            <img className=" h-80" src={coverArt} alt="" />
+            <img className="h-80" src={coverArt} alt="" />
           </div>
-          <div className=" font-bold">
+          <div className="font-bold">
             <p>Name: {title}</p>
             <p>Type: {type}</p>
             <p>Platform: {platform}</p>
@@ -248,17 +248,17 @@ const SubmitMediaPage = () => {
               <li>French</li>
             </ul>
           </div>
-          <div className=" justify-self-center">
+          <div className="justify-self-center">
             <Button
-              className=" bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
+              className="bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
               onClick={() => handlePageChange("/RequestUploadPage")}
             >
               Request a Line to Translate
             </Button>
           </div>
-          <div className=" justify-self-center">
+          <div className="justify-self-center">
             <Button
-              className=" bg-indigo-900 enabled:hover:bg-indigo-950"
+              className="bg-indigo-900 enabled:hover:bg-indigo-950"
               onClick={() => handlePageChange("/TranslationUploadPage")}
             >
               Submit a Translation
@@ -269,17 +269,17 @@ const SubmitMediaPage = () => {
           <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
             Current Translators
           </div>
-          <div className=" border-2 border-t-0 border-black grid grid-cols-2">
-            <div className=" col-span-2">
-              <span className=" font-bold italic mr-1">Mango:</span>
-              <button className=" text-blue-600">Opening</button>
+          <div className="border-2 border-t-0 border-black grid grid-cols-2">
+            <div className="col-span-2">
+              <span className="font-bold italic mr-1">Mango:</span>
+              <button className="text-blue-600">Opening</button>
               {" | "}
-              <button className=" text-blue-600 disabled:text-blue-400">
+              <button className="text-blue-600 disabled:text-blue-400">
                 Credits
               </button>
             </div>
             <div>User Score:</div>
-            <div className=" justify-self-end">Report User</div>
+            <div className="justify-self-end">Report User</div>
           </div>
         </div>
       </div>

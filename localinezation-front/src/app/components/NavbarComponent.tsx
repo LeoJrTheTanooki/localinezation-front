@@ -63,7 +63,7 @@ const NavbarComponent = () => {
           <Dropdown
             arrowIcon={false}
             inline
-            className=" font-bold gap-2"
+            className="font-bold gap-2"
             label={
               <>
                 <Avatar
@@ -71,7 +71,7 @@ const NavbarComponent = () => {
                   img="/assets/americanFlag.png"
                   rounded
                 />
-                <span className=" font-bold pl-2">English (US)</span>
+                <span className="font-bold pl-2">English (US)</span>
               </>
             }
           >
@@ -104,7 +104,7 @@ const NavbarComponent = () => {
           >
             Submit a Media
           </Navbar.Link>
-          <li className=" hidden md:list-item">-</li>
+          <li className="hidden md:list-item">-</li>
           <Navbar.Link
             className="font-bold"
             href="#"
@@ -113,7 +113,7 @@ const NavbarComponent = () => {
           >
             Favorites
           </Navbar.Link>
-          <li className=" hidden md:list-item">-</li>
+          <li className="hidden md:list-item">-</li>
           <Navbar.Link
             className="font-bold"
             href="#"
@@ -121,7 +121,7 @@ const NavbarComponent = () => {
           >
             About Us
           </Navbar.Link>
-          <li className=" hidden md:list-item">-</li>
+          <li className="hidden md:list-item">-</li>
           <Navbar.Link
             className="font-bold"
             href="#"

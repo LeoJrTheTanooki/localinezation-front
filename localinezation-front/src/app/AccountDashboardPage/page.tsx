@@ -16,7 +16,7 @@ const AccountDashboardPage = () => {
 
   return (
     <div>
-      <h1 className=" text-center font-bold text-4xl py-7">
+      <h1 className="text-center font-bold text-4xl py-7">
         Welcome{currentUsername ? `, ${currentUsername}` : ""}
       </h1>
       <div className="grid grid-cols-3">

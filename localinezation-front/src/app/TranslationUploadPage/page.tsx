@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import PageData from "@/utils/PageData.json";
 import { useRouter } from "next/navigation";
 import { ILanguageData } from "@/Interfaces/Interfaces";
+import { langFormat } from "../components/CustomFunctions";
 
 const TranslationUploadPage = () => {
   const router = useRouter();
@@ -46,17 +47,7 @@ const TranslationUploadPage = () => {
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
     if (requestIndexEffect) setRequestIndex(parseInt(requestIndexEffect));
     if (langQueryEffect) setLangQuery(langQueryEffect);
-    switch (langQueryEffect) {
-      case "englishUsa":
-        setFormattedLang("English (US)");
-        break;
-      case "spanishLatAm":
-        setFormattedLang("Spanish (Latin American)");
-        break;
-      case "french":
-        setFormattedLang("French");
-        break;
-    }
+    setFormattedLang(langFormat(langQueryEffect))
   }, []);
 
   useEffect(() => {
@@ -124,11 +115,11 @@ const TranslationUploadPage = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
-          className=" bg-slate-600"
+          className="bg-slate-600"
         />
       );
     } else {
-      return <img src={currentReference.src} className=" h-[315px]" alt="" />;
+      return <img src={currentReference.src} className="h-[315px]" alt="" />;
     }
   };
 
@@ -156,7 +147,7 @@ const TranslationUploadPage = () => {
   };
 
   return (
-    <div className=" grid grid-cols-2 m-5 gap-5">
+    <div className="grid grid-cols-2 m-5 gap-5">
       <div>
         <div className="mb-2 block">
           <Label htmlFor="requestName" value="Submitting as..." />
@@ -169,7 +160,7 @@ const TranslationUploadPage = () => {
           required
         />
         <p>Translating Into...</p>
-        <p className=" font-bold">{formattedLang}</p>
+        <p className="font-bold">{formattedLang}</p>
 
         <p>References</p>
         <div className="flex justify-between">
@@ -208,7 +199,7 @@ const TranslationUploadPage = () => {
       <div>
         <div className="bg-purple-600 text-white p-2">
           <p>
-            <span className=" font-bold">
+            <span className="font-bold">
             Request:{" "}
               </span>
               {" "}
@@ -217,7 +208,7 @@ const TranslationUploadPage = () => {
                 : "null"}
           </p>
           <p>
-            <span className=" font-bold">
+            <span className="font-bold">
             Original Dialogue:{" "}
               </span>
               {" "}

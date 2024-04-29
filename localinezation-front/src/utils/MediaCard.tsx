@@ -12,7 +12,7 @@ const MediaCard = (props: any) => {
   };
 
   return (
-    <div className=" flex justify-center">
+    <button className="flex justify-center">
       <div
         data-testid="flowbite-card"
         className="flex rounded-lg border border-gray-200 shadow-md dark:border-gray-700 dark:bg-gray-800 flex-col bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
@@ -20,15 +20,15 @@ const MediaCard = (props: any) => {
       >
         <div className="flex h-full flex-col justify-center gap-4 p-6">
           <img
-            className=" h-[270px] w-max self-center"
+            className="h-[270px] w-max self-center"
             src={props.mediaObject.coverArt}
             alt={props.mediaObject.title + ' cover'}
           />
-        <p className=" font-bold">{props.mediaObject.title}</p>
+        <p className="font-bold">{props.mediaObject.title}</p>
         <p>{props.mediaObject.originalLanguage}</p>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

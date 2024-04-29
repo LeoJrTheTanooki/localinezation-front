@@ -60,18 +60,7 @@ const OpenRequestsPage = () => {
       const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
         (language: object, index: number) => {
           let currentLanguage = Object.keys(language)[0];
-          let formattedLang: string = "";
-          switch (currentLanguage) {
-            case "englishUsa":
-              formattedLang = "English (US)";
-              break;
-            case "spanishLatAm":
-              formattedLang = "Spanish (Latin American)";
-              break;
-            case "french":
-              formattedLang = "French";
-              break;
-          }
+          let formattedLang = langFormat(currentLanguage);
 
           if (currentLanguage) {
             return (
@@ -151,11 +140,11 @@ const OpenRequestsPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className=" bg-slate-600"
+            className="bg-slate-600"
           />
         );
       } else {
-        return <img src={currentReference.src} className=" h-[315px]" alt="" />;
+        return <img src={currentReference.src} className="h-[315px]" alt="" />;
       }
     }
   };
@@ -189,42 +178,13 @@ const OpenRequestsPage = () => {
   };
 
   return (
-    <div className=" grid grid-cols-2 2 m-5 gap-5">
-      <div className="mb-2 block col-span-2">
-        <p>
-          Media Type <span className=" text-red-600">*</span>
-        </p>
-        <div className="border-2 border-black w-max rounded-md p-1 justify-between">
-          <Dropdown
-            id="type"
-            label={langQuery ? langFormat(langQuery) : "null"}
-            inline
-          >
-            {/* <Dropdown.Item
-                onClick={() => {
-                  setLangQuery("englishUsa");
-                  window.history.pushState(null, 'Change to English', `OpenRequestsPage?id=${queryNum}&language=englishUsa`)
-                  // OpenRequestsPage?id=0&language=spanishLatAm
-                }}
-              >
-                English (US)
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => {
-                  setLangQuery("spanishLatAm");
-                  window.history.pushState(null, 'Change to Spanish', `OpenRequestsPage?id=${queryNum}&language=spanishLatAm`)
-                }}
-              >
-                Spanish (Latin American)
-              </Dropdown.Item> */}
-            {dropdownItems}
-          </Dropdown>
+    <div className="grid lg:grid-cols-2 2 m-5 gap-5">
+      <div className="grid grid-cols-2">
+        <div className="justify-self-center">
+          <img src={coverArt} alt="" />
         </div>
-      </div>
-      <div className=" grid grid-cols-2">
-        <img src={coverArt} alt="" />
         <div>
-          <h2 className=" text-3xl">Open Requests For Title</h2>
+          <h2 className="text-3xl">Open Requests For Title</h2>
           <ul>
             {requestsArray && requestsArray.length != 0 ? (
               <>{requestList}</>
@@ -233,53 +193,82 @@ const OpenRequestsPage = () => {
             )}
           </ul>
         </div>
+        <div className="mb-2 block justify-self-center">
+          <p>Current Language</p>
+          <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
+            <Dropdown
+              id="type"
+              label={langQuery ? langFormat(langQuery) : "null"}
+              inline
+            >
+              {dropdownItems}
+            </Dropdown>
+          </div>
+        </div>
       </div>
       <div>
-        <h2 className=" text-3xl">
+        <h2 className="text-3xl">
           {requestsArray && requestsArray.length != 0
             ? requestsArray[requestIndex]?.requestName
             : "null"}
         </h2>
-
         <div className="flex justify-between">
-          <button
-            onClick={() => {
-              if (requestsArray)
-                indexLoop(
-                  requestsArray[requestIndex].requestReferences,
-                  referenceIndex,
-                  setReferenceIndex,
-                  false
-                );
-            }}
-          >
-            Left
-          </button>
-          {requestsArray && requestsArray.length != 0
+          {requestsArray &&
+          requestsArray.length != 0 &&
+          requestsArray[requestIndex].requestReferences?.length != 0 ? (
+            <button
+              onClick={() => {
+                if (requestsArray)
+                  indexLoop(
+                    requestsArray[requestIndex].requestReferences,
+                    referenceIndex,
+                    setReferenceIndex,
+                    false
+                  );
+              }}
+            >
+              Left
+            </button>
+          ) : (
+            ""
+          )}
+          {requestsArray &&
+          requestsArray.length != 0 &&
+          requestsArray[requestIndex].requestReferences?.length != 0
             ? srcFormat(requestsArray[requestIndex])
-            : "null"}
-          <button
-            onClick={() => {
-              if (requestsArray)
-                indexLoop(
-                  requestsArray[requestIndex].requestReferences,
-                  referenceIndex,
-                  setReferenceIndex,
-                  true
-                );
-            }}
-          >
-            Right
-          </button>
+            : "No Provided References"}
+          {requestsArray &&
+          requestsArray.length != 0 &&
+          requestsArray[requestIndex].requestReferences?.length != 0 ? (
+            <button
+              onClick={() => {
+                if (requestsArray)
+                  indexLoop(
+                    requestsArray[requestIndex].requestReferences,
+                    referenceIndex,
+                    setReferenceIndex,
+                    true
+                  );
+              }}
+            >
+              Right
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
-      <div className=" grid grid-cols-2">
-        <div className="grid border-b-2 border-black col-span-2">
-          <div className="bg-purple-600 text-center text-white">
-            Current Translators
+      <div>
+        <div className="flex flex-col border-b-2 border-black col-span-2 mb-2">
+          <div className="bg-purple-600 text-center text-white p-2 font-bold">
+            Other User Translations for “
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestName
+              : "null"}
+            ”
           </div>
-          <div className=" border-2 border-b-0 border-black">
-            {requestsArray && requestsArray.length > 0
+          <div className="border-2 border-b-0 border-black p-1">
+            {/* {requestsArray && requestsArray.length > 0
               ? requestsArray[requestIndex]?.submittedTranslations[
                   translationIndex
                 ]?.translatorUserName +
@@ -287,10 +276,30 @@ const OpenRequestsPage = () => {
                 requestsArray[requestIndex]?.submittedTranslations[
                   translationIndex
                 ]?.translatedDialogue
-              : ""}
+              : ""} */}
+            <span className="font-bold">
+              {requestsArray && requestsArray.length > 0
+                ? requestsArray[requestIndex]?.submittedTranslations[
+                    translationIndex
+                  ]?.translatorUserName
+                : ""}
 
-            <div className=" flex">
-              <div className=" mr-3 flex">
+              {requestsArray &&
+              requestsArray[requestIndex]?.submittedTranslations[
+                translationIndex
+              ].isGuest ? (
+                <span className="text-purple-600">(Guest)</span>
+              ) : (
+                ": "
+              )}
+            </span>
+            {requestsArray && requestsArray.length > 0
+              ? requestsArray[requestIndex]?.submittedTranslations[
+                  translationIndex
+                ]?.translatedDialogue
+              : ""}{" "}
+            <div className="flex">
+              <div className="mr-3 flex">
                 User Score:
                 <Rating>
                   <Rating.Star />
@@ -303,7 +312,7 @@ const OpenRequestsPage = () => {
                   </p>
                 </Rating>
               </div>
-              <div className=" flex">
+              <div className="flex">
                 Your Score:
                 <Rating>
                   <Rating.Star
@@ -396,64 +405,69 @@ const OpenRequestsPage = () => {
             </div>
           </div>
         </div>
-        <div>
-          <Button disabled>Report</Button>
-        </div>
-        <div>
-          <Button
-            onClick={() => {
-              if (requestsArray)
-                indexLoop(
-                  requestsArray[requestIndex]?.submittedTranslations,
-                  translationIndex,
-                  setTranslationIndex,
-                  true
-                );
-            }}
-          >
-            Next User
-          </Button>
-        </div>
-        <div>
-          <Button
-            onClick={() => {
-              if (requestsArray)
-                indexLoop(
-                  requestsArray[requestIndex]?.submittedTranslations,
-                  translationIndex,
-                  setTranslationIndex,
-                  true
-                );
-            }}
-          >
-            See All Translations{" "}
-          </Button>
+
+        <div className="flex justify-between">
+          <div>
+            <Button
+              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+              disabled
+            >
+              Report
+            </Button>
+          </div>{" "}
+          <div>
+            <Button
+              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+              onClick={() => {
+                if (requestsArray)
+                  indexLoop(
+                    requestsArray[requestIndex]?.submittedTranslations,
+                    translationIndex,
+                    setTranslationIndex,
+                    false
+                  );
+              }}
+            >
+              Previous User{" "}
+            </Button>
+          </div>
+          <div>
+            <Button
+              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+              onClick={() => {
+                if (requestsArray)
+                  indexLoop(
+                    requestsArray[requestIndex]?.submittedTranslations,
+                    translationIndex,
+                    setTranslationIndex,
+                    true
+                  );
+              }}
+            >
+              Next User
+            </Button>
+          </div>
         </div>
       </div>
       <div>
-        <div className="grid border-b-2 border-black">
-          <div className="bg-purple-600 text-center text-white">
-            Your Translation for “{" "}
+        <div className="flex flex-col border-b-2 border-black mb-2">
+          <div className="bg-purple-600 text-center text-white p-2 font-bold">
+            Original dialogue for “{" "}
             {requestsArray && requestsArray.length != 0
               ? requestsArray[requestIndex]?.requestName
               : "null"}
             ”
           </div>
-          <div className=" border-2 border-b-0 border-black">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-            sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas
-            sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum
-            venenatis. Cras et tempus lacus. Nulla quis enim at est cursus
-            tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed,
-            consectetur vulputate metus. Aliquam erat volutpat. Proin molestie
-            dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui
-            tristique egestas.
+          <div className="border-2 border-b-0 border-black p-1">
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestDialogue
+              : "null"}
           </div>
         </div>
         <div className="flex justify-end">
           <div>
             <Button
-              className=" bg-indigo-900 enabled:hover:bg-indigo-950"
+              className="bg-indigo-900 enabled:hover:bg-indigo-950"
               onClick={() =>
                 handlePageChange(
                   `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&request=${requestIndex}`
