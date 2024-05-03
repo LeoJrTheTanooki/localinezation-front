@@ -48,12 +48,17 @@ const MediaPageAshur: React.FC = () => {
     return (
         <div>
             <h1>Media List</h1>
-            {error && <p className="error">{error}</p>}  // Display any error messages if present
+            {error && <p className="error">{error}</p>} 
+             {/* // Display any error messages if present */}
             <ul>
-                {mediaList.map((media) => (  // Map over each media item in the list and render it
-                    <li key={media.id}>  // Each list item must have a unique key, here it's the media ID
-                        <h2>{media.title}</h2>  // Display the title of the media
-                        <p>Original Language: {media.originalLanguage}</p>  // Display the original language of the media
+                {mediaList.map((media) => (
+                    //   Map over each media item in the list and render it
+                    <li key={media.id}>
+                       {/* Each list item must have a unique key, here it's the media ID */}
+                        <h2>{media.title}</h2>  
+                        {/* // Display the title of the media */}
+                        <p>Original Language: {media.originalLanguage}</p> 
+                         {/* // Display the original language of the media */}
                         {/* Button to request a new translation */}
                         <button onClick={() => handleRequestTranslation(media.id, 'Spanish')}>
                             Request Spanish Translation
