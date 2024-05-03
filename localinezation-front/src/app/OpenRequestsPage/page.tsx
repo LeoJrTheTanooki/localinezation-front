@@ -56,6 +56,7 @@ const OpenRequestsPage = () => {
         mediaRequests[queryNum].requestLanguage.find(findLanguage)[
           `${langQuery}`
         ][0];
+
       setRequestsArray(requestData.openRequests);
       const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
         (language: object, index: number) => {
@@ -86,6 +87,9 @@ const OpenRequestsPage = () => {
       console.log(`error caught: ${error}`);
     }
     if (requestsArray && requestsArray.length != 0) {
+      console.log(requestsArray[requestIndex]?.submittedTranslations[
+        translationIndex
+      ].userScores)
       const requestListJsx = requestsArray.map(
         (request: any, index: number) => {
           return (
@@ -104,6 +108,7 @@ const OpenRequestsPage = () => {
         }
       );
       setRequestList(requestListJsx);
+      
     }
   }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
@@ -309,6 +314,7 @@ const OpenRequestsPage = () => {
                   <Rating.Star filled={false} />
                   <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                     4.95 out of 5
+                    
                   </p>
                 </Rating>
               </div>

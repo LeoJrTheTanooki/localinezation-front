@@ -20,7 +20,7 @@ const MediaCard = (props: any) => {
       >
         <div className="flex h-full flex-col justify-center gap-4 p-6">
           <img
-            className="h-[270px] w-max self-center"
+            className="h-[270px] flex-1 w-max self-center"
             src={props.mediaObject.coverArt}
             alt={props.mediaObject.title + ' cover'}
           />
