@@ -91,7 +91,8 @@ export interface IMedia {
 
 // Represents a request to translate the media into a different language.
 export interface ITranslationRequest {
-  id: number;  // Unique identifier for the translation request
+//optional id?: might not be present, especially during the creation of a new translation request, where the backend typically generates an id
+  id?: number;  //(Translation request ID) Unique identifier for the translation request also Making 'id' optional
   mediaId: number;  // ID of the media this translation request is for
   requestLanguage: string;  // The language to which the translation is requested
   translations?: ITranslation[];  // Submitted translations for this request
