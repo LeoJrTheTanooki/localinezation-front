@@ -1,4 +1,4 @@
-import { IBlogItems, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { IBlogItems, IMedia, IToken, ITranslation, ITranslationRequest, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
  const url = "https://localinazationapi.azurewebsites.net"
@@ -97,4 +97,46 @@ export const checkToken = () => {
         result = true
     }
     return result
+}
+
+// ---------------------------------05/02/2024----------------------------------------------------------
+// the following section is for the Media Translation Items
+
+// Fetch all media from the backend
+export const fetchMedia = async (): Promise<IMedia[]> => {
+    const response = await fetch(url + "/User/Login");
+    if (!response.ok) {
+        throw new Error('Failed to fetch media');
+    }
+    return await response.json(); //Returns a list of media
+}
+
+//Post a new translation request for a specific media
+export const postTranslationRequest = async (mediaId: number, request: ITranslationRequest): Promise<ITranslationRequest> => {
+    const response = await fetch(`${url}/media/${mediaId}/translation-requests`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request) //convert the request object to json string
+    });
+    if (!response.ok) {
+        throw new Error('Failed to post translation request');
+    }
+    return await response.json(); //return the newly created translatoon request
+};
+
+// submit a new translation for a specific translation request
+export const submitTranslation = async (requestId: number, translation: ITranslation): Promise<ITranslation> => {
+    const response = await fetch(`${url}/translation-requests/${requestId}/translations`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(translation) //convert the translation object to json string
+    });
+    if (!response.ok) {
+        throw new Error('Failed to submit translation');
+    }
+    return await response.json(); //Returns the newly submitted translation
 }
