@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
+import { langFormat } from "../components/CustomFunctions";
 
 const SubmitMediaPage = () => {
   const router = useRouter();
@@ -101,15 +102,95 @@ const SubmitMediaPage = () => {
               Original Language(s) of Media{" "}
               <span className="text-red-600">*</span>
             </p>
-
-            <TextInput
-              id="originalLanguage"
-              type="text"
-              required
-              onChange={(e) => {
-                setOriginalLanguage(e.target.value);
-              }}
-            />
+            <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
+              <Dropdown
+                id="type"
+                label={
+                  originalLanguage
+                    ? langFormat(originalLanguage)
+                    : "Select Language"
+                }
+                inline
+              >
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("englishUsa");
+                  }}
+                >
+                  English (US)
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("spanishLatAm");
+                  }}
+                >
+                  Spanish (Latin American){" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("spanishEu");
+                  }}
+                >
+                  Spanish (European){" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("englishUk");
+                  }}
+                >
+                  English (UK){" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("french");
+                  }}
+                >
+                  French{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("japanese");
+                  }}
+                >
+                  Japanese{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("chineseTrad");
+                  }}
+                >
+                  Traditional Chinese{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("chineseSimple");
+                  }}
+                >
+                  Simplified Chinese{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("norwegian");
+                  }}
+                >
+                  Norwegian{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("swedish");
+                  }}
+                >
+                  Swedish{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setOriginalLanguage("irish");
+                  }}
+                >
+                  Irish{" "}
+                </Dropdown.Item>
+              </Dropdown>
+            </div>
           </div>
           <div className="mb-2 block">
             <p>
