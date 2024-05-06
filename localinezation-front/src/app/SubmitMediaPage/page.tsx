@@ -321,7 +321,7 @@ const SubmitMediaPage = () => {
             <p>Name: {title}</p>
             <p>Type: {type}</p>
             <p>Platform: {platform}</p>
-            <p>Original Language: {originalLanguage}</p>
+            <p>Original Language: {originalLanguage ? langFormat(originalLanguage) : ''}</p>
             <p>Current Translations</p>
             <ul>
               <li>English (US)</li>
