@@ -12,10 +12,10 @@ const MediaCard = (props: any) => {
   };
 
   return (
-    <button className="flex justify-center">
+    <div className="flex justify-center">
       <div
         data-testid="flowbite-card"
-        className="flex rounded-lg border border-gray-200 shadow-md dark:border-gray-700 dark:bg-gray-800 flex-col bg-purple-600 text-white text-center h-96 hover:bg-purple-900 w-80"
+        className="h-96 w-80 flex flex-col bg-purple-600 hover:bg-purple-900 text-white text-center rounded-lg border border-gray-200 dark:border-gray-700"
         onClick={() => handlePageChange(`/MediaPage?id=${props.index}`)}
       >
         <div className="flex h-full flex-col justify-center gap-4 p-6">
@@ -24,11 +24,11 @@ const MediaCard = (props: any) => {
             src={props.mediaObject.coverArt}
             alt={props.mediaObject.title + ' cover'}
           />
-        <p className="font-bold">{props.mediaObject.title}</p>
-        <p>{props.mediaObject.originalLanguage}</p>
+        <p className=" mt-3 font-bold">{props.mediaObject.title}</p>
+        <p>{props.mediaObject.originalLanguage + " | " + props.mediaObject.type}</p>
         </div>
       </div>
-    </button>
+    </div>
   );
 };
 

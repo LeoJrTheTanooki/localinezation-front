@@ -104,21 +104,8 @@ const NavbarComponent = () => {
           >
             Submit a Media
           </Navbar.Link>
-          <li className="hidden md:list-item">-</li>
-          <Navbar.Link
-            className="font-bold"
-            href="#"
-            disabled
-            title="Work in Progress"
-          >
-            Favorites
-          </Navbar.Link>
-          <li className="hidden md:list-item">-</li>
-          <Navbar.Link
-            className="font-bold"
-            href="#"
-            onClick={() => handlePageChange("/AboutPage")}
-          >
+          <li className=" hidden md:list-item">-</li>
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AboutPage")}>
             About Us
           </Navbar.Link>
           <li className="hidden md:list-item">-</li>
