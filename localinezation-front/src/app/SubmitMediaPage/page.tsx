@@ -90,30 +90,8 @@ const SubmitMediaPage = () => {
             }}
           />
           <Button onClick={() => handlePageChange("/")}>Submit Media</Button>
-          <legend className="mb-4">Would you like to request a line?</legend>
-          <div className="flex items-center gap-2">
-            <Radio
-              id="requestYes"
-              name="requestRadio"
-              value={1}
-              onChange={() => {
-                setDisplayRequest(true);
-              }}
-            />
-            <Label htmlFor="requestYes">Yes</Label>
-          </div>
-          <div className="flex items-center gap-2">
-            <Radio
-              id="requestNo"
-              name="requestRadio"
-              value={0}
-              defaultChecked
-              onChange={() => {
-                setDisplayRequest(false);
-              }}
-            />
-            <Label htmlFor="requestNo">No</Label>
-          </div>
+          
+          
           {/* Make a radio that asks if the user wants to request a specific line, and if it's checked the request form appears on the botton */}
         </div>
       </form>
