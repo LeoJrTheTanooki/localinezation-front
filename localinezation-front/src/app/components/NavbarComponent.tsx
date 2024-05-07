@@ -24,17 +24,18 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <nav className="px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 bg-purple-600 text-white border-purple-800 border-t-4">
-        <div className="mx-auto flex flex-wrap items-center justify-center lg:justify-between">
-          <button className="flex items-center self-start" onClick={() => handlePageChange("/")}>
-              <img
-                src="/assets/localinezationLogo.png"
-                className="mr-3 text-center"
-                alt="LocaLINEzation Logo"
-              />
-          </button>
-          <div className="flex w-full max-w-[550px] gap-5 justify-between">
-          <div className="relative block">
+      <Navbar fluid className=" bg-purple-600 text-white border-purple-800 border-t-4">
+        <button className=" self-start">
+          <Navbar.Brand onClick={() => handlePageChange("/")} >
+            <img
+              src="/assets/localinezationLogo.png"
+              className="mr-3 text-center"
+              alt="Flowbite React Logo"
+            />
+          </Navbar.Brand>
+        </button>
+        <div className="flex w-full max-w-[550px] gap-5 justify-between">
+          <div className="relative hidden md:block">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
                 className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -63,7 +64,7 @@ const NavbarComponent = () => {
           <Dropdown
             arrowIcon={false}
             inline
-            className="font-bold gap-2"
+            className=" font-bold gap-2"
             label={
               <>
                 <Avatar
@@ -71,55 +72,44 @@ const NavbarComponent = () => {
                   img="/assets/americanFlag.png"
                   rounded
                 />
-                <span className="font-bold pl-2">English (US)</span>
+                <span className=" font-bold pl-2">English (US)</span>
               </>
             }
           >
+
             <Dropdown.Item className="gap-2">
               <Avatar img="/assets/americanFlag.png" rounded />
               <span>English (US)</span>
             </Dropdown.Item>
+
           </Dropdown>
 
-          <Button
-            className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white"
-            onClick={() => handlePageChange("/LoginPage")}
-          >
+          <Button className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white" onClick={() => handlePageChange("/LoginPage")}>
             Login
           </Button>
         </div>
-        </div>
-      </nav>
+      </Navbar>
 
-      <Navbar
-        fluid
-        className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4"
-      >
+      <Navbar fluid className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4">
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link
-            className="font-bold"
-            href="#"
-            onClick={() => handlePageChange("/SubmitMediaPage")}
-          >
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/")}>
+            Translation Requests
+          </Navbar.Link>
+          <li className=" hidden md:list-item">-</li>
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/SubmitMediaPage")}>
             Submit a Media
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
           <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AboutPage")}>
             About Us
           </Navbar.Link>
-          <li className="hidden md:list-item">-</li>
-          <Navbar.Link
-            className="font-bold"
-            href="#"
-            onClick={() => handlePageChange("/AccountDashboardPage")}
-          >
+          <li className=" hidden md:list-item">-</li>
+          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AccountDashboardPage")}>
             Account
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-
-
     </>
   );
 };
