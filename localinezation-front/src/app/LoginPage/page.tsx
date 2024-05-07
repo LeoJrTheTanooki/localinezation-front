@@ -23,8 +23,8 @@ const LoginPage = () => {
     if (!isOpen) return null;
 
     const handleModal = () => {
-        setIsModalOpen(false)
-            setLoginSwitchBool(true)
+      setIsModalOpen(false)
+      setLoginSwitchBool(true)
     }
 
     return (
@@ -82,14 +82,14 @@ const LoginPage = () => {
       try {
         const success = await createAccount(userData);
         if (success) {
-            setSwitchBool(true);
+          setSwitchBool(true);
           setModalMessage(
             "You have successfully created an account, you can now login."
           );
           setIsModalOpen(true);
 
         } else {
-            setSwitchBool(false);
+          setSwitchBool(false);
           setModalMessage("This Username already exists.");
           setIsModalOpen(true);
         }
@@ -119,7 +119,7 @@ const LoginPage = () => {
         setIsModalOpen(true);
         setModalMessage("Incorrect username or password. Please try again.");
         setSwitchBool(false);
-          
+
       }
     }
   };
@@ -136,26 +136,26 @@ const LoginPage = () => {
     setLoginSwitchBool(true);
     setIsModalOpen(false);
     //  to switch to the login form after closing the modal
-  
+
   };
 
   return loginSwitchBool ? (
     <div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
-        {isModalOpen && (
+      {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
           message={modalMessage}
           onClose={handleCloseModalAndSwitchToLogin}
-          
+
         />
       )}
       <div
         id="heroImg"
-        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[80%] h-[75vh] flex justify-center items-center rounded-3xl"
+        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[75vw] h-[85vh] flex justify-center items-center rounded-3xl"
       >
         <div
           id="loginBG"
-          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-[80%] flex flex-col justify-around items-center text-center rounded-3xl p-12"
+          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-fit flex flex-col justify-around items-center text-center rounded-3xl p-12"
         >
           <div className="flex flex-col">
             <h1 className="text-3xl text-white font-bold mb-2">Login</h1>
@@ -226,11 +226,11 @@ const LoginPage = () => {
 
       <div
         id="heroImg"
-        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[80%] h-[75vh] flex justify-center items-center rounded-3xl"
+        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[75vw] h-[85vh] flex justify-center items-center rounded-3xl"
       >
         <div
           id="loginBG"
-          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-[80%] flex flex-col justify-around items-center text-center rounded-3xl p-12"
+          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-fit flex flex-col justify-around items-center text-center rounded-3xl p-12"
         >
           <div className="flex flex-col">
             <h1 className="text-3xl text-white font-bold mb-2">
@@ -268,7 +268,7 @@ const LoginPage = () => {
             <br />
             <button
               onClick={handleSubmit}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold"
+              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
             >
               Create Account
             </button>
@@ -277,7 +277,7 @@ const LoginPage = () => {
             <p className="text-white">Already have an account?</p>
             <button
               onClick={() => setLoginSwitchBool(true)}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold"
+              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
             >
               Log In
             </button>
