@@ -102,6 +102,12 @@ export const checkToken = () => {
 // ---------------------------------05/02/2024----------------------------------------------------------
 // the following section is for the Media Translation Items
 
+//Dashboard fetches ashur 05/06/2024 
+export const getMediaByUserId = async (UserId: number) => {
+    const res = await fetch(url + '/Blog/GetItemsByUserId/' + userId);
+}
+
+
 // Fetch all media from the backend
 export const fetchMedia = async (): Promise<IMedia[]> => {
     const response = await fetch(url + "/User/Login");

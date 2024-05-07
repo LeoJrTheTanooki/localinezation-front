@@ -1,9 +1,17 @@
 "use client";
 
+import { IMedia } from "@/Interfaces/Interfaces";
+import { checkToken, loggedinData } from "@/utils/Dataservices";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+
 
 const AccountDashboardPage = () => {
   const [currentUsername, setCurrentUsername] = useState<string | null>("");
+
+
+  // useRiouter from next/navigation
+let router = useRouter()
 
   useEffect(() => {
     console.log(localStorage.getItem("username"));
@@ -13,6 +21,33 @@ const AccountDashboardPage = () => {
       setCurrentUsername(null);
     }
   }, []);
+
+
+
+  //Ashur- useEffect to check if logged in; else push to login page
+  // grab the user's information as well as their blog info
+  useEffect(() => {
+    //Async function because we are calling getBlogItemsById Fetch
+    const getLoggedInData = async () => {
+      //Storing our user info in a variable
+      const loggedIn = loggedinData();
+      let userIMedia: IMedia[] = await getBlogItemsByUserId(loggedIn.userId);
+      let filteredBlogItems = userBlogItems.filter(item => item.isDeleted === false);
+      //Setting our user info / Fetched data inside of our State Variables
+      setBlogUserId(loggedIn.userId);
+      setPublisherName(loggedIn.publisherName);
+      setBlogItems(filteredBlogItems);
+    }
+
+
+    // Checks if We have a token in local storage if so get user info else go back to login
+    if (checkToken()) {
+      getLoggedInData()
+    } else {
+      router.push('/LoginPage');
+    }
+  }, [])
+
 
   return (
     <div>
