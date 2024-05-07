@@ -110,7 +110,7 @@ export const getMediaByUserId = async (UserId: number) => {
 
 // Fetch all media from the backend
 export const fetchMedia = async (): Promise<IMedia[]> => {
-    const response = await fetch(url + "/User/Login");
+    const response = await fetch(url + "/Media/GetAllMediaItems");
     if (!response.ok) {
         throw new Error('Failed to fetch media');
     }
