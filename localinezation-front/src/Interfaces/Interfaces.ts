@@ -36,26 +36,19 @@ export interface IUserData {
   userId: number;
   publisherName: string;
 }
+// --------------------------------------------------
 
-export interface IMediaData {
-  title: string;
-  coverArt: string;
-  originalLanguage: string;
-  type: string;
-  platform: string;
-  requestLanguage?: Array<{
-    englishUsa?: Array<ILanguageData>;
-    spanishLatAm?: Array<ILanguageData>;
-    spanishEu?: Array<ILanguageData>;
-    englishUk?: Array<ILanguageData>;
-    french?: Array<ILanguageData>;
-    japanese?: Array<ILanguageData>;
-    chineseTrad?: Array<ILanguageData>;
-    chineseSimple?: Array<ILanguageData>;
-    norwegian?: Array<ILanguageData>;
-    swedish?: Array<ILanguageData>;
-    irish?: Array<ILanguageData>;
-  }>;
+export interface IMediaItems {
+  id: number;  // Unique identifier for the media
+  userID: number;  // ID of the user who owns or uploaded the media
+  title: string;  // Title of the media
+  coverArt: string;  // URL or path to the media's cover art image
+  originalLanguage: string;  // The original language of the media
+  type?: string;  // Type of the media, e.g., "TV Show/Movie", "Video Game", optional
+  platform?: string;  // Platform where the media is published, optional (YouTube, TV...)
+  translationRequests: string,// Translation requests e.g. input field "Need translations for Spanish, French",
+  isPublished: boolean;
+  isDeleted: boolean;
 }
 
 export interface ILanguageData {
