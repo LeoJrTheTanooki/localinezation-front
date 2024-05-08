@@ -18,7 +18,7 @@ interface ModalProps {
 const LoginPage = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-3
+  3
   const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
     if (!isOpen) return null;
 
@@ -279,7 +279,7 @@ const LoginPage = () => {
               onClick={() => setLoginSwitchBool(true)}
               className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
             >
-              Log In
+              Log In Instead
             </button>
           </div>
           <div></div>
