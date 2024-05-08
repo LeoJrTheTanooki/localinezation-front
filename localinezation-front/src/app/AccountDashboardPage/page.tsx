@@ -1,18 +1,58 @@
 "use client";
 
+import { IMedia, IMediaItems } from "@/Interfaces/Interfaces";
+import { checkToken, getLoggedInUserData, getMediaItemsByUserId, loggedinData } from "@/utils/Dataservices";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+
 
 const AccountDashboardPage = () => {
   const [currentUsername, setCurrentUsername] = useState<string | null>("");
 
-  useEffect(() => {
-    console.log(localStorage.getItem("username"));
-    if (localStorage.getItem("username")) {
-      setCurrentUsername(localStorage.getItem("username"));
+  const [mediaUserId, setMediaUserId] = useState<number>(0);
+  const [publisherName, setPublisherName] = useState<string>("");
+  const [mediaItems, setMediaItems] = useState<IMediaItems[]>();
+
+
+  // useRiouter from next/navigation
+  let router = useRouter()
+
+  const getLoggedInData = async () => {
+    if (checkToken()) {
+      const userData = loggedinData();  // This should retrieve the stored user data
+      await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
+      if (userData) {
+        let userMediaItems: IMediaItems[] = await getMediaItemsByUserId(userData.userId);
+        let filteredMediaItems = userMediaItems.filter(item => item.isDeleted === false);
+        setMediaUserId(userData.userId);
+        setPublisherName(userData.publisherName);
+        setMediaItems(filteredMediaItems);
+      } else {
+        console.log("User data is not available.");
+      }
     } else {
-      setCurrentUsername(null);
+      router.push('/LoginPage');
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    const init = async () => {
+        if (localStorage.getItem("username")) {
+            setCurrentUsername(localStorage.getItem("username"));
+            await getLoggedInData();  // This function needs to be defined outside useEffect or here within it
+        } else {
+            setCurrentUsername(null);
+            router.push('/LoginPage');
+        }
+    };
+    init();
+}, [router]);  // router is a dependency here
+  
+ 
+
+
+
+
 
   return (
     <div className="min-w-screen min-h-[110vh]">
@@ -36,7 +76,7 @@ const AccountDashboardPage = () => {
           </div>
         </div>
         <div className="flex flex-col">
-        <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <div
               id="loginBG"
               className="bg-purple-600 min-w-80 w-[40%] h-full flex flex-col justify-around items-center text-center rounded-3xl p-12"
@@ -90,7 +130,7 @@ const AccountDashboardPage = () => {
               <div></div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
