@@ -1,8 +1,8 @@
 import { IBlogItems, IMedia, IToken, ITranslation, ITranslationRequest, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
-//  const url = "https://localinazationapi.azurewebsites.net"
-const url = "http://localhost:5071"
+ const url = "https://localinazationapi.azurewebsites.net"
+// const url = "http://localhost:5071"
 
 
 let userData: IUserData
