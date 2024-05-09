@@ -48,25 +48,25 @@ const SubmitMediaPage = () => {
   }, [title, coverArt, originalLanguage, type, platform]);
 
   return (
-    <div className="grid grid-flow-dense grid-cols-2 border border-red-600">
-      {/* <PopupModal message="lol lmao" isOpen={true} /> */}
-      <form className="max-w-md flex flex-col gap-4 border border-blue-600">
+    <div className="flex justify-evenly flex-wrap gap-y-4 border p-4 select-none">
+      <form className="max-w-md h-fit flex flex-col items-between bg-purple-600 p-6 rounded-lg">
         <div>
-          <div className="mb-2">
-            <p>
+          <div className="mb-6">
+            <p className="text-white font-semibold">
               Title of Media <span className="text-red-600">*</span>
             </p>
             <TextInput
               id="title"
               type="text"
               required
+              placeholder="Set Title..."
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
             />
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-6 block">
+            <p className="text-white font-semibold">
               Media Type <span className="text-red-600">*</span>
             </p>
             <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
@@ -99,8 +99,8 @@ const SubmitMediaPage = () => {
               </Dropdown>
             </div>
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-6 block">
+            <p className="text-white font-semibold">
               Platforms Media Is On <span className="text-red-600">*</span>
             </p>
             <TextInput
@@ -112,8 +112,8 @@ const SubmitMediaPage = () => {
               }}
             />
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-6 block">
+            <p className="text-white font-semibold">
               Original Language(s) of Media{" "}
               <span className="text-red-600">*</span>
             </p>
@@ -207,175 +207,63 @@ const SubmitMediaPage = () => {
               </Dropdown>
             </div>
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-2 block p-2 rounded-lg">
+            <p className="text-white  font-semibold">
               Media Cover Art <span className="text-red-600">*</span>
             </p>
-
             <FileInput
               id="coverArt"
               accept="image/png, image/jpeg, image/webp"
-              helperText="PNG or JPG (MAX. ???x???px)."
+              helperText=""
               onChange={(e) => {
                 if (e.target.files) {
                   setCoverArt(URL.createObjectURL(e.target.files[0]));
                 }
               }}
             />
+            <p className="text-white ">PNG or JPG (MAX. ???x???px).</p>
           </div>
-          <div className="mb-2">
-            <legend className="mb-2">Would you like to request a line?</legend>
-            <div className="flex items-center gap-2">
-              <Radio
-                id="requestYes"
-                name="requestRadio"
-                value={1}
-                onChange={() => {
-                  setDisplayRequest(true);
-                }}
-              />
-              <Label htmlFor="requestYes">Yes</Label>
-            </div>
-            <div className="flex items-center gap-2">
-              <Radio
-                id="requestNo"
-                name="requestRadio"
-                value={0}
-                defaultChecked
-                onChange={() => {
-                  setDisplayRequest(false);
-                }}
-              />
-              <Label htmlFor="requestNo">No</Label>
-            </div>
-          </div>
-          <Button onClick={() => handlePageChange("/")}>Submit Media</Button>
+          <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={() => handlePageChange("/")}>Submit Media</button>
         </div>
       </form>
-
-      {displayRequest ? (
-        <form className="max-w-md flex flex-col gap-4 border border-pink-500">
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="requestName" value="Request*" />
-            </div>
-            <TextInput
-              id="requestName"
-              type="text"
-              required
-              onChange={(e) => {
-                setRequestName(e.target.value);
-              }}
-              value={requestName}
-            />
-            <div className="mb-2 block">
-              <Label
-                htmlFor="languageSelect"
-                value="Language to Translate Into*"
-              />
-            </div>
-            <TextInput
-              id="languageSelect"
-              type="text"
-              required
-              onChange={(e) => {
-                setLanguageSelect(e.target.value);
-              }}
-              value={languageSelect}
-            />
-            <div className="mb-2 block">
-              <Label htmlFor="dialogueRequest" value="Original Dialogue" />
-            </div>
-            <TextInput
-              id="dialogueRequest"
-              type="text"
-              onChange={(e) => {
-                setDialogueRequest(e.target.value);
-              }}
-              value={dialogueRequest}
-            />
-            <div className="mb-2 block">
-              <Label htmlFor="screenshots" value="Screenshots" />
-            </div>
-            <FileInput
-              id="screenshots"
-              multiple
-              accept="image/png, image/jpeg, image/webp"
-              helperText="PNG, JPG or GIF (MAX. ???x???px)."
-            />{" "}
-            <div className="mb-2 block">
-              <Label htmlFor="videoLink" value="Video Link" />
-            </div>
-            <TextInput
-              id="videoLink"
-              type="text"
-              onChange={(e) => {
-                setVideoLink(e.target.value);
-              }}
-              value={videoLink}
-            />
-            <Button
-              onClick={() => {
-                submitMediaItem(submission);
-                handlePageChange("/OpenRequestsPage");
-              }}
-            >
-              Submit Request
-            </Button>
-          </div>
-        </form>
-      ) : (
-        ""
-      )}
-
       <div
-        className={`grid ${
-          displayRequest ? "md:col-span-2" : "col-span-1"
-        } justify-center border border-green-600`}
+        className={`flex ${
+          displayRequest ? "" : ""
+        } justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4`}
       >
-        <div className="grid grid-cols-2 gap-5 py-7 w-max mx-auto">
-          <div className="justify-self-end">
-            <img className="h-80" src={coverArt} alt="" />
-          </div>
-          <div className="font-bold">
+        <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
+            <img className="max-h-80 max-w-64 min-w-48 bg-fuchsia-300 p-4 rounded-lg text-gray-700" src={coverArt} alt=" Image" />
+          <div className=" font-semibold flex gap-4 flex-col">
             <p>Name: {title}</p>
             <p>Type: {type}</p>
             <p>Platform: {platform}</p>
-            <p>
-              Original Language:{" "}
-              {originalLanguage ? langFormat(originalLanguage) : ""}
-            </p>
-            <p>Current Translations</p>
-            <ul>
-              <li>English (US)</li>
-              <li>Spanish (Latin American)</li>
-              <li>French</li>
-            </ul>
+            <p>Original Language: {originalLanguage ? langFormat(originalLanguage) : ''}</p>
+            <p>Current Translations: None</p>
           </div>
-          <div className="justify-self-center">
+        </div>
+        <div>
+        <div className="flex justify-evenly mb-4">
             <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
+              className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
               onClick={() => handlePageChange("/RequestUploadPage")}
             >
               Request a Line to Translate
             </Button>
-          </div>
-          <div className="justify-self-center">
             <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+              className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
               onClick={() => handlePageChange("/TranslationUploadPage")}
             >
               Submit a Translation
             </Button>
-          </div>
+        </div>
         </div>
         <div className="">
-          <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
+          <div className="bg-fuchsia-300 text-center text-gray-700 py-3 font-semibold border-black border">
             Current Translators
           </div>
-          <div className="border-2 border-t-0 border-black grid grid-cols-2">
+          <div className="border border-t-0 border-black flex flex-col flex-wrap p-3 bg-fuchsia-200 text-gray-700">
             <div className="col-span-2">
-              <span className="font-bold italic mr-1">Mango:</span>
+              <span className="font-semibold italic mr-1">Mango:</span>
               <button className="text-blue-600">Opening</button>
               {" | "}
               <button className="text-blue-600 disabled:text-blue-400">
