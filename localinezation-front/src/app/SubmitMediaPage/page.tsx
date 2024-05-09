@@ -9,8 +9,10 @@ import {
 } from "flowbite-react";
 import { useRouter } from "next/navigation";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
+import { submitMediaItem } from "@/utils/Dataservices";
+import PopupModal from "../components/PopupModal";
 
 const SubmitMediaPage = () => {
   const router = useRouter();
@@ -25,6 +27,7 @@ const SubmitMediaPage = () => {
   const [type, setType] = useState<string>("");
   const [platform, setPlatform] = useState<string>("");
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
+  const [submission, setSubmission] = useState<any>();
 
   // Translation Request Variables
   const [requestName, setRequestName] = useState<string>("");
@@ -33,8 +36,20 @@ const SubmitMediaPage = () => {
   const [screenshots, setScreenshots] = useState<Array<any>>([]);
   const [videoLink, setVideoLink] = useState<string>("");
 
+  useEffect(() => {
+    let submitEffect = {
+      title: title,
+      coverArt: coverArt,
+      originalLanguage: originalLanguage,
+      type: type,
+      platform: platform,
+    };
+    setSubmission(submitEffect);
+  }, [title, coverArt, originalLanguage, type, platform]);
+
   return (
     <div className="grid grid-flow-dense grid-cols-2 border border-red-600">
+      {/* <PopupModal message="lol lmao" isOpen={true} /> */}
       <form className="max-w-md flex flex-col gap-4 border border-blue-600">
         <div>
           <div className="mb-2">
@@ -299,7 +314,12 @@ const SubmitMediaPage = () => {
               }}
               value={videoLink}
             />
-            <Button onClick={() => handlePageChange("/OpenRequestsPage")}>
+            <Button
+              onClick={() => {
+                submitMediaItem(submission);
+                handlePageChange("/OpenRequestsPage");
+              }}
+            >
               Submit Request
             </Button>
           </div>
@@ -321,7 +341,10 @@ const SubmitMediaPage = () => {
             <p>Name: {title}</p>
             <p>Type: {type}</p>
             <p>Platform: {platform}</p>
-            <p>Original Language: {originalLanguage ? langFormat(originalLanguage) : ''}</p>
+            <p>
+              Original Language:{" "}
+              {originalLanguage ? langFormat(originalLanguage) : ""}
+            </p>
             <p>Current Translations</p>
             <ul>
               <li>English (US)</li>

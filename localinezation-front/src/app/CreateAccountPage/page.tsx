@@ -99,7 +99,7 @@ const LoginPage = () => {
         if (token.token != null) {
           localStorage.setItem("Token", token.token);
           localStorage.setItem("username", username);
-          getLoggedInUserData(username);
+          getLoggedInUserData();
           router.push("/AccountDashboardPage");
           console.log(token);
         } else {

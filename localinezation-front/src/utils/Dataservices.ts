@@ -162,3 +162,21 @@ export const submitTranslation = async (requestId: number, translation: ITransla
     }
     return await response.json(); //Returns the newly submitted translation
 }
+
+// -------------------------------------5/9/2024---------------------------------------
+// Head out of clouds this time (hopefully)
+
+export const submitMediaItem = async (Media: IMedia) => {
+    const response = await fetch (`${url}/Media/AddMediaItem`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(Media)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to submit media');
+    }
+    return await response.json(); 
+}

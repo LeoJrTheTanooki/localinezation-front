@@ -38,6 +38,27 @@ export interface IUserData {
 }
 // --------------------------------------------------
 
+export interface IMediaData {
+  title: string;
+  coverArt: string;
+  originalLanguage: string;
+  type: string;
+  platform: string;
+  requestLanguage?: Array<{
+    englishUsa?: Array<ILanguageData>;
+    spanishLatAm?: Array<ILanguageData>;
+    spanishEu?: Array<ILanguageData>;
+    englishUk?: Array<ILanguageData>;
+    french?: Array<ILanguageData>;
+    japanese?: Array<ILanguageData>;
+    chineseTrad?: Array<ILanguageData>;
+    chineseSimple?: Array<ILanguageData>;
+    norwegian?: Array<ILanguageData>;
+    swedish?: Array<ILanguageData>;
+    irish?: Array<ILanguageData>;
+  }>;
+}
+
 export interface IMediaItems {
   id: number;  // Unique identifier for the media
   userID: number;  // ID of the user who owns or uploaded the media

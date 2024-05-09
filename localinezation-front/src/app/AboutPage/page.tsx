@@ -40,6 +40,19 @@ const AboutPage = () => {
                     </p>
                 </div>
             </div>
+            <div className="w-[80vw] flex flex-col border-black border-2 my-4">
+                <div id="titleHeader" className="bg-purple-600 text-white p-6 text-3xl font-bold">
+                    <p>Why does this site look like this?</p>
+                </div>
+                <div id="textBox" className="p-6 text-xl">
+                    <p className="indent-8">
+                        We're capturing a 2000s - 2010s web forum style with our website. Since our target users may reminisce about that era, we're trying to foster that energy within our website so they may have a pleasant viewing experience. In other words, this website looks outdated by design.
+                    </p>
+                    <p>
+
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };

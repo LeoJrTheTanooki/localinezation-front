@@ -87,9 +87,13 @@ const OpenRequestsPage = () => {
       console.log(`error caught: ${error}`);
     }
     if (requestsArray && requestsArray.length != 0) {
-      console.log(requestsArray[requestIndex]?.submittedTranslations[
-        translationIndex
-      ].userScores)
+
+      // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
+      requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
+        console.log(e.userScore)
+      })
+    // }
+      
       const requestListJsx = requestsArray.map(
         (request: any, index: number) => {
           return (
