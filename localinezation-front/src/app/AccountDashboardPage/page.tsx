@@ -12,11 +12,15 @@ const AccountDashboardPage = () => {
   const [mediaUserId, setMediaUserId] = useState<number>(0);
   const [publisherName, setPublisherName] = useState<string>("");
   const [mediaItems, setMediaItems] = useState<IMediaItems[]>();
+  
 
 
-  // useRiouter from next/navigation
-  let router = useRouter()
-
+  // useRouter from next/navigation
+  const router = useRouter();
+  const handlePageChange = (route: string) => {
+    router.push(route);
+  };
+  
   const getLoggedInData = async () => {
     if (checkToken()) {
       const userData = loggedinData();  // This should retrieve the stored user data
@@ -121,7 +125,11 @@ const AccountDashboardPage = () => {
               </div>
               <div className="mt-4">
                 <button
-                  // onClick={() => setLoginSwitchBool(false)}
+                  onClick={() => {           
+                    localStorage.removeItem("username")
+                    localStorage.removeItem("Token")
+                    handlePageChange("/LoginPage");
+                  }}
                   className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold enabled:hover:bg-fuchsia-400 disabled:bg-fuchsia-100 disabled:text-gray-500"
                 >
                   Sign Out
