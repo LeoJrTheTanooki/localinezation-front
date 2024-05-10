@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
+import { fetchMedia } from "@/utils/Dataservices";
 
 const MediaPage = (props: any) => {
   const router = useRouter();
@@ -21,33 +22,48 @@ const MediaPage = (props: any) => {
     platform: "No Known Platform",
   };
 
-
-
   const [queryNum, setQueryNum] = useState<number>(-1);
-
-  const [mediaList, setMediaList] = useState<any>(PageData);
-
+  const [mediaList, setMediaList] = useState<any>();
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
-
   const [listedLanguages, setListedLanguages] = useState<React.JSX.Element[]>();
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadMedia = async () => {
+      try {
+        const media = await fetchMedia();
+        setMediaList(media);
+      } catch (error) {
+        setError("Failed to fetch media. Please try again later.");
+        console.error(error);
+      }
+    };
+
+    loadMedia();
+  }, []);
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
     if (query) setQueryNum(parseInt(query));
   }, []);
 
+  function findMediaId(media: any) {
+    return media.id === queryNum;
+  }
   useEffect(() => {
-    if (queryNum != -1) {
-      setCurrentMedia(mediaList[queryNum]);
+    if (queryNum != -1 && mediaList) {
+      const foundMedia = mediaList.find(findMediaId);
+      console.log(foundMedia);
+      setCurrentMedia(foundMedia);
     }
-  }, [queryNum]);
+  }, [queryNum, mediaList]);
 
   useEffect(() => {
     if (currentMedia.requestLanguage) {
       const languageListJsx = currentMedia.requestLanguage.map(
         (media: object, index: number) => {
           let language = Object.keys(media)[0];
-          let formattedLang = langFormat(language)
+          let formattedLang = langFormat(language);
           if (language) {
             return (
               <li key={index}>
@@ -64,7 +80,7 @@ const MediaPage = (props: any) => {
               </li>
             );
           } else {
-            console.log('fail')
+            console.log("fail");
             return <li key={index}>No Available Languages</li>;
           }
         }
@@ -93,22 +109,24 @@ const MediaPage = (props: any) => {
             )}
           </ul>
         </div>
-        <div className="justify-self-center">
+        {/* <div className="justify-self-center">
           <Button
             className="bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
             onClick={() => handlePageChange("/RequestUploadPage")}
           >
             Request a Line to Translate
           </Button>
-        </div>
-        {/* <div className="justify-self-center">
+        </div> */}
+        <div className="justify-self-center">
           <Button
             className="bg-indigo-900 enabled:hover:bg-indigo-950"
-            onClick={() => handlePageChange("/TranslationUploadPage")}
+            onClick={() => handlePageChange(`/TranslationUploadPage?id=${queryNum}`)}
+            // onClick={() => handlePageChange( `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&request=${requestIndex}`)}
+
           >
             Submit a Translation
           </Button>
-        </div> */}
+        </div>
       </div>
 
       {/* <div className="w-[1000px]">
@@ -154,7 +172,6 @@ const MediaPage = (props: any) => {
           <div className="justify-self-end">Report User</div>
         </div>
       </div> */}
-
     </div>
   );
 };

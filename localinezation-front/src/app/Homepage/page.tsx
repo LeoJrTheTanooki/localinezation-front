@@ -32,6 +32,7 @@ const Homepage = () => {
       const loadMedia = async () => {
           try {
               const media = await fetchMedia();  // Attempt to fetch media
+              console.log(media)
               setMediaList(media);               // If successful, update the state with the fetched media
           } catch (error) {
               setError('Failed to fetch media. Please try again later.');  // If an error occurs, set an error message
@@ -59,7 +60,7 @@ const Homepage = () => {
       <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
         <h1 className="text-center font-bold text-gray-700 text-4xl py-7">Translation Requests</h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 pt-0 mb-10 max-w-[1440px] justify-center mx-auto">
+      <div className="flex flex-wrap gap-10 pt-0 mb-10 max-w-[1440px] justify-center mx-auto">
         {mediaList?.map((media: IMedia, mediaIndex: number) => (
           <MediaCard key={mediaIndex} mediaObject={media} index={mediaIndex} />
         ))}

@@ -13,9 +13,6 @@ const MediaCard = (props: IProp) => {
     router.push(route);
   };
 
-  console.log(props);
-  console.log(typeof props);
-
   const mediaObject = props.mediaObject;
 
   return (
@@ -23,7 +20,7 @@ const MediaCard = (props: IProp) => {
       <div
         data-testid="flowbite-card"
         className="h-96 w-80 flex flex-col bg-purple-600 hover:bg-purple-900 text-white text-center rounded-lg border border-gray-200 dark:border-gray-700"
-        onClick={() => handlePageChange(`/MediaPage?id=${props.index}`)}
+        onClick={() => handlePageChange(`/MediaPage?id=${props.mediaObject.id}`)}
       >
         <div className="flex h-fit min-w-80 flex-col justify-center gap-2 p-6">
           <img

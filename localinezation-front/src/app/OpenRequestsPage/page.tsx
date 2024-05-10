@@ -6,6 +6,7 @@ import { Button, Dropdown, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
+import { fetchMedia } from "@/utils/Dataservices";
 
 const OpenRequestsPage = () => {
   const requestsDefault = Array<{
@@ -23,7 +24,7 @@ const OpenRequestsPage = () => {
   // <Array<ILanguageData["openRequests"]>
   const [requestsArray, setRequestsArray] =
     useState<ILanguageData["openRequests"]>(requestsDefault);
-  const [mediaRequests, setMediaRequests] = useState<any>(PageData);
+  const [mediaRequests, setMediaRequests] = useState<any>();
   const [queryNum, setQueryNum] = useState<number>(-1);
   const [langQuery, setLangQuery] = useState<string>("");
   const [requestList, setRequestList] = useState<React.JSX.Element[]>();
@@ -34,6 +35,22 @@ const OpenRequestsPage = () => {
   const [dropdownItems, setDropdownItems] = useState<React.JSX.Element[]>();
   const [yourScoreHover, setYourScoreHover] = useState<any>();
   const [yourScore, setYourScore] = useState<any>();
+  const [error, setError] = useState<string | null>(null);
+
+
+    useEffect(() => {
+      const loadMedia = async () => {
+          try {
+              const media = await fetchMedia();
+              setMediaRequests(media);
+          } catch (error) {
+              setError('Failed to fetch media. Please try again later.');
+              console.error(error);
+          }
+      };
+
+      loadMedia();
+  }, []);
 
   useEffect(() => {
     const idQueryEffect = new URLSearchParams(window.location.search).get("id");

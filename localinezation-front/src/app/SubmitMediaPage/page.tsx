@@ -48,9 +48,8 @@ const SubmitMediaPage = () => {
   }, [title, coverArt, originalLanguage, type, platform]);
 
   return (
-    <div className="grid grid-flow-dense grid-cols-2 border border-red-600">
-      {/* <PopupModal message="lol lmao" isOpen={true} /> */}
-      <form className="max-w-md flex flex-col gap-4 border border-blue-600">
+    <div className="flex justify-evenly flex-wrap gap-y-4 border p-4 select-none">
+      <div className="max-w-md h-fit flex flex-col items-between bg-purple-600 p-6 rounded-lg">
         <div>
           <div className="mb-2">
             <p>
@@ -249,95 +248,20 @@ const SubmitMediaPage = () => {
               <Label htmlFor="requestNo">No</Label>
             </div>
           </div>
-          <Button onClick={() => handlePageChange("/")}>Submit Media</Button>
+          <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={() => {
+            submitMediaItem(submission);
+            handlePageChange("/")
+            }}>Submit Media</button>
         </div>
-      </form>
-
-      {displayRequest ? (
-        <form className="max-w-md flex flex-col gap-4 border border-pink-500">
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="requestName" value="Request*" />
-            </div>
-            <TextInput
-              id="requestName"
-              type="text"
-              required
-              onChange={(e) => {
-                setRequestName(e.target.value);
-              }}
-              value={requestName}
-            />
-            <div className="mb-2 block">
-              <Label
-                htmlFor="languageSelect"
-                value="Language to Translate Into*"
-              />
-            </div>
-            <TextInput
-              id="languageSelect"
-              type="text"
-              required
-              onChange={(e) => {
-                setLanguageSelect(e.target.value);
-              }}
-              value={languageSelect}
-            />
-            <div className="mb-2 block">
-              <Label htmlFor="dialogueRequest" value="Original Dialogue" />
-            </div>
-            <TextInput
-              id="dialogueRequest"
-              type="text"
-              onChange={(e) => {
-                setDialogueRequest(e.target.value);
-              }}
-              value={dialogueRequest}
-            />
-            <div className="mb-2 block">
-              <Label htmlFor="screenshots" value="Screenshots" />
-            </div>
-            <FileInput
-              id="screenshots"
-              multiple
-              accept="image/png, image/jpeg, image/webp"
-              helperText="PNG, JPG or GIF (MAX. ???x???px)."
-            />{" "}
-            <div className="mb-2 block">
-              <Label htmlFor="videoLink" value="Video Link" />
-            </div>
-            <TextInput
-              id="videoLink"
-              type="text"
-              onChange={(e) => {
-                setVideoLink(e.target.value);
-              }}
-              value={videoLink}
-            />
-            <Button
-              onClick={() => {
-                submitMediaItem(submission);
-                handlePageChange("/OpenRequestsPage");
-              }}
-            >
-              Submit Request
-            </Button>
-          </div>
-        </form>
-      ) : (
-        ""
-      )}
-
+      </div>
       <div
-        className={`grid ${
-          displayRequest ? "md:col-span-2" : "col-span-1"
-        } justify-center border border-green-600`}
+        className={`flex ${
+          displayRequest ? "" : ""
+        } justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4`}
       >
-        <div className="grid grid-cols-2 gap-5 py-7 w-max mx-auto">
-          <div className="justify-self-end">
-            <img className="h-80" src={coverArt} alt="" />
-          </div>
-          <div className="font-bold">
+        <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
+            <img className="max-h-80 max-w-64 min-w-48 bg-fuchsia-300 p-4 rounded-lg text-gray-700" src={coverArt} alt=" Image" />
+          <div className=" font-semibold flex gap-4 flex-col">
             <p>Name: {title}</p>
             <p>Type: {type}</p>
             <p>Platform: {platform}</p>
