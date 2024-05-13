@@ -51,21 +51,22 @@ const SubmitMediaPage = () => {
     <div className="flex justify-evenly flex-wrap gap-y-4 border p-4 select-none">
       <div className="max-w-md h-fit flex flex-col items-between bg-purple-600 p-6 rounded-lg">
         <div>
-          <div className="mb-2">
-            <p>
+          <div className="mb-6">
+            <p className="text-white font-semibold">
               Title of Media <span className="text-red-600">*</span>
             </p>
             <TextInput
               id="title"
               type="text"
               required
+              placeholder="Set Title..."
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
             />
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-6 block">
+            <p className="text-white font-semibold">
               Media Type <span className="text-red-600">*</span>
             </p>
             <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
@@ -98,8 +99,8 @@ const SubmitMediaPage = () => {
               </Dropdown>
             </div>
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-6 block">
+            <p className="text-white font-semibold">
               Platforms Media Is On <span className="text-red-600">*</span>
             </p>
             <TextInput
@@ -111,8 +112,8 @@ const SubmitMediaPage = () => {
               }}
             />
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-6 block">
+            <p className="text-white font-semibold">
               Original Language(s) of Media{" "}
               <span className="text-red-600">*</span>
             </p>
@@ -206,21 +207,21 @@ const SubmitMediaPage = () => {
               </Dropdown>
             </div>
           </div>
-          <div className="mb-2 block">
-            <p>
+          <div className="mb-2 block p-2 rounded-lg">
+            <p className="text-white  font-semibold">
               Media Cover Art <span className="text-red-600">*</span>
             </p>
-
             <FileInput
               id="coverArt"
               accept="image/png, image/jpeg, image/webp"
-              helperText="PNG or JPG (MAX. ???x???px)."
+              helperText=""
               onChange={(e) => {
                 if (e.target.files) {
                   setCoverArt(URL.createObjectURL(e.target.files[0]));
                 }
               }}
             />
+            <p className="text-white ">PNG or JPG (MAX. ???x???px).</p>
           </div>
           <div className="mb-2">
             <legend className="mb-2">Would you like to request a line?</legend>
@@ -265,41 +266,33 @@ const SubmitMediaPage = () => {
             <p>Name: {title}</p>
             <p>Type: {type}</p>
             <p>Platform: {platform}</p>
-            <p>
-              Original Language:{" "}
-              {originalLanguage ? langFormat(originalLanguage) : ""}
-            </p>
-            <p>Current Translations</p>
-            <ul>
-              <li>English (US)</li>
-              <li>Spanish (Latin American)</li>
-              <li>French</li>
-            </ul>
+            <p>Original Language: {originalLanguage ? langFormat(originalLanguage) : ''}</p>
+            <p>Current Translations: None</p>
           </div>
-          <div className="justify-self-center">
+        </div>
+        <div>
+        <div className="flex justify-evenly mb-4">
             <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950 justify-self-end"
+              className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
               onClick={() => handlePageChange("/RequestUploadPage")}
             >
               Request a Line to Translate
             </Button>
-          </div>
-          <div className="justify-self-center">
             <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+              className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
               onClick={() => handlePageChange("/TranslationUploadPage")}
             >
               Submit a Translation
             </Button>
-          </div>
+        </div>
         </div>
         <div className="">
-          <div className="bg-purple-600 text-center text-white py-3 font-bold border-black border-b-2">
+          <div className="bg-fuchsia-300 text-center text-gray-700 py-3 font-semibold border-black border">
             Current Translators
           </div>
-          <div className="border-2 border-t-0 border-black grid grid-cols-2">
+          <div className="border border-t-0 border-black flex flex-col flex-wrap p-3 bg-fuchsia-200 text-gray-700">
             <div className="col-span-2">
-              <span className="font-bold italic mr-1">Mango:</span>
+              <span className="font-semibold italic mr-1">Mango:</span>
               <button className="text-blue-600">Opening</button>
               {" | "}
               <button className="text-blue-600 disabled:text-blue-400">
