@@ -41,7 +41,7 @@ const NavbarComponent = () => {
         fluid
         className=" bg-purple-600 text-white border-purple-800 border-t-4"
       >
-        <button className=" self-start">
+        <button className=" self-center">
           <Navbar.Brand onClick={() => handlePageChange("/")}>
             <img
               src="/assets/localinezationLogo.png"
@@ -50,7 +50,7 @@ const NavbarComponent = () => {
             />
           </Navbar.Brand>
         </button>
-        <div className="flex w-full max-w-[550px] gap-5 justify-between">
+        <div className="flex w-full max-w-[550px] gap-5 justify-between items-center ">
           <div className="relative hidden md:block">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
