@@ -9,24 +9,40 @@ import {
   Button,
 } from "flowbite-react";
 import { Permanent_Marker } from "next/font/google";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
-
 const NavbarComponent = () => {
-  useEffect(() => { }, []);
 
+  const [currentUsername, setCurrentUsername] = useState<string | null>("");
+  
   const router = useRouter();
   const handlePageChange = (route: string) => {
     router.push(route);
   };
 
+  const pathname = usePathname();
+
+  useEffect(() => {
+    console.log(`Route changed to: ${pathname}`);
+    if (localStorage.getItem("username") && localStorage.getItem("username") != `""`) {
+      setCurrentUsername(localStorage.getItem("username"));
+    } else {
+      setCurrentUsername('');
+    }
+  }, [pathname]);
+
+
+  
   return (
     <>
-      <Navbar fluid className=" bg-purple-600 text-white border-purple-800 border-t-4">
+      <Navbar
+        fluid
+        className=" bg-purple-600 text-white border-purple-800 border-t-4"
+      >
         <button className=" self-start">
-          <Navbar.Brand onClick={() => handlePageChange("/")} >
+          <Navbar.Brand onClick={() => handlePageChange("/")}>
             <img
               src="/assets/localinezationLogo.png"
               className="mr-3 text-center"
@@ -76,37 +92,51 @@ const NavbarComponent = () => {
               </>
             }
           >
-
             <Dropdown.Item className="gap-2">
               <Avatar img="/assets/americanFlag.png" rounded />
               <span>English (US)</span>
             </Dropdown.Item>
-
           </Dropdown>
 
-          <Button className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white" onClick={() => handlePageChange("/LoginPage")}>
-            Login
+          <Button
+            className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white"
+            onClick={() => {
+              currentUsername ? handlePageChange("/AccountDashboardPage") : handlePageChange("/LoginPage");
+            }}
+          >
+            {currentUsername ? currentUsername : "Login"}
           </Button>
         </div>
       </Navbar>
 
-      <Navbar fluid className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4">
+      <Navbar
+        fluid
+        className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4"
+      >
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/")}>
+          <Navbar.Link
+            className="font-bold"
+            href="#"
+            onClick={() => handlePageChange("/")}
+          >
             Translation Requests
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/SubmitMediaPage")}>
+          <Navbar.Link
+            className="font-bold"
+            href="#"
+            onClick={() => handlePageChange("/SubmitMediaPage")}
+          >
             Submit a Media
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AboutPage")}>
+          <Navbar.Link
+            className="font-bold"
+            href="#"
+            onClick={() => handlePageChange("/AboutPage")}
+          >
             About Us
-          </Navbar.Link>
-          <li className=" hidden md:list-item">-</li>
-          <Navbar.Link className="font-bold" href="#" onClick={() => handlePageChange("/AccountDashboardPage")}>
-            Account
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
