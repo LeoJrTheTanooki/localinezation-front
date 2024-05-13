@@ -26,13 +26,6 @@ const SubmitMediaPage = () => {
   const [platform, setPlatform] = useState<string>("");
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
 
-  // Translation Request Variables
-  const [requestName, setRequestName] = useState<string>("");
-  const [languageSelect, setLanguageSelect] = useState<string>("");
-  const [dialogueRequest, setDialogueRequest] = useState<string>("");
-  const [screenshots, setScreenshots] = useState<Array<any>>([]);
-  const [videoLink, setVideoLink] = useState<string>("");
-
   return (
     <div className="flex flex-col items-center flex-wrap p-4 select-none">
       <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
@@ -246,21 +239,19 @@ const SubmitMediaPage = () => {
               </Button>
             </div>
           </div>
-          <div className="">
+          <div>
             <div className="bg-fuchsia-300 text-center text-gray-700 py-3 font-semibold border-black border">
-              Current Translators
+              Current Translations
             </div>
             <div className="border border-t-0 border-black flex flex-col flex-wrap p-3 bg-fuchsia-200 text-gray-700">
               <div className="col-span-2">
-                <span className="font-semibold italic mr-1">Mango:</span>
+                <span className="font-semibold mr-1">Mango:</span>
                 <button className="text-blue-600">Opening</button>
                 {" | "}
                 <button className="text-blue-600 disabled:text-blue-400">
                   Credits
                 </button>
               </div>
-              <div>User Score:</div>
-              <div className="justify-self-end">Report User</div>
             </div>
           </div>
         </div>

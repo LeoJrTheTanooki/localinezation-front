@@ -36,7 +36,7 @@ const AccountDashboardPage = () => {
           </div>
         </div>
         <div className="flex flex-col">
-        <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <div
               id="loginBG"
               className="bg-purple-600 min-w-80 w-[40%] h-full flex flex-col justify-around items-center text-center rounded-3xl p-12"
@@ -44,7 +44,7 @@ const AccountDashboardPage = () => {
               <div className="flex flex-col">
                 <div className="mb-6">
                   <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                    Change Username
+                    Update Username
                   </label>
 
                   <input
@@ -58,7 +58,7 @@ const AccountDashboardPage = () => {
                 </div>
                 <div className="mb-6">
                   <label className="block mb-2 text-lg text-start font-bold text-white  dark:text-white">
-                    Change Password
+                    Update Password
                   </label>
 
                   <input
@@ -68,7 +68,6 @@ const AccountDashboardPage = () => {
                     type="password"
                     placeholder="New Password..."
                     className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    title="Work in progress"
                   />
                 </div>
                 <br />
@@ -87,10 +86,8 @@ const AccountDashboardPage = () => {
                   Sign Out
                 </button>
               </div>
-              <div></div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>

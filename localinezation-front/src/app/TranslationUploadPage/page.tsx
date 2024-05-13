@@ -37,7 +37,7 @@ const TranslationUploadPage = () => {
           // onChange={handleTags}
           id="dialogueRequest"
           type="text"
-          // placeholder="Enter Tags"
+        // placeholder="Enter Tags"
         />
         <div className="mb-2 block">
           <Label htmlFor="screenshots" value="Screenshots" />
@@ -55,13 +55,13 @@ const TranslationUploadPage = () => {
           // onChange={handleTags}
           id="dialogueRequest"
           type="text"
-          // placeholder="Enter Tags"
+        // placeholder="Enter Tags"
         />
         <Button
         // onClick={() => handlePageChange('/OpenRequestsPage')}
         >Submit Translation</Button>
       </div>
-  </div>
+    </div>
   )
 }
 
