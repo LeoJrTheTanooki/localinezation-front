@@ -1,8 +1,8 @@
-import { IBlogItems, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { IBlogItems, IMedia, IToken, ITranslation, ITranslationRequest, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
  const url = "https://localinazationapi.azurewebsites.net"
-//const url = "http://localhost:5071"
+// const url = "http://localhost:5071"
 
 
 let userData: IUserData
@@ -62,26 +62,39 @@ export const login = async (loginUser: IUserInfo) => {
 //     const data = await res.json();
 //     userData = data;
 // }
-export const getLoggedInUserData = async (username: string) => {
+// export const getLoggedInUserData = async (username: string) => {
+//     try {
+//       const res = await fetch(`${url}/User/GetUserByUsername/${username}`); // Use template literals to embed variable
+//       if (!res.ok) {
+//         throw new Error(`Failed to fetch user data: ${res.status}`);
+//       }
+//       const data = await res.json();
+//       userData = data;
+//       console.log("(Dataservice.ts:75); Received data:", data);
+//       console.log("(Dataservice.ts:75); Received data:", data.publisherName);
+//     } catch (error) {
+//       console.error("Error fetching user data:", error);
+//     }
+// };
+
+export const getLoggedInUserData = async () => {
+    const username = localStorage.getItem("username");
+    if (!username){
+            console.error("Username is not available in localStorage.");
+            return;
+    }
     try {
-        const res = await fetch(url + '/User/GetUserByUsername/' + username);
-        if (!res.ok) {
+        const res = await fetch(`${url}/User/GetUserByUsername/${username}`); 
+        if (!res.ok){
             throw new Error(`Failed to fetch user data: ${res.status}`);
         }
-        const data = await res.json();
+        const data =await res.json();
         userData = data;
-
-        // Log the response data to the console
-        console.log("(Dataservice.ts:75); Received data:", data);
-        //json example response:
-        //{
-        // "userId": 1,
-        //  "publisherName": "Test1"
-        //}
-    } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.log("(dataservice.ts:75); Received data: ", data);
+    } catch (error){
+        console.error("Error fetching user data: ", error);
     }
-}
+};
 
 export const loggedinData = () => {
     return userData;
@@ -97,4 +110,73 @@ export const checkToken = () => {
         result = true
     }
     return result
+}
+
+// ---------------------------------05/02/2024----------------------------------------------------------
+// the following section is for the Media Translation Items
+
+//Dashboard fetches ashur 05/06/2024 
+export const getMediaItemsByUserId = async (userId: number) => {
+    const res = await fetch(url + '/Media/GetItemsByUserId/' +  userId);
+    const data = await res.json();
+    console.log("line 109: " + data)
+    return data;
+}
+
+
+// Fetch all media from the backend
+export const fetchMedia = async (): Promise<IMedia[]> => {
+    const response = await fetch(url + "/Media/GetAllMediaItems");
+    if (!response.ok) {
+        throw new Error('Failed to fetch media');
+    }
+    return await response.json(); //Returns a list of media
+}
+
+//Post a new translation request for a specific media
+export const postTranslationRequest = async (mediaId: number, request: ITranslationRequest): Promise<ITranslationRequest> => {
+    const response = await fetch(`${url}/media/${mediaId}/translation-requests`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request) //convert the request object to json string
+    });
+    if (!response.ok) {
+        throw new Error('Failed to post translation request');
+    }
+    return await response.json(); //return the newly created translatoon request
+};
+
+// submit a new translation for a specific translation request
+export const submitTranslation = async (requestId: number, translation: ITranslation): Promise<ITranslation> => {
+    const response = await fetch(`${url}/translation-requests/${requestId}/translations`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(translation) //convert the translation object to json string
+    });
+    if (!response.ok) {
+        throw new Error('Failed to submit translation');
+    }
+    return await response.json(); //Returns the newly submitted translation
+}
+
+// -------------------------------------5/9/2024---------------------------------------
+// Head out of clouds this time (hopefully)
+
+export const submitMediaItem = async (Media: IMedia) => {
+    const response = await fetch (`${url}/Media/AddMediaItem`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(Media)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to submit media');
+    }
+    return await response.json(); 
 }
