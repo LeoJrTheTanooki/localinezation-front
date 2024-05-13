@@ -5,13 +5,13 @@ import React from "react";
 const AboutPage = () => {
 
     return (
-        <div className="flex flex-col h-fit justify-center items-center my-10">
+        <div className="flex flex-col h-fit justify-center items-center py-10 bg-purple-200">
             <div id="pageHeader" className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border border-black">
                 <h1 className="text-center font-bold text-gray-700 text-4xl py-7">About Us</h1>
             </div>
 
-            <div className="bg-purple-600 rounded-lg text-gray-200 font-semibold py-8 max-w-[1440px] w-fit flex flex-col gap-y-6">
-                <div className="flex flex-col items-center">
+            <div className=" bg-purple-600 rounded-lg text-gray-200 font-semibold py-8 max-w-[1440px] w-fit flex flex-col gap-y-6">
+                <div className="flex flex-col items-center  p-4 rounded-xl">
                     <div className="bg-fuchsia-300 text-3xl h-fit w-3/4 min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
                         <p>What is LocaLINEzation?</p>
                     </div>
