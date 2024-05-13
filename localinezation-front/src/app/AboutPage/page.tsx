@@ -5,7 +5,7 @@ import React from "react";
 const AboutPage = () => {
 
     return (
-        <div className="flex flex-col h-fit justify-center items-center py-10 bg-purple-200">
+        <div className="flex flex-col h-fit justify-center items-center py-10">
             <div id="pageHeader" className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border border-black">
                 <h1 className="text-center font-bold text-gray-700 text-4xl py-7">About Us</h1>
             </div>
