@@ -42,7 +42,7 @@ const NavbarComponent = () => {
         className=" bg-purple-600 text-white border-purple-800 border-t-4"
       >
         <button className=" self-center">
-          <Navbar.Brand onClick={() => handlePageChange("/")}>
+          <Navbar.Brand onClick={() => handlePageChange("/TranslationsPage")}>
             <img
               src="/assets/localinezationLogo.png"
               className="mr-3 text-center"
@@ -118,7 +118,7 @@ const NavbarComponent = () => {
           <Navbar.Link
             className="font-bold"
             href="#"
-            onClick={() => handlePageChange("/")}
+            onClick={() => handlePageChange("/TranslationsPage")}
           >
             Translation Requests
           </Navbar.Link>

@@ -206,7 +206,7 @@ const SubmitMediaPage = () => {
               />
               <p className="text-white ">PNG or JPG (MAX. ???x???px).</p>
             </div>
-            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={() => handlePageChange("/")}>Submit Media</button>
+            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={() => submitMediaItem()}>Submit Media</button>
           </div>
         </form>
         <div
@@ -227,13 +227,11 @@ const SubmitMediaPage = () => {
             <div className="flex justify-evenly mb-4">
               <Button
                 className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
-                onClick={() => handlePageChange("/RequestUploadPage")}
               >
                 Request a Line to Translate
               </Button>
               <Button
                 className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
-                onClick={() => handlePageChange("/TranslationUploadPage")}
               >
                 Submit a Translation
               </Button>
