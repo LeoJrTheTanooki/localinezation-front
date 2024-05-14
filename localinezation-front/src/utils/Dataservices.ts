@@ -180,3 +180,39 @@ export const submitMediaItem = async (Media: IMedia) => {
     }
     return await response.json(); 
 }
+
+export const updateAccount = async (updatedUser: IUserInfo) => {
+    //we're using this fetch to make a POST Requst
+    //We have to set the method to POST
+    //we set the content type to application/ json to specifiy our json data format
+
+    console.log('function pass')
+
+    const res = await fetch(url + '/User/UpdateCredentials', {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(updatedUser)
+    });
+    //we need to check if our post was succesful
+
+    if(!res.ok){
+        const message = "An error has occured " + res.status;
+        throw new Error(message);
+    } else if(res.ok) {
+        console.log('res pass')
+    } else {
+        console.log('???')
+    }
+
+    // const data = await res.json();
+    
+    // if (data == true) {
+    //     console.log("you have succesfully created an account");
+    // } else {
+    //     console.log("this account already exist");
+    // }
+    // return data; 
+    
+}
