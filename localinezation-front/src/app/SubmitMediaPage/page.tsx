@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { getLoggedInUserData, loggedinData, submitMediaItem } from "@/utils/Dataservices";
+import { getLoggedInUserData, submitMediaItem } from "@/utils/Dataservices";
+import { IUserData } from "@/Interfaces/Interfaces";
 
 const SubmitMediaPage = () => {
   const router = useRouter();
@@ -28,15 +29,30 @@ const SubmitMediaPage = () => {
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
   const [submission, setSubmission] = useState<any>();
 
+    const getUserInfo = async () =>{
+      const prom = await getLoggedInUserData();
+      const userData:IUserData = await prom.json();
+      return userData;
+    }
+
+    useEffect(()=>{
+      const userData = getUserInfo();
+      console.log(userData)
+    }, [])
+
+    
+
+
   useEffect(() => {
     let submitEffect = {
+      userID: userData, 
       title: title,
       coverArt: coverArt,
       originalLanguage: originalLanguage,
       type: type,
       platform: platform,
     };
-    //setSubmission(submitEffect);
+    setSubmission(submitEffect);
   }, [title, coverArt, originalLanguage, type, platform]);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -70,7 +86,6 @@ const SubmitMediaPage = () => {
       //console.log(reader.result);
   }
   reader.readAsDataURL(file);
-  console.log(getLoggedInUserData())
   }
 
   return (
@@ -246,7 +261,7 @@ const SubmitMediaPage = () => {
                 required
                 onChange={handleImage}
               />
-              <p className="text-white ">PNG or JPG (MAX. ???x???px).</p>
+              <p className="text-white ">PNG or JPG (MAX. 5mb).</p>
             </div>
             <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={()=> {submitMediaItem(submission), handlePageChange("/TranslationsPage")}}>Submit Media</button>
           </div>

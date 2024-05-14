@@ -88,17 +88,13 @@ export const getLoggedInUserData = async () => {
         if (!res.ok){
             throw new Error(`Failed to fetch user data: ${res.status}`);
         }
-        const data =await res.json();
-        userData = data;
+        const data = await res.json();
         console.log("(dataservice.ts:75); Received data: ", data);
+        return data;
     } catch (error){
         console.error("Error fetching user data: ", error);
     }
 };
-
-export const loggedinData = () => {
-    return userData;
-}
 
 //This function helps to see if our user is logged in
 export const checkToken = () => {
