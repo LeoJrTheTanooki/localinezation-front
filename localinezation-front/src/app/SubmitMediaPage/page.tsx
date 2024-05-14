@@ -1,18 +1,15 @@
 "use client";
 import {
-  Label,
   TextInput,
   FileInput,
   Button,
-  Radio,
   Dropdown,
 } from "flowbite-react";
 import { useRouter } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { getLoggedInUserData, submitMediaItem } from "@/utils/Dataservices";
-import { IUserData } from "@/Interfaces/Interfaces";
+import { submitMediaItem } from "@/utils/Dataservices";
 
 const SubmitMediaPage = () => {
   const router = useRouter();
@@ -29,23 +26,8 @@ const SubmitMediaPage = () => {
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
   const [submission, setSubmission] = useState<any>();
 
-    const getUserInfo = async () =>{
-      const prom = await getLoggedInUserData();
-      const userData:IUserData = await prom.json();
-      return userData;
-    }
-
-    useEffect(()=>{
-      const userData = getUserInfo();
-      console.log(userData)
-    }, [])
-
-    
-
-
   useEffect(() => {
     let submitEffect = {
-      userID: userData, 
       title: title,
       coverArt: coverArt,
       originalLanguage: originalLanguage,
@@ -55,6 +37,8 @@ const SubmitMediaPage = () => {
     setSubmission(submitEffect);
   }, [title, coverArt, originalLanguage, type, platform]);
 
+
+  //Thank you Sinatha and Halley from MangaDiction for letting me use this function for out image reader
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) =>{
     const file = e.target.files?.[0];
     
@@ -83,7 +67,6 @@ const SubmitMediaPage = () => {
   let reader = new FileReader();
   reader.onload = () => {
       setCoverArt(reader.result as string);
-      //console.log(reader.result);
   }
   reader.readAsDataURL(file);
   }
