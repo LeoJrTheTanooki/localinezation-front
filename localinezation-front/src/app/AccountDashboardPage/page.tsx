@@ -144,7 +144,13 @@ const AccountDashboardPage = () => {
                     if (newLogin) {
                       console.log('pass newLogin check')
                       updateAccount(newLogin);
-                      handlePageChange('/AccountDashboardPage')
+                      alert('User Info Successfully Changed')
+                      setCurrentUsername(newUsername)
+                      // handlePageChange('/AccountDashboardPage')
+                    } else if (!newUsername){
+                      alert('Please input a username')
+                    } else if (!newPassword){
+                      alert('Please input a password')
                     }
                   }}
                   className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold enabled:hover:bg-fuchsia-400 disabled:bg-fuchsia-100 disabled:text-gray-500"
