@@ -99,6 +99,7 @@ const NavbarComponent = () => {
             </Dropdown>
             <Button
               className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white"
+              id="accountBtn"
               onClick={() => {
                 currentUsername ? handlePageChange("/AccountDashboardPage") : handlePageChange("/LoginPage");
               }}

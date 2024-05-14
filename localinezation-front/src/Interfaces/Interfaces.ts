@@ -120,3 +120,7 @@ export interface ITranslation {
   isGuest: boolean;  // Indicates if the translator was a guest user
   translatedText: string;  // The actual translated text
 }
+
+export interface IRequestTranslation {
+  
+}

@@ -146,7 +146,8 @@ const AccountDashboardPage = () => {
                       updateAccount(newLogin);
                       alert('User Info Successfully Changed')
                       setCurrentUsername(newUsername)
-                      // handlePageChange('/AccountDashboardPage')
+                      localStorage.setItem("username", newUsername)
+                      // handlePageChange('/Homepage')
                     } else if (!newUsername){
                       alert('Please input a username')
                     } else if (!newPassword){

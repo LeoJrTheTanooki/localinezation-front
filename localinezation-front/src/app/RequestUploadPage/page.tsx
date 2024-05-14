@@ -2,8 +2,14 @@
 
 import { Label, FileInput, TextInput, Button, Dropdown } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
+import {
+  checkToken,
+  getLoggedInUserData,
+  loggedinData,
+  submitTranslation,
+} from "@/utils/Dataservices";
 
 const RequestUploadPage = () => {
   const router = useRouter();
@@ -16,6 +22,93 @@ const RequestUploadPage = () => {
   const [dialogueRequest, setDialogueRequest] = useState<string>("");
   const [screenshots, setScreenshots] = useState<Array<any>>([]);
   const [videoLink, setVideoLink] = useState<string>("");
+  const [queryNum, setQueryNum] = useState<number>(-1);
+  const [requestObj, setRequestObj] = useState<any>();
+  const [mediaUserId, setMediaUserId] = useState<number>(-1);
+
+  const getLoggedInData = async () => {
+    if (checkToken()) {
+      const userData = loggedinData(); // This should retrieve the stored user data
+      await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
+      if (userData) {
+        console.log(userData);
+        // let userMediaItems: IMediaItems[] = await getMediaItemsByUserId(
+        //   userData.userId
+        // );
+        // let filteredMediaItems = userMediaItems.filter(
+        //   (item) => item.isDeleted === false
+        // );
+        setMediaUserId(userData.userId);
+        // setPublisherName(userData.publisherName);
+        // setMediaItems(filteredMediaItems);
+      } else {
+        console.log("User data is not available.");
+      }
+    } else {
+      // router.push("/LoginPage");
+    }
+  };
+
+  useEffect(() => {
+    const lol = async () => {
+      if (checkToken()) {
+        await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
+        const userData = loggedinData(); // This should retrieve the stored user data
+        console.log(userData);
+        if (userData) {
+          setMediaUserId(userData.userId);
+        } else {
+          console.log("User data is not available.");
+        }
+      }
+    };
+    lol()
+  }, []);
+
+  // useEffect(() => {
+  //   const init = async () => {
+  //     if (localStorage.getItem("username")) {
+  //       // setCurrentUsername(localStorage.getItem("username"));
+  //       await getLoggedInData(); // This function needs to be defined outside useEffect or here within it
+  //     } else {
+  //       // setCurrentUsername(null);
+  //       // router.push("/LoginPage");
+  //     }
+  //   };
+  //   init();
+  // }, [router]);
+
+/* 
+https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
+{
+  "requestorUserId": 15,
+  "mediaId": 1,
+  "requestName": "qwertyuiop",
+  "requestLanguage": "englishUsa",
+  "requestDialogue": "qwertyuiop"
+}
+*/
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search).get("id");
+    if (query) setQueryNum(parseInt(query));
+  }, []);
+
+  useEffect(() => {
+    if (requestName && languageSelect) {
+      let requestEffect = {
+        requestorUserId: mediaUserId,
+        mediaId: queryNum,
+        requestName: requestName,
+        requestLanguage: languageSelect,
+        requestDialogue: dialogueRequest,
+        // screenshots: screenshots,
+        // "videoLink": videoLink,
+      };
+      setRequestObj(requestEffect);
+      console.log(requestEffect);
+    }
+  }, [requestName, languageSelect, dialogueRequest, videoLink]);
 
   return (
     <>
@@ -98,7 +191,12 @@ const RequestUploadPage = () => {
                 value={videoLink}
               />
             </div>
-            <Button onClick={() => handlePageChange("/OpenRequestsPage")}>
+            <Button
+              onClick={() => {
+                submitTranslation(requestObj);
+                handlePageChange(`/MediaPage?id=${queryNum}`);
+              }}
+            >
               Submit Request
             </Button>
           </div>

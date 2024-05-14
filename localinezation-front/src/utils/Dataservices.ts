@@ -91,6 +91,7 @@ export const getLoggedInUserData = async () => {
         const data =await res.json();
         userData = data;
         console.log("(dataservice.ts:75); Received data: ", data);
+        return data
     } catch (error){
         console.error("Error fetching user data: ", error);
     }
@@ -149,23 +150,25 @@ export const postTranslationRequest = async (mediaId: number, request: ITranslat
 };
 
 // submit a new translation for a specific translation request
-export const submitTranslation = async (requestId: number, translation: ITranslation): Promise<ITranslation> => {
-    const response = await fetch(`${url}/translation-requests/${requestId}/translations`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(translation) //convert the translation object to json string
-    });
-    if (!response.ok) {
-        throw new Error('Failed to submit translation');
-    }
-    return await response.json(); //Returns the newly submitted translation
-}
+// SIDE NOTE: DEPRECATED
+// export const submitTranslation = async (requestId: number, translation: ITranslation): Promise<ITranslation> => {
+//     const response = await fetch(`${url}/translation-requests/${requestId}/translations`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(translation) //convert the translation object to json string
+//     });
+//     if (!response.ok) {
+//         throw new Error('Failed to submit translation');
+//     }
+//     return await response.json(); //Returns the newly submitted translation
+// }
 
 // -------------------------------------5/9/2024---------------------------------------
 // Head out of clouds this time (hopefully)
 
+// Submit a media
 export const submitMediaItem = async (Media: IMedia) => {
     const response = await fetch (`${url}/Media/AddMediaItem`, {
         method: 'POST',
@@ -181,6 +184,7 @@ export const submitMediaItem = async (Media: IMedia) => {
     return await response.json(); 
 }
 
+// Update account
 export const updateAccount = async (updatedUser: IUserInfo) => {
     //we're using this fetch to make a POST Requst
     //We have to set the method to POST
@@ -205,14 +209,26 @@ export const updateAccount = async (updatedUser: IUserInfo) => {
     } else {
         console.log('???')
     }
+}
 
-    // const data = await res.json();
-    
-    // if (data == true) {
-    //     console.log("you have succesfully created an account");
-    // } else {
-    //     console.log("this account already exist");
-    // }
-    // return data; 
-    
+// Fetch translations
+export const fetchTranslations = async (mediaId: number) => {
+    const res = await fetch(url + '/Media/GetTranslationRequestsByMediaId/' +  mediaId);
+    const data = await res.json();
+    return data;
+}
+
+export const submitTranslation = async (request: any) => {
+    const response = await fetch (`${url}/Media/AddTranslationRequest`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to submit translation request');
+    }
+    return await response.json(); 
 }
