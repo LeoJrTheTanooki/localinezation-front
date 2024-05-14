@@ -9,7 +9,7 @@ import {
 } from "flowbite-react";
 import { useRouter } from "next/navigation";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
 import { getLoggedInUserData, loggedinData } from "@/utils/Dataservices";
 
@@ -27,16 +27,16 @@ const SubmitMediaPage = () => {
   const [platform, setPlatform] = useState<string>("");
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
 
-  const handleSubmit = () => {
-    let mediaData = {
-      //userID: localStorage.getItem(),  
-      title: title,  
-      coverArt: coverArt,  
-      originalLanguage: originalLanguage,  
-      type: type, 
-      platform: platform
-    }
-  }
+  useEffect(() => {
+    let submitEffect = {
+      title: title,
+      coverArt: coverArt,
+      originalLanguage: originalLanguage,
+      type: type,
+      platform: platform,
+    };
+    //setSubmission(submitEffect);
+  }, [title, coverArt, originalLanguage, type, platform]);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) =>{
     const file = e.target.files?.[0];
