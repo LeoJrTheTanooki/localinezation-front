@@ -26,6 +26,7 @@ const SubmitMediaPage = () => {
   const [type, setType] = useState<string>("");
   const [platform, setPlatform] = useState<string>("");
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
+  const [submission, setSubmission] = useState<any>();
 
   useEffect(() => {
     let submitEffect = {
