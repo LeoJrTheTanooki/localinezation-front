@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
+import { getLoggedInUserData, loggedinData } from "@/utils/Dataservices";
 
 const SubmitMediaPage = () => {
   const router = useRouter();
@@ -25,6 +26,51 @@ const SubmitMediaPage = () => {
   const [type, setType] = useState<string>("");
   const [platform, setPlatform] = useState<string>("");
   const [displayRequest, setDisplayRequest] = useState<boolean>(false);
+
+  const handleSubmit = () => {
+    let mediaData = {
+      //userID: localStorage.getItem(),  
+      title: title,  
+      coverArt: coverArt,  
+      originalLanguage: originalLanguage,  
+      type: type, 
+      platform: platform
+    }
+  }
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const file = e.target.files?.[0];
+    
+     // Check if a file is selected
+     if (!file) {
+      alert("Please select a file.");
+      return;
+  }
+
+  // Check file size (limit to 5MB)
+  const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSizeInBytes) {
+      alert("File size exceeds the limit. Please choose a smaller file.");
+      e.target.value = ''; // Clear the input value
+      return;
+  }
+
+  // Check file type (accept only PNG and JPEG)
+  const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
+  if (!acceptedTypes.includes(file.type)) {
+      alert("Please select a PNG or JPEG file.");
+      e.target.value = ''; // Clear the input value
+      return;
+  }
+
+  let reader = new FileReader();
+  reader.onload = () => {
+      setCoverArt(reader.result as string);
+      //console.log(reader.result);
+  }
+  reader.readAsDataURL(file);
+  console.log(getLoggedInUserData())
+  }
 
   return (
     <div className="flex flex-col items-center flex-wrap p-4 select-none">
@@ -104,9 +150,7 @@ const SubmitMediaPage = () => {
                 <Dropdown
                   id="type"
                   label={
-                    originalLanguage
-                      ? langFormat(originalLanguage)
-                      : "Select Language"
+                    originalLanguage ? langFormat(originalLanguage) : "Select Language"
                   }
                   inline
                 >
@@ -198,15 +242,12 @@ const SubmitMediaPage = () => {
                 id="coverArt"
                 accept="image/png, image/jpeg, image/webp"
                 helperText=""
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setCoverArt(URL.createObjectURL(e.target.files[0]));
-                  }
-                }}
+                required
+                onChange={handleImage}
               />
               <p className="text-white ">PNG or JPG (MAX. ???x???px).</p>
             </div>
-            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={() => submitMediaItem()}>Submit Media</button>
+            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400">Submit Media</button>
           </div>
         </form>
         <div
