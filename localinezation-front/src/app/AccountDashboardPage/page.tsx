@@ -5,8 +5,6 @@ import {
   checkToken,
   getLoggedInUserData,
   getMediaItemsByUserId,
-  loggedinData,
-  login,
   updateAccount,
 } from "@/utils/Dataservices";
 import { useRouter } from "next/navigation";
@@ -45,8 +43,7 @@ const AccountDashboardPage = () => {
 
   const getLoggedInData = async () => {
     if (checkToken()) {
-      const userData = loggedinData(); // This should retrieve the stored user data
-      await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
+      const userData = await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
       if (userData) {
         console.log(userData);
         let userMediaItems: IMediaItems[] = await getMediaItemsByUserId(

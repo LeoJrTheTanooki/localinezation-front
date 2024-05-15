@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "flowbite-react";
-import PageData from "@/utils/PageData.json";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
@@ -134,12 +133,11 @@ const MediaPage = (props: any) => {
     }
   }, [currentMedia]);
 
-
-
+  
   return (
    
     <div
-      className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4`}
+      className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 max-w-2xlu mx-auto mt-12`}
     >
       <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
         <img
@@ -164,18 +162,18 @@ const MediaPage = (props: any) => {
       </div>
       <div>
         <div className="flex justify-evenly mb-4">
-          <Button
-            className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
+          <button
+            className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2 p-3"
             onClick={() => handlePageChange(`/RequestUploadPage?id=${queryNum}`)}
           >
             Request a Line to Translate
-          </Button>
-          <Button
-            className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
+          </button>
+          <button
+            className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2 p-3"
             onClick={() => handlePageChange("/TranslationUploadPage")}
           >
             Submit a Translation
-          </Button>
+          </button>
         </div>
       </div>
       <div className="">
