@@ -8,10 +8,7 @@ import {
 import { useRouter } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
-import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { submitMediaItem } from "@/utils/Dataservices";
-import PopupModal from "../components/PopupModal";
 import { submitMediaItem } from "@/utils/Dataservices";
 
 const SubmitMediaPage = () => {
