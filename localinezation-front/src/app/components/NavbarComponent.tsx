@@ -11,9 +11,14 @@ import {
 import { Permanent_Marker } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
 const NavbarComponent = () => {
+
+  const [currentUsername, setCurrentUsername] = useState<string | null>("");
+  
 
   const [currentUsername, setCurrentUsername] = useState<string | null>("");
   
@@ -113,6 +118,10 @@ const NavbarComponent = () => {
         fluid
         className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4"
       >
+      <Navbar
+        fluid
+        className="bg-fuchsia-300 text-sm border-fuchsia-400 border-b-4"
+      >
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Navbar.Link
@@ -128,9 +137,19 @@ const NavbarComponent = () => {
             href="#"
             onClick={() => handlePageChange("/SubmitMediaPage")}
           >
+          <Navbar.Link
+            className="font-bold"
+            href="#"
+            onClick={() => handlePageChange("/SubmitMediaPage")}
+          >
             Submit a Media
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
+          <Navbar.Link
+            className="font-bold"
+            href="#"
+            onClick={() => handlePageChange("/AboutPage")}
+          >
           <Navbar.Link
             className="font-bold"
             href="#"

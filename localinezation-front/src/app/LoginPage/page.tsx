@@ -2,11 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import {
-  createAccount,
-  getLoggedInUserData,
-  login,
-} from "@/utils/Dataservices";
+import { createAccount, getLoggedInUserData, login} from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 
 interface ModalProps {
@@ -98,15 +94,15 @@ const LoginPage = () => {
         setModalMessage("An error occurred while creating the account.");
         setIsModalOpen(true);
       }
-    } else {
+    }  else {
       try {
-        //Login logic in here
+        // Login logic in here
         let token: IToken = await login(userData);
-        //Check to see if logged in
-        if (token.token != null) {
+        // Check to see if logged in
+        if (token && token.token) {
           localStorage.setItem("Token", token.token);
-          localStorage.setItem("username", username);
-          getLoggedInUserData();
+          localStorage.setItem("username", username); // Ensuring username is correctly set
+          await getLoggedInUserData(); // no 'username' parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
           router.push("/AccountDashboardPage");
           console.log(token);
         } else {
@@ -119,10 +115,9 @@ const LoginPage = () => {
         setIsModalOpen(true);
         setModalMessage("Incorrect username or password. Please try again.");
         setSwitchBool(false);
-
       }
     }
-  };
+};
 
   const [loginSwitchBool, setLoginSwitchBool] = useState<boolean>(true);
   const router = useRouter();

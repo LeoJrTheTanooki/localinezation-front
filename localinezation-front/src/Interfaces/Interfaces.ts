@@ -37,6 +37,7 @@ export interface IUserData {
   publisherName: string;
 }
 // --------------------------------------------------
+// --------------------------------------------------
 
 export interface IMediaData {
   title: string;
@@ -57,6 +58,19 @@ export interface IMediaData {
     swedish?: Array<ILanguageData>;
     irish?: Array<ILanguageData>;
   }>;
+}
+
+export interface IMediaItems {
+  id: number;  // Unique identifier for the media
+  userID: number;  // ID of the user who owns or uploaded the media
+  title: string;  // Title of the media
+  coverArt: string;  // URL or path to the media's cover art image
+  originalLanguage: string;  // The original language of the media
+  type?: string;  // Type of the media, e.g., "TV Show/Movie", "Video Game", optional
+  platform?: string;  // Platform where the media is published, optional (YouTube, TV...)
+  translationRequests: string,// Translation requests e.g. input field "Need translations for Spanish, French",
+  isPublished: boolean;
+  isDeleted: boolean;
 }
 
 export interface IMediaItems {
@@ -119,4 +133,40 @@ export interface ITranslation {
   translatorUserName: string;  // Username of the user who submitted the translation
   isGuest: boolean;  // Indicates if the translator was a guest user
   translatedText: string;  // The actual translated text
+}
+
+// -----------------------------------------------------------------------------
+// Modifications for the last two interfaces above by Ashur
+// Defines the structure of a media object.
+export interface IMedia {
+  id: number;  // Unique identifier for the media
+  userID: number;  // ID of the user who owns or uploaded the media
+  title: string;  // Title of the media
+  coverArt: string;  // URL or path to the media's cover art image
+  originalLanguage: string;  // The original language of the media
+  type?: string;  // Type of the media, e.g., "movie", "book", optional
+  platform?: string;  // Platform where the media is published, optional
+  translationRequests?: ITranslationRequest[];  // Array of translation requests
+}
+
+// Represents a request to translate the media into a different language.
+export interface ITranslationRequest {
+//optional id?: might not be present, especially during the creation of a new translation request, where the backend typically generates an id
+  id?: number;  //(Translation request ID) Unique identifier for the translation request also Making 'id' optional
+  mediaId: number;  // ID of the media this translation request is for
+  requestLanguage: string;  // The language to which the translation is requested
+  translations?: ITranslation[];  // Submitted translations for this request
+}
+
+// Details about a specific translation submitted by a user.
+export interface ITranslation {
+  id: number;  // Unique identifier for the translation
+  translationRequestId: number;  // ID of the translation request this translation belongs to
+  translatorUserName: string;  // Username of the user who submitted the translation
+  isGuest: boolean;  // Indicates if the translator was a guest user
+  translatedText: string;  // The actual translated text
+}
+
+export interface IRequestTranslation {
+  
 }

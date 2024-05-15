@@ -146,23 +146,25 @@ export const postTranslationRequest = async (mediaId: number, request: ITranslat
 };
 
 // submit a new translation for a specific translation request
-export const submitTranslation = async (requestId: number, translation: ITranslation): Promise<ITranslation> => {
-    const response = await fetch(`${url}/translation-requests/${requestId}/translations`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(translation) //convert the translation object to json string
-    });
-    if (!response.ok) {
-        throw new Error('Failed to submit translation');
-    }
-    return await response.json(); //Returns the newly submitted translation
-}
+// SIDE NOTE: DEPRECATED
+// export const submitTranslation = async (requestId: number, translation: ITranslation): Promise<ITranslation> => {
+//     const response = await fetch(`${url}/translation-requests/${requestId}/translations`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(translation) //convert the translation object to json string
+//     });
+//     if (!response.ok) {
+//         throw new Error('Failed to submit translation');
+//     }
+//     return await response.json(); //Returns the newly submitted translation
+// }
 
 // -------------------------------------5/9/2024---------------------------------------
 // Head out of clouds this time (hopefully)
 
+// Submit a media
 export const submitMediaItem = async (Media: IMedia) => {
     const response = await fetch (`${url}/Media/AddMediaItem`, {
         method: 'POST',
@@ -174,6 +176,55 @@ export const submitMediaItem = async (Media: IMedia) => {
 
     if (!response.ok) {
         throw new Error('Failed to submit media');
+    }
+    return await response.json(); 
+}
+
+// Update account
+export const updateAccount = async (updatedUser: IUserInfo) => {
+    //we're using this fetch to make a POST Requst
+    //We have to set the method to POST
+    //we set the content type to application/ json to specifiy our json data format
+
+    console.log('function pass')
+
+    const res = await fetch(url + '/User/UpdateCredentials', {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(updatedUser)
+    });
+    //we need to check if our post was succesful
+
+    if(!res.ok){
+        const message = "An error has occured " + res.status;
+        throw new Error(message);
+    } else if(res.ok) {
+        console.log('res pass')
+    } else {
+        console.log('???')
+    }
+}
+
+// Fetch translations
+export const fetchTranslations = async (mediaId: number) => {
+    const res = await fetch(url + '/Media/GetTranslationRequestsByMediaId/' +  mediaId);
+    const data = await res.json();
+    return data;
+}
+
+export const submitTranslation = async (request: any) => {
+    const response = await fetch (`${url}/Media/AddTranslationRequest`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to submit translation request');
     }
     return await response.json(); 
 }

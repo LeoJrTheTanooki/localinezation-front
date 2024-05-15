@@ -24,8 +24,32 @@
                     "translatorUserName": "G0dU50pp_800",
                     "isGuest": false,
                     "translatedDialogue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
-                    "userScores": [5, 4, 5, 5, 3, 4]
-                  }
+                    "userScores": [
+                      {
+                        "userId": 3,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 5,
+                        "userScore": 4
+                      },
+                      {
+                        "userId": 6,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 1,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 30,
+                        "userScore": 3
+                      },
+                      {
+                        "userId": 18,
+                        "userScore": 4
+                      }
+                    ]                  }
                 ]
               },
               {
@@ -68,7 +92,50 @@
         ]
       },
       {
-        "spanishLatAm": []
+        "spanishLatAm": [
+          {
+            "openRequests": [
+              {
+                "requestName": "Introducción",
+                "requestDialogue": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
+                "requestReferences": [],
+                "submittedTranslations": [
+                  {
+                    "translatorUserName": "G0dU50pp_800",
+                    "isGuest": false,
+                    "translatedDialogue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin massa non imperdiet suscipit. Vivamus ex urna, egestas sit amet mattis et, vestibulum eget metus. Quisque finibus rutrum venenatis. Cras et tempus lacus. Nulla quis enim at est cursus tempor ac non sapien. Phasellus elit lectus, vehicula eget arcu sed, consectetur vulputate metus. Aliquam erat volutpat. Proin molestie dui at dolor pulvinar pellentesque. Cras aliquam justo nec dui tristique egestas.",
+                    "userScores": [
+                      {
+                        "userId": 3,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 5,
+                        "userScore": 4
+                      },
+                      {
+                        "userId": 6,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 1,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 30,
+                        "userScore": 3
+                      },
+                      {
+                        "userId": 18,
+                        "userScore": 4
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -92,7 +159,7 @@
                     "translatorUserName": "",
                     "isGuest": true,
                     "translatedDialogue": "",
-                    "userScores": [0]
+                    "userScores": []
                   }
                 ]
               }
@@ -124,7 +191,32 @@
                     "translatorUserName": "चाववालाचैम्पियन",
                     "isGuest": false,
                     "translatedDialogue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo  ullamcorper nibh, sed efficitur nunc volutpat et. In ut venenatis  tellus. Integer mattis, nisl ac elementum pulvinar, nisl sem hendrerit  mi, sed gravida orci magna semper leo. Proin vehicula tempus rutrum.  Proin viverra et dolor vel tempus. Integer tristique ligula nec placerat  fringilla. Aliquam erat volutpat. Proin ut lorem fringilla, interdum  urna non, faucibus magna. Aliquam erat volutpat. Nunc volutpat congue gravida. Nullam posuere odio  fringilla, vehicula risus ut, feugiat lectus. Nulla luctus purus non  risus viverra tristique. Morbi tortor est, bibendum quis condimentum sit  amet, iaculis sit amet magna. Proin fringilla id eros in fermentum. Ut  tincidunt ligula ex, sit amet maximus sapien posuere eget. Donec id  facilisis odio. Fusce et lacus sed metus venenatis fringilla sed et  mauris. Donec dictum venenatis tincidunt. Vestibulum vitae velit at leo accumsan sagittis ut id velit.  Pellentesque sed metus quis quam suscipit facilisis. Nunc pharetra vel  mi ullamcorper scelerisque. Ut non leo eu elit fermentum tincidunt sed  vitae tortor. Vestibulum tincidunt, leo et fermentum porta, augue nulla  lobortis lorem, sit amet tincidunt augue elit eu odio. In faucibus  rutrum diam, vel dapibus leo vestibulum vel. Phasellus iaculis et ligula  et pulvinar. Nunc gravida ligula ac tellus porttitor, aliquam interdum  velit volutpat. Nullam vitae sem id erat laoreet finibus. Suspendisse  dignissim neque in pulvinar pharetra.",
-                    "userScores": [5, 4, 5, 3, 4, 5]
+                    "userScores": [
+                      {
+                        "userId": 3,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 3,
+                        "userScore": 4
+                      },
+                      {
+                        "userId": 3,
+                        "userScore": 5
+                      },
+                      {
+                        "userId": 3,
+                        "userScore": 3
+                      },
+                      {
+                        "userId": 3,
+                        "userScore": 4
+                      },
+                      {
+                        "userId": 3,
+                        "userScore": 5
+                      }
+                    ]
                   }
                 ]
               }
@@ -154,7 +246,7 @@
                     "translatorUserName": "",
                     "isGuest": true,
                     "translatedDialogue": "",
-                    "userScores": [0]
+                    "userScores": []
                   }
                 ]
               }
@@ -184,7 +276,7 @@
                     "translatorUserName": "",
                     "isGuest": true,
                     "translatedDialogue": "",
-                    "userScores": [0]
+                    "userScores": []
                   }
                 ]
               }
@@ -214,7 +306,7 @@
                     "translatorUserName": "",
                     "isGuest": true,
                     "translatedDialogue": "",
-                    "userScores": [0]
+                    "userScores": []
                   }
                 ]
               }
@@ -244,7 +336,7 @@
                     "translatorUserName": "",
                     "isGuest": true,
                     "translatedDialogue": "",
-                    "userScores": [0]
+                    "userScores": []
                   }
                 ]
               }
@@ -274,7 +366,7 @@
                     "translatorUserName": "",
                     "isGuest": true,
                     "translatedDialogue": "",
-                    "userScores": [0]
+                    "userScores": []
                   }
                 ]
               }
