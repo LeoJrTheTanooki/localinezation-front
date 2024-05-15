@@ -1,7 +1,6 @@
 "use client";
 
 import { ILanguageData, IMediaData } from "@/Interfaces/Interfaces";
-import PageData from "@/utils/PageData.json";
 import { Button, Dropdown, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
