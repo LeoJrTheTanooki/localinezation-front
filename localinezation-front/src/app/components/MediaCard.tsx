@@ -13,9 +13,6 @@ const MediaCard = (props: IProp) => {
     router.push(route);
   };
 
-  console.log(props);
-  console.log(typeof props);
-
   const mediaObject = props.mediaObject;
 
   return (

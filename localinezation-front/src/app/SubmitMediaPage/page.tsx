@@ -28,6 +28,8 @@ const SubmitMediaPage = () => {
 
   useEffect(() => {
     let submitEffect = {
+      id: 0,
+      userId: localStorage.getItem('userId'),
       title: title,
       coverArt: coverArt,
       originalLanguage: originalLanguage,

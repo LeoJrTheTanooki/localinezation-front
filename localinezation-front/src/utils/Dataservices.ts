@@ -89,6 +89,7 @@ export const getLoggedInUserData = async () => {
             throw new Error(`Failed to fetch user data: ${res.status}`);
         }
         const data = await res.json();
+        localStorage.setItem('userId', data.userId)
         console.log("(dataservice.ts:75); Received data: ", data);
         return data;
     } catch (error){
