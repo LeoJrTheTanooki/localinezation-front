@@ -7,32 +7,32 @@ const AboutPage = () => {
     <h1 key={0} className="text-center font-bold text-gray-700 text-4xl py-7">
       About Us
     </h1>,
-    <p>What is LocaLINEzation?</p>,
-    <p key={1} className="indent-8">
+    <p key={1}>What is LocaLINEzation?</p>,
+    <p key={2} className="indent-8">
       LocaLINEzation is a community driven website dedicated to translating
       parts of foreign media for fans who may not know said language. We use an
       open response system in order to allow for any and all potential
       translatiors to find where their expertise can be used, creating a direct
       LINE between the requester and the translating community.
     </p>,
-    <p>How to use LocaLINEzation</p>,
+    <p key={3}>How to use LocaLINEzation</p>,
     <>
-      <p key={2} className="indent-8 mb-8">
+      <p key={4} className="indent-8 mb-8">
         If you want to <span className="font-bold">REQUEST</span> a media to be
         submitted, first check the recent translations page or use the search
         bar to see if that media has already been requested before, and if it
         hasnt then use the <span className="font-bold">SUBMIT A MEDIA</span>{" "}
         page.
       </p>
-      <p key={3} className="indent-8">
+      <p className="indent-8">
         If you are looking to <span className="font-bold">TRANSLATE</span>, make
         sure that you have correctly selected your origin language and language
         to translate to, located to the left of your name in the top corner of
         the page, and then find something to translate!
       </p>
     </>,
-    <p>Why is LocaLINEzation?</p>,
-    <p key={4} className="indent-8">
+    <p key={5}>Why is LocaLINEzation?</p>,
+    <p key={6} className="indent-8">
       LocaLINEzation was made to help break the langauge barrier between foreign
       fans of any given media. While it doesn&rsquo;t provide full translations,
       it helps to make cracks into a given media&rsquo;s language barrier in
@@ -41,8 +41,8 @@ const AboutPage = () => {
       while improving their own skillsets in the process, and potentially
       getting a vital role in a full translation.
     </p>,
-    <p>Why does this site look like this?</p>,
-    <p key={5} className="indent-8">
+    <p key={7}>Why does this site look like this?</p>,
+    <p key={8} className="indent-8">
       We&apos;re capturing a 2000s - 2010s web forum style with our website.
       Since our target users may reminisce about that era, we&apos;re trying to
       foster that energy within our website so they may have a pleasant viewing
