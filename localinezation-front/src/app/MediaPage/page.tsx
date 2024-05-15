@@ -137,7 +137,7 @@ const MediaPage = (props: any) => {
   return (
    
     <div
-      className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 max-w-2xlu mx-auto mt-12`}
+      className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 max-w-2xl mx-auto mt-12`}
     >
       <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
         <img
