@@ -180,8 +180,8 @@ const MediaPage = (props: any) => {
         <div className="bg-fuchsia-300 text-center text-gray-700 py-3 font-semibold border-black border">
           Current Translation Requests
         </div>
-            
-{translationsMappedJsx}
+
+          {translationsMappedJsx}
 
       </div>
     </div>
