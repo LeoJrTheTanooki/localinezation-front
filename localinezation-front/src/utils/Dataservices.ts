@@ -228,3 +228,10 @@ export const submitTranslation = async (request: any) => {
     }
     return await response.json(); 
 }
+
+export const getMediaItemsByMediaId = async (mediaId: number) => {
+    const res = await fetch(url + '/Media/GetMediaItemById/' +  mediaId);
+    const data = await res.json();
+    console.log("line 109: " + data)
+    return data;
+}
