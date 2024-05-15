@@ -18,6 +18,7 @@ const Homepage = () => {
   // Convert any to Array or to Custom Interface without error
   // const [mediaList, setMediaList] = useState<any>(PageData);
   const [mediaList, setMediaList] = useState<IMedia[]>([]);
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   const [error, setError] = useState<string | null>(null);
 
