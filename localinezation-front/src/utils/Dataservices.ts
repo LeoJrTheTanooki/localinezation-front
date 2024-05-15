@@ -1,4 +1,4 @@
-import { IBlogItems, IMedia, IToken, ITranslation, ITranslationRequest, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { IMedia, IToken, ITranslation, ITranslationRequest, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
  const url = "https://localinazationapi.azurewebsites.net"

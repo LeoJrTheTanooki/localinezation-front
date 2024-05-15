@@ -1,16 +1,16 @@
-export interface IBlogItems {
-  id: number;
-  userID: number;
-  publishedName: string;
-  date: string;
-  title: string;
-  description: string;
-  image: string;
-  tags: string;
-  categories: string;
-  isPublished: boolean;
-  isDeleted: boolean;
-}
+// export interface IBlogItems {
+//   id: number;
+//   userID: number;
+//   publishedName: string;
+//   date: string;
+//   title: string;
+//   description: string;
+//   image: string;
+//   tags: string;
+//   categories: string;
+//   isPublished: boolean;
+//   isDeleted: boolean;
+// }
 
 //Get our token
 
@@ -37,48 +37,48 @@ export interface IUserData {
   publisherName: string;
 }
 
-export interface IMediaData {
-  title: string;
-  coverArt: string;
-  originalLanguage: string;
-  type: string;
-  platform: string;
-  requestLanguage?: Array<{
-    englishUsa?: Array<ILanguageData>;
-    spanishLatAm?: Array<ILanguageData>;
-    spanishEu?: Array<ILanguageData>;
-    englishUk?: Array<ILanguageData>;
-    french?: Array<ILanguageData>;
-    japanese?: Array<ILanguageData>;
-    chineseTrad?: Array<ILanguageData>;
-    chineseSimple?: Array<ILanguageData>;
-    norwegian?: Array<ILanguageData>;
-    swedish?: Array<ILanguageData>;
-    irish?: Array<ILanguageData>;
-  }>;
-}
+// export interface IMediaData {
+//   title: string;
+//   coverArt: string;
+//   originalLanguage: string;
+//   type: string;
+//   platform: string;
+//   requestLanguage?: Array<{
+//     englishUsa?: Array<ILanguageData>;
+//     spanishLatAm?: Array<ILanguageData>;
+//     spanishEu?: Array<ILanguageData>;
+//     englishUk?: Array<ILanguageData>;
+//     french?: Array<ILanguageData>;
+//     japanese?: Array<ILanguageData>;
+//     chineseTrad?: Array<ILanguageData>;
+//     chineseSimple?: Array<ILanguageData>;
+//     norwegian?: Array<ILanguageData>;
+//     swedish?: Array<ILanguageData>;
+//     irish?: Array<ILanguageData>;
+//   }>;
+// }
 // --------------------------------------------------
 
-export interface IMediaData {
-  title: string;
-  coverArt: string;
-  originalLanguage: string;
-  type: string;
-  platform: string;
-  requestLanguage?: Array<{
-    englishUsa?: Array<ILanguageData>;
-    spanishLatAm?: Array<ILanguageData>;
-    spanishEu?: Array<ILanguageData>;
-    englishUk?: Array<ILanguageData>;
-    french?: Array<ILanguageData>;
-    japanese?: Array<ILanguageData>;
-    chineseTrad?: Array<ILanguageData>;
-    chineseSimple?: Array<ILanguageData>;
-    norwegian?: Array<ILanguageData>;
-    swedish?: Array<ILanguageData>;
-    irish?: Array<ILanguageData>;
-  }>;
-}
+// export interface IMediaData {
+//   title: string;
+//   coverArt: string;
+//   originalLanguage: string;
+//   type: string;
+//   platform: string;
+//   requestLanguage?: Array<{
+//     englishUsa?: Array<ILanguageData>;
+//     spanishLatAm?: Array<ILanguageData>;
+//     spanishEu?: Array<ILanguageData>;
+//     englishUk?: Array<ILanguageData>;
+//     french?: Array<ILanguageData>;
+//     japanese?: Array<ILanguageData>;
+//     chineseTrad?: Array<ILanguageData>;
+//     chineseSimple?: Array<ILanguageData>;
+//     norwegian?: Array<ILanguageData>;
+//     swedish?: Array<ILanguageData>;
+//     irish?: Array<ILanguageData>;
+//   }>;
+// }
 
 export interface IMediaItems {
   id: number;  // Unique identifier for the media
