@@ -1,8 +1,7 @@
 "use client";
 
-import { Label, TextInput, FileInput, Button, Textarea } from "flowbite-react";
+import { Label, TextInput, Button, Textarea } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import PageData from "@/utils/PageData.json";
 import { useRouter } from "next/navigation";
 import { ILanguageData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
@@ -27,7 +26,7 @@ const TranslationUploadPage = () => {
 
   const [requestsArray, setRequestsArray] =
     useState<ILanguageData["openRequests"]>(requestsDefault);
-  const [mediaRequests, setMediaRequests] = useState<any>(PageData);
+  const [mediaRequests, setMediaRequests] = useState<any>();
   const [queryNum, setQueryNum] = useState<number>(-1);
   const [langQuery, setLangQuery] = useState<string>("");
   const [requestList, setRequestList] = useState<React.JSX.Element[]>();

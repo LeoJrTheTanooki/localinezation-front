@@ -1,11 +1,10 @@
-import NavbarComponent from "@/app/components/NavbarComponent";
-import Homepage from "./Homepage/page";
+import LoginPage from "./LoginPage/page";
 
 export default function Home() {
 
   return (
     <div className="page">
-      <Homepage />
+      <LoginPage />
     </div>
   );
 }

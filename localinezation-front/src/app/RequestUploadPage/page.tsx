@@ -7,7 +7,6 @@ import { langFormat } from "../components/CustomFunctions";
 import {
   checkToken,
   getLoggedInUserData,
-  loggedinData,
   submitTranslation,
 } from "@/utils/Dataservices";
 
@@ -28,8 +27,7 @@ const RequestUploadPage = () => {
 
   const getLoggedInData = async () => {
     if (checkToken()) {
-      const userData = loggedinData(); // This should retrieve the stored user data
-      await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
+      const userData = await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
       if (userData) {
         console.log(userData);
         // let userMediaItems: IMediaItems[] = await getMediaItemsByUserId(
@@ -52,8 +50,7 @@ const RequestUploadPage = () => {
   useEffect(() => {
     const lol = async () => {
       if (checkToken()) {
-        await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
-        const userData = loggedinData(); // This should retrieve the stored user data
+        const userData =  await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
         console.log(userData);
         if (userData) {
           setMediaUserId(userData.userId);
