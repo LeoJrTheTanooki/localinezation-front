@@ -6,7 +6,7 @@ import {
   Dropdown,
 } from "flowbite-react";
 import { useRouter } from "next/navigation";
-
+import imageCompression from 'browser-image-compression';
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
 import { submitMediaItem } from "@/utils/Dataservices";
@@ -36,41 +36,52 @@ const SubmitMediaPage = () => {
       type: type,
       platform: platform,
     };
+    console.log(submitEffect);
     setSubmission(submitEffect);
   }, [title, coverArt, originalLanguage, type, platform]);
 
 
   //Thank you Sinatha and Halley from MangaDiction for letting me use this function for out image reader
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) =>{
-    const file = e.target.files?.[0];
-    
-     // Check if a file is selected
-     if (!file) {
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    let file = e.target.files?.[0];
+    console.log(file?.size)
+
+    // Check if a file is selected
+    if (!file) {
       alert("Please select a file.");
       return;
-  }
+    }
+    //compress the image - Added by Zach
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 512,
+      useWebWorker: true,
+    }
+    try {
+      const compressedFile = await imageCompression(file, options);
+      console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+      file = compressedFile;
+    } catch (error) {
+      console.log(error);
+      e.target.value = '';//Clear the input value
+    }
 
-  // Check file size (limit to 5MB)
-  const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-  if (file.size > maxSizeInBytes) {
-      alert("File size exceeds the limit. Please choose a smaller file.");
-      e.target.value = ''; // Clear the input value
-      return;
-  }
 
-  // Check file type (accept only PNG and JPEG)
-  const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
-  if (!acceptedTypes.includes(file.type)) {
+    // Check file type (accept only PNG and JPEG)
+    const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    if (!acceptedTypes.includes(file.type)) {
       alert("Please select a PNG or JPEG file.");
       e.target.value = ''; // Clear the input value
       return;
-  }
+    }
 
-  let reader = new FileReader();
-  reader.onload = () => {
+    let reader = new FileReader();
+    reader.onload = () => {
       setCoverArt(reader.result as string);
-  }
-  reader.readAsDataURL(file);
+      console.log(reader.result)
+    }
+    reader.readAsDataURL(file);
   }
 
   return (
@@ -248,7 +259,7 @@ const SubmitMediaPage = () => {
               />
               <p className="text-white ">PNG or JPG (MAX. 5mb).</p>
             </div>
-            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={()=> {submitMediaItem(submission), handlePageChange("/TranslationsPage")}}>Submit Media</button>
+            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={(e) => { e.preventDefault(), submitMediaItem(submission), handlePageChange("/TranslationsPage") }}>Submit Media</button>
           </div>
         </form>
         <div

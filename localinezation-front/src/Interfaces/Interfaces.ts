@@ -94,7 +94,7 @@ export interface ILanguageData {
 // Defines the structure of a media object.
 export interface IMedia {
   id: number;  // Unique identifier for the media
-  userID: number;  // ID of the user who owns or uploaded the media
+  userId: number;  // ID of the user who owns or uploaded the media
   title: string;  // Title of the media
   coverArt: string;  // URL or path to the media's cover art image
   originalLanguage: string;  // The original language of the media
