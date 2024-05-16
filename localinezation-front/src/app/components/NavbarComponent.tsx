@@ -25,7 +25,6 @@ const NavbarComponent = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log(`Route changed to: ${pathname}`);
     if (localStorage.getItem("username") && localStorage.getItem("username") != `""`) {
       setCurrentUsername(localStorage.getItem("username"));
     } else {

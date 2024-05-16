@@ -104,10 +104,8 @@ const LoginPage = () => {
           localStorage.setItem("username", username); // Ensuring username is correctly set
           await getLoggedInUserData(); // no 'username' parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
           router.push("/AccountDashboardPage");
-          console.log(token);
         } else {
           alert("Login Failed");
-          console.log("Login failed");
         }
       } catch (error) {
         console.error(error);

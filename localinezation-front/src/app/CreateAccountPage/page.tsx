@@ -101,10 +101,8 @@ const LoginPage = () => {
           localStorage.setItem("username", username);
           getLoggedInUserData();
           router.push("/AccountDashboardPage");
-          console.log(token);
         } else {
           alert("Login Failed");
-          console.log("Login failed");
         }
       } catch (error) {
         console.error(error);

@@ -7,7 +7,7 @@ import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
 import {
   fetchMedia,
-  fetchTranslations,
+  fetchTranslationRequests,
   getMediaItemsByMediaId,
 } from "@/utils/Dataservices";
 
@@ -33,34 +33,14 @@ const MediaPage = (props: any) => {
   const [translationsMappedJsx, setTranslationsMappedJsx] = useState<any>();
 
   useEffect(() => {
-    // const loadMedia = async () => {
-    //   try {
-    //     // const media = await fetchMedia();
-    //     // setMediaList(media);
-    //   } catch (error) {
-    //     setError("Failed to fetch media. Please try again later.");
-    //     console.error(error);
-    //   }
-    // };
-    // loadMedia();
-  }, []);
-
-  useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
     if (query) setQueryNum(parseInt(query));
   }, []);
 
-  function findMediaId(media: any) {
-    return media.id === queryNum;
-  }
   useEffect(() => {
     const fetchTransFunction = async () => {
-      let translations = await fetchTranslations(queryNum);
+      let translations = await fetchTranslationRequests(queryNum);
       const translationsMapped = translations.map((e: any, index: number) => {
-        // console.log(e);
-        console.log(
-          `${e.requestDialogue} / ${e.requestLanguage} / ${e.requestName}`
-        );
         return (
           <div
             className="border border-t-0 border-black flex flex-col flex-wrap p-3 bg-fuchsia-200 text-gray-700 cursor-pointer hover:bg-fuchsia-50"
@@ -75,46 +55,20 @@ const MediaPage = (props: any) => {
             <p>Dialogue: {e.requestDialogue}</p>
             <p>Language: {e.requestLanguage}</p>
           </div>
-
-          /* 
-          <div className="border border-t-0 border-black flex flex-col flex-wrap p-3 bg-fuchsia-200 text-gray-700">
-          <div className="col-span-2">
-            <span className="font-semibold italic mr-1">Mango:</span>
-            <button className="text-blue-600">Opening</button>
-            {" | "}
-            <button className="text-blue-600 disabled:text-blue-400">
-              Credits
-            </button>
-          </div>
-          <div>User Score:</div>
-          <div className="justify-self-end">Report User</div>
-        </div>
-  */
         );
       });
       setTranslationsMappedJsx(translationsMapped);
     };
 
-    if (
-      queryNum != -1
-      //  && mediaList
-    ) {
-      // const foundMedia = mediaList.find(findMediaId);
+    if (queryNum != -1) {
       const loadMedia = async () => {
         const foundMedia = await getMediaItemsByMediaId(queryNum);
-        console.log(foundMedia);
         setCurrentMedia(foundMedia);
       };
-
       loadMedia();
-
-
       fetchTransFunction();
     }
-  }, [
-    queryNum,
-    // mediaList
-  ]);
+  }, [queryNum]);
 
   useEffect(() => {
     if (currentMedia.requestLanguage) {
@@ -180,14 +134,14 @@ const MediaPage = (props: any) => {
               handlePageChange(`/RequestUploadPage?id=${queryNum}`)
             }
           >
-            Request a Line to Translate
+            Create a Request
           </button>
-          <button
+          {/* <button
             className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2 p-3"
             onClick={() => handlePageChange("/TranslationUploadPage")}
           >
             Submit a Translation
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="">

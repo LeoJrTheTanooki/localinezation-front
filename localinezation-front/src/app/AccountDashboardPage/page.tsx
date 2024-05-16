@@ -21,10 +21,8 @@ const AccountDashboardPage = () => {
   const [mediaItems, setMediaItems] = useState<IMediaItems[]>();
 
   useEffect(() => {
-    console.log('pass use effect')
 
     if (newUsername && newPassword) {
-      console.log('pass username and password check')
 
       let loginEffect = {
         "id": mediaUserId,
@@ -45,7 +43,6 @@ const AccountDashboardPage = () => {
     if (checkToken()) {
       const userData = await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
       if (userData) {
-        console.log(userData);
         let userMediaItems: IMediaItems[] = await getMediaItemsByUserId(
           userData.userId
         );
@@ -136,9 +133,7 @@ const AccountDashboardPage = () => {
                 <br />
                 <button
                   onClick={() => {
-                    console.log('pass button click')
                     if (newLogin) {
-                      console.log('pass newLogin check')
                       updateAccount(newLogin);
                       alert('User Info Successfully Changed')
                       setCurrentUsername(newUsername)

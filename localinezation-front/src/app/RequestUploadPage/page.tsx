@@ -7,7 +7,7 @@ import { langFormat } from "../components/CustomFunctions";
 import {
   checkToken,
   getLoggedInUserData,
-  submitTranslation,
+  submitRequest,
 } from "@/utils/Dataservices";
 
 const RequestUploadPage = () => {
@@ -27,31 +27,19 @@ const RequestUploadPage = () => {
 
   const getLoggedInData = async () => {
     if (checkToken()) {
-      const userData = await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
+      const userData = await getLoggedInUserData();
       if (userData) {
-        console.log(userData);
-        // let userMediaItems: IMediaItems[] = await getMediaItemsByUserId(
-        //   userData.userId
-        // );
-        // let filteredMediaItems = userMediaItems.filter(
-        //   (item) => item.isDeleted === false
-        // );
         setMediaUserId(userData.userId);
-        // setPublisherName(userData.publisherName);
-        // setMediaItems(filteredMediaItems);
       } else {
         console.log("User data is not available.");
       }
-    } else {
-      // router.push("/LoginPage");
     }
   };
 
   useEffect(() => {
-    const lol = async () => {
+    const getUserId = async () => {
       if (checkToken()) {
-        const userData =  await getLoggedInUserData(); // no "username" parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
-        console.log(userData);
+        const userData = await getLoggedInUserData();
         if (userData) {
           setMediaUserId(userData.userId);
         } else {
@@ -59,7 +47,7 @@ const RequestUploadPage = () => {
         }
       }
     };
-    lol()
+    getUserId();
   }, []);
 
   // useEffect(() => {
@@ -75,7 +63,7 @@ const RequestUploadPage = () => {
   //   init();
   // }, [router]);
 
-/* 
+  /* 
 https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
 {
   "requestorUserId": 15,
@@ -190,7 +178,7 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
             </div>
             <Button
               onClick={() => {
-                submitTranslation(requestObj);
+                submitRequest(requestObj);
                 handlePageChange(`/MediaPage?id=${queryNum}`);
               }}
             >

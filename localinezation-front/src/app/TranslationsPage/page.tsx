@@ -34,11 +34,6 @@ const Homepage = () => {
     router.push(route);
   };
 
-  useEffect(() => {
-    // setMediaList(getMedia)
-    // console.log(mediaList)
-  }, []);
-
   return (
     <div>
       <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">

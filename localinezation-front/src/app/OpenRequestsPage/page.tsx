@@ -5,7 +5,7 @@ import { Button, Dropdown, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { fetchMedia } from "@/utils/Dataservices";
+import { fetchMedia, fetchTranslationRequests, getMediaItemsByMediaId, getTranslationsByMediaId } from "@/utils/Dataservices";
 
 const OpenRequestsPage = () => {
   const requestsDefault = Array<{
@@ -19,6 +19,14 @@ const OpenRequestsPage = () => {
       userScores: [];
     }>;
   }>;
+
+  const DataDefault = {
+    title: "Unknown",
+    coverArt: "",
+    originalLanguage: "Unknown",
+    type: "Unknown",
+    platform: "No Known Platform",
+  };
 
   // <Array<ILanguageData["openRequests"]>
   const [requestsArray, setRequestsArray] =
@@ -35,20 +43,20 @@ const OpenRequestsPage = () => {
   const [yourScoreHover, setYourScoreHover] = useState<any>();
   const [yourScore, setYourScore] = useState<any>();
   const [error, setError] = useState<string | null>(null);
+  const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
 
+  useEffect(() => {
+    const loadMedia = async () => {
+      try {
+        const media = await fetchMedia();
+        setMediaRequests(media);
+      } catch (error) {
+        setError("Failed to fetch media. Please try again later.");
+        console.error(error);
+      }
+    };
 
-    useEffect(() => {
-      const loadMedia = async () => {
-          try {
-              const media = await fetchMedia();
-              setMediaRequests(media);
-          } catch (error) {
-              setError('Failed to fetch media. Please try again later.');
-              console.error(error);
-          }
-      };
-
-      loadMedia();
+    loadMedia();
   }, []);
 
   useEffect(() => {
@@ -60,56 +68,25 @@ const OpenRequestsPage = () => {
     if (langQueryEffect) setLangQuery(langQueryEffect);
   }, []);
 
-  // Setting data to variables based on set query variables
   useEffect(() => {
-    function findLanguage(obj: object) {
-      return Object.keys(obj)[0] == langQuery;
+    if (queryNum != -1) {
+      const loadMedia = async () => {
+        const foundMedia = await getMediaItemsByMediaId(queryNum);
+        console.log('Current Media: ', foundMedia);
+        setCurrentMedia(foundMedia);
+        const submittedRequests = await fetchTranslationRequests(queryNum)
+        setRequestsArray(submittedRequests)
+        // console.log('Current Requests: ', submittedRequests)
+        const submittedTranslations = await getTranslationsByMediaId(queryNum)
+        console.log('Submitted Translations', submittedTranslations);
+      };
+      loadMedia();
     }
+  }, [queryNum]);
 
-    try {
-      setCoverArt(mediaRequests[queryNum].coverArt);
-      const requestData =
-        mediaRequests[queryNum].requestLanguage.find(findLanguage)[
-          `${langQuery}`
-        ][0];
-
-      setRequestsArray(requestData.openRequests);
-      const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
-        (language: object, index: number) => {
-          let currentLanguage = Object.keys(language)[0];
-          let formattedLang = langFormat(currentLanguage);
-
-          if (currentLanguage) {
-            return (
-              <Dropdown.Item
-                key={index}
-                onClick={() => {
-                  setLangQuery(currentLanguage);
-                  window.history.pushState(
-                    null,
-                    `Change to ${formattedLang}`,
-                    `OpenRequestsPage?id=${queryNum}&language=${currentLanguage}`
-                  );
-                }}
-              >
-                {formattedLang}
-              </Dropdown.Item>
-            );
-          }
-        }
-      );
-      setDropdownItems(dropdownJsx);
-    } catch (error) {
-      console.log(`error caught: ${error}`);
-    }
+  useEffect(() => {
+    console.log('Current Requests: ', requestsArray)
     if (requestsArray && requestsArray.length != 0) {
-
-      // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
-      requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
-        console.log(e.userScore)
-      })
-    // }
-      
       const requestListJsx = requestsArray.map(
         (request: any, index: number) => {
           return (
@@ -128,9 +105,85 @@ const OpenRequestsPage = () => {
         }
       );
       setRequestList(requestListJsx);
-      
     }
-  }, [queryNum, langQuery, mediaRequests, requestsArray]);
+  }, [requestsArray])
+
+  // Setting data to variables based on set query variables
+  // useEffect(() => {
+  //   function findLanguage(obj: object) {
+  //     return Object.keys(obj)[0] == langQuery;
+  //   }
+
+  //   try {
+  //     setCoverArt(currentMedia.coverArt);
+  //     const requestData =
+  //       mediaRequests[queryNum].requestLanguage.find(findLanguage)[
+  //         `${langQuery}`
+  //       ][0];
+
+  //     setRequestsArray(requestData.openRequests);
+  //     const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
+  //       (language: object, index: number) => {
+  //         let currentLanguage = Object.keys(language)[0];
+  //         let formattedLang = langFormat(currentLanguage);
+
+  //         if (currentLanguage) {
+  //           return (
+  //             <Dropdown.Item
+  //               key={index}
+  //               onClick={() => {
+  //                 setLangQuery(currentLanguage);
+  //                 window.history.pushState(
+  //                   null,
+  //                   `Change to ${formattedLang}`,
+  //                   `OpenRequestsPage?id=${queryNum}&language=${currentLanguage}`
+  //                 );
+  //               }}
+  //             >
+  //               {formattedLang}
+  //             </Dropdown.Item>
+  //           );
+  //         }
+  //       }
+  //     );
+  //     setDropdownItems(dropdownJsx);
+  //   } catch (error) {
+  //     console.log(`error caught: ${error}`);
+  //   }
+    // if (requestsArray && requestsArray.length != 0) {
+
+    //   // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
+    //   requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
+    //     console.log(e.userScore)
+    //   })
+    // // }
+
+    //   const requestListJsx = requestsArray.map(
+    //     (request: any, index: number) => {
+    //       return (
+    //         <li key={index}>
+    //           <button
+    //             className="text-blue-600 italic underline"
+    //             onClick={() => {
+    //               setReferenceIndex(0);
+    //               setRequestIndex(index);
+    //             }}
+    //           >
+    //             {request.requestName}
+    //           </button>
+    //         </li>
+    //       );
+    //     }
+    //   );
+    //   setRequestList(requestListJsx);
+
+    // }
+  // }, [queryNum, langQuery, mediaRequests, requestsArray]);
+
+  useEffect(() => {
+    setCoverArt(currentMedia.coverArt);
+
+  }, [currentMedia]);
 
   // Function source: https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url#8260383
   // Modified to account for timestamps when applicable
@@ -218,7 +271,7 @@ const OpenRequestsPage = () => {
             )}
           </ul>
         </div>
-        <div className="mb-2 block justify-self-center">
+        {/* <div className="mb-2 block justify-self-center">
           <p>Current Language</p>
           <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
             <Dropdown
@@ -229,7 +282,7 @@ const OpenRequestsPage = () => {
               {dropdownItems}
             </Dropdown>
           </div>
-        </div>
+        </div> */}
       </div>
       <div>
         <h2 className="text-3xl">
@@ -302,7 +355,7 @@ const OpenRequestsPage = () => {
                   translationIndex
                 ]?.translatedDialogue
               : ""} */}
-            <span className="font-bold">
+            {/* <span className="font-bold">
               {requestsArray && requestsArray.length > 0
                 ? requestsArray[requestIndex]?.submittedTranslations[
                     translationIndex
@@ -322,9 +375,9 @@ const OpenRequestsPage = () => {
               ? requestsArray[requestIndex]?.submittedTranslations[
                   translationIndex
                 ]?.translatedDialogue
-              : ""}{" "}
+              : ""}{" "} */}
             <div className="flex">
-              <div className="mr-3 flex">
+              {/* <div className="mr-3 flex">
                 User Score:
                 <Rating>
                   <Rating.Star />
@@ -334,7 +387,6 @@ const OpenRequestsPage = () => {
                   <Rating.Star filled={false} />
                   <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                     4.95 out of 5
-                    
                   </p>
                 </Rating>
               </div>
@@ -427,7 +479,7 @@ const OpenRequestsPage = () => {
                     }}
                   />
                 </Rating>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
