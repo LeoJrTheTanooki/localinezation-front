@@ -36,7 +36,6 @@ const SubmitMediaPage = () => {
       type: type,
       platform: platform,
     };
-    console.log(submitEffect);
     setSubmission(submitEffect);
   }, [title, coverArt, originalLanguage, type, platform]);
 
@@ -44,16 +43,18 @@ const SubmitMediaPage = () => {
   //Thank you Sinatha and Halley from MangaDiction for letting me use this function for out image reader
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     let file = e.target.files?.[0];
-    console.log(file?.size)
+    console.log(`${file!.size/1024/1024} MB`)
 
     // Check if a file is selected
     if (!file) {
       alert("Please select a file.");
       return;
     }
+
+
     //compress the image - Added by Zach
     const options = {
-      maxSizeMB: 1,
+      maxSizeMB: 0.1,
       maxWidthOrHeight: 512,
       useWebWorker: true,
     }
@@ -81,6 +82,7 @@ const SubmitMediaPage = () => {
       setCoverArt(reader.result as string);
       console.log(reader.result)
     }
+    console.log(`${file.size/1024} KB`)
     reader.readAsDataURL(file);
   }
 
