@@ -7,7 +7,7 @@ import { langFormat } from "../components/CustomFunctions";
 import {
   checkToken,
   getLoggedInUserData,
-  submitRequest,
+  addTranslationRequest,
 } from "@/utils/Dataservices";
 
 const RequestUploadPage = () => {
@@ -178,7 +178,7 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
             </div>
             <Button
               onClick={() => {
-                submitRequest(requestObj);
+                addTranslationRequest(requestObj);
                 handlePageChange(`/MediaPage?id=${queryNum}`);
               }}
             >

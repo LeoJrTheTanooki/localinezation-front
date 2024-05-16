@@ -6,8 +6,8 @@ import React, { useEffect, useState } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
 import {
-  fetchMedia,
-  fetchTranslationRequests,
+  getAllMediaItems,
+  getTranslationRequestsByMediaId,
   getMediaItemsByMediaId,
 } from "@/utils/Dataservices";
 
@@ -39,7 +39,7 @@ const MediaPage = (props: any) => {
 
   useEffect(() => {
     const fetchTransFunction = async () => {
-      let translations = await fetchTranslationRequests(queryNum);
+      let translations = await getTranslationRequestsByMediaId(queryNum);
       const translationsMapped = translations.map((e: any, index: number) => {
         return (
           <div

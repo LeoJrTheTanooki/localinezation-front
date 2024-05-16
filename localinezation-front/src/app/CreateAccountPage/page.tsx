@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import {
-  createAccount,
+  addUser,
   getLoggedInUserData,
   login,
 } from "@/utils/Dataservices";
@@ -74,7 +74,7 @@ const LoginPage = () => {
     };
     if (!loginSwitchBool) {
       try {
-        const success = await createAccount(userData);
+        const success = await addUser(userData);
         if (success) {
           setSwitchBool(true);
           setModalMessage(

@@ -5,7 +5,7 @@ import { Button, Dropdown, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { fetchMedia, fetchTranslationRequests, getMediaItemsByMediaId, getTranslationsByMediaId } from "@/utils/Dataservices";
+import { getAllMediaItems, getTranslationRequestsByMediaId, getMediaItemsByMediaId, getTranslationsByRequestId } from "@/utils/Dataservices";
 
 const OpenRequestsPage = () => {
   const requestsDefault = Array<{
@@ -48,7 +48,7 @@ const OpenRequestsPage = () => {
   useEffect(() => {
     const loadMedia = async () => {
       try {
-        const media = await fetchMedia();
+        const media = await getAllMediaItems();
         setMediaRequests(media);
       } catch (error) {
         setError("Failed to fetch media. Please try again later.");
@@ -74,10 +74,10 @@ const OpenRequestsPage = () => {
         const foundMedia = await getMediaItemsByMediaId(queryNum);
         console.log('Current Media: ', foundMedia);
         setCurrentMedia(foundMedia);
-        const submittedRequests = await fetchTranslationRequests(queryNum)
+        const submittedRequests = await getTranslationRequestsByMediaId(queryNum)
         setRequestsArray(submittedRequests)
         // console.log('Current Requests: ', submittedRequests)
-        const submittedTranslations = await getTranslationsByMediaId(queryNum)
+        const submittedTranslations = await getTranslationsByRequestId(queryNum)
         console.log('Submitted Translations', submittedTranslations);
       };
       loadMedia();

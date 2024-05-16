@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { submitMediaItem } from "@/utils/Dataservices";
+import { addMediaItem } from "@/utils/Dataservices";
 
 const SubmitMediaPage = () => {
   const router = useRouter();
@@ -248,7 +248,7 @@ const SubmitMediaPage = () => {
               />
               <p className="text-white ">PNG or JPG (MAX. 5mb).</p>
             </div>
-            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={()=> {submitMediaItem(submission), handlePageChange("/TranslationsPage")}}>Submit Media</button>
+            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={()=> {addMediaItem(submission), handlePageChange("/TranslationsPage")}}>Submit Media</button>
           </div>
         </form>
         <div

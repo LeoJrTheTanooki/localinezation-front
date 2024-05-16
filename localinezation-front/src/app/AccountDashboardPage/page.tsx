@@ -5,7 +5,7 @@ import {
   checkToken,
   getLoggedInUserData,
   getMediaItemsByUserId,
-  updateAccount,
+  updateCredentials,
 } from "@/utils/Dataservices";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -134,7 +134,7 @@ const AccountDashboardPage = () => {
                 <button
                   onClick={() => {
                     if (newLogin) {
-                      updateAccount(newLogin);
+                      updateCredentials(newLogin);
                       alert('User Info Successfully Changed')
                       setCurrentUsername(newUsername)
                       localStorage.setItem("username", newUsername)

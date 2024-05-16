@@ -48,7 +48,7 @@ export const checkToken = () => {
 // Sorting through DataServices
 
 // 1- Add User
-export const createAccount = async (createdUser: IUserInfo) => {
+export const addUser = async (createdUser: IUserInfo) => {
   //we're using this fetch to make a POST Requst
   //We have to set the method to POST
   //we set the content type to application/ json to specifiy our json data format
@@ -98,10 +98,7 @@ export const login = async (loginUser: IUserInfo) => {
 // ---------------------------------------------------------------------------------------------------------
 // 3- Update user's credentials:
 // Update account
-export const updateAccount = async (updatedUser: IUserInfo) => {
-  //we're using this fetch to make a POST Requst
-  //We have to set the method to POST
-  //we set the content type to application/ json to specifiy our json data format
+export const updateCredentials = async (updatedUser: IUserInfo) => {
   const res = await fetch(url + "/User/UpdateCredentials", {
     method: "PUT",
     headers: {
@@ -109,8 +106,6 @@ export const updateAccount = async (updatedUser: IUserInfo) => {
     },
     body: JSON.stringify(updatedUser),
   });
-  //we need to check if our post was succesful
-
   if (!res.ok) {
     const message = "An error has occured " + res.status;
     throw new Error(message);
@@ -119,7 +114,7 @@ export const updateAccount = async (updatedUser: IUserInfo) => {
 // ---------------------------------------------------------------------------------------------------------
 // 4- Add Media item; a user can add as many media-item as needed; (they are not "Requests" yet though):
 // Submit a media
-export const submitMediaItem = async (Media: IMedia) => {
+export const addMediaItem = async (Media: IMedia) => {
   const response = await fetch(`${url}/Media/AddMediaItem`, {
     method: "POST",
     headers: {
@@ -144,22 +139,42 @@ export const getMediaItemsByUserId = async (userId: number) => {
 };
 // ---------------------------------------------------------------------------------------------------------
 // 6- Filter by original language:
-// https://localinazationapi.azurewebsites.net/Media/GetItemsByOriginalLanguage/English
-
-
+export const getItemsByOriginalLanguage = async (language: string) => {
+  const res = await fetch(
+    url + "/Media/GetItemsByOriginalLanguage/" + language
+  );
+  const data = await res.json();
+  console.log("line 109: " + data);
+  return data;
+};
 
 // ---------------------------------------------------------------------------------------------------------
 // 7- GET published items:  according to  "isPublished": true, or false
-
-
+export const getPublishedItems = async () => {
+  const res = await fetch(url + "/Media/GetPublishedItems/");
+  const data = await res.json();
+  console.log("line 109: " + data);
+  return data;
+};
 
 // https://localinazationapi.azurewebsites.net/Media/GetPublishedItems
 // _________________________________________________________________________________
 // 8- Update media item:
 
+export const updateMediaItem = async (updatedUser: IUserInfo) => {
+  const res = await fetch(url + "/User/UpdateMediaItem", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedUser),
+  });
+  if (!res.ok) {
+    const message = "An error has occured " + res.status;
+    throw new Error(message);
+  }
+};
 
-
-// PUT: https://localinazationapi.azurewebsites.net/Media/UpdateMediaItem
 //  {
 //      "id": 1, //Media item id
 //     "userID": 0,
@@ -174,7 +189,7 @@ export const getMediaItemsByUserId = async (userId: number) => {
 // _________________________________________________________________________________
 // 9- GET all media items
 // Fetch all media from the backend
-export const fetchMedia = async (): Promise<IMedia[]> => {
+export const getAllMediaItems = async (): Promise<IMedia[]> => {
   const response = await fetch(url + "/Media/GetAllMediaItems");
   if (!response.ok) {
     throw new Error("Failed to fetch media");
@@ -191,7 +206,7 @@ export const getMediaItemsByMediaId = async (mediaId: number) => {
 };
 // _________________________________________________________________________________
 // 11- To request a  Translation; you can add as many languages requests  as you like for each Media:
-export const submitRequest = async (request: any) => {
+export const addTranslationRequest = async (request: any) => {
   const response = await fetch(`${url}/Media/AddTranslationRequest`, {
     method: "POST",
     headers: {
@@ -207,21 +222,20 @@ export const submitRequest = async (request: any) => {
 };
 // _________________________________________________________________________________
 // 12-  add translations text; you can add as many translations languages or versions for each translation request submitted:
-export const submitTranslation = async (request: any) => {
-    const response = await fetch(`${url}/Media/AddTranslation`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(request),
-    });
-  
-    if (!response.ok) {
-      throw new Error("Failed to submit translation");
-    }
-    return await response.json();
-  };
+export const addTranslation = async (request: any) => {
+  const response = await fetch(`${url}/Media/AddTranslation`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(request),
+  });
 
+  if (!response.ok) {
+    throw new Error("Failed to submit translation");
+  }
+  return await response.json();
+};
 
 // {
 //   "translationRequestId": 3,  // ID of the translation request
@@ -230,12 +244,13 @@ export const submitTranslation = async (request: any) => {
 //   "language": "Spanish", // The language of the translation
 //   "isApproved": true, // Whether the translation is approved
 //   "isGuest": false // Whether the translator is a guest user
-//   "mediaId": 1 // 
+//   "mediaId": 1 //
 // }
+
 // _________________________________________________________________________________
 // 13-  Get TranslationRequests By MediaId:
 // Fetch translations
-export const fetchTranslationRequests = async (mediaId: number) => {
+export const getTranslationRequestsByMediaId = async (mediaId: number) => {
   const res = await fetch(
     url + "/Media/GetTranslationRequestsByMediaId/" + mediaId
   );
@@ -248,13 +263,13 @@ export const fetchTranslationRequests = async (mediaId: number) => {
 
 // GET  https://localinazationapi.azurewebsites.net/Media/GetTranslationsByRequestId/{requestId}
 
-export const getTranslationsByMediaId = async (requestId: number) => {
-    const res = await fetch(
-      url + "/Media/GetTranslationsByRequestId/" + requestId
-    );
-    const data = await res.json();
-    return data;
-  };
+export const getTranslationsByRequestId = async (requestId: number) => {
+  const res = await fetch(
+    url + "/Media/GetTranslationsByRequestId/" + requestId
+  );
+  const data = await res.json();
+  return data;
+};
 
 // response body:
 // [
@@ -273,10 +288,13 @@ export const getTranslationsByMediaId = async (requestId: number) => {
 //
 // _________________________________________________________________________________
 // 15- Get Translations By Translator UserId:
-
-
-
-// GET  https://localinazationapi.azurewebsites.net/Media/GetTranslationsByTranslatorUserId/{UserId}
+export const getTranslationsByTranslatorUserId = async (userId: number) => {
+  const res = await fetch(
+    url + "/Media/GetTranslationsByTranslatorUserId/" + userId
+  );
+  const data = await res.json();
+  return data;
+};
 // response body:
 // [
 //   {
@@ -291,11 +309,23 @@ export const getTranslationsByMediaId = async (requestId: number) => {
 // ]
 // _________________________________________________________________________________
 // 16- GET Translation Requests by User Id
-
-
+export const getTranslationRequestsByUserId = async (userId: number) => {
+  const res = await fetch(
+    url + "/Media/GetTranslationRequestsByUserId/" + userId
+  );
+  const data = await res.json();
+  return data;
+};
 
 // GET https://localinazationapi.azurewebsites.net/Media/GetTranslationRequestsByUserId/{UserId}
 // response body is the same as in #13
 
 // 17- Get Translations by MediaId
 // https://localinazationapi.azurewebsites.net/Media/GetTranslationsByMediaId/1
+export const getTranslationsByMediaId = async (mediaId: number) => {
+  const res = await fetch(url + "/Media/GetTranslationsByMediaId/" + mediaId);
+  const data = await res.json();
+  return data;
+};
+
+
