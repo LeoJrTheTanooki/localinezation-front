@@ -88,6 +88,7 @@ export interface IMediaItems {
 
 export interface ILanguageData {
   openRequests?: Array<{
+    id: number,
     requestName: string;
     requestDialogue?: string;
     requestReferences?: Array<string>;
@@ -128,11 +129,15 @@ export interface ITranslationRequest {
 
 // Details about a specific translation submitted by a user.
 export interface ITranslation {
-  id: number; // Unique identifier for the translation
-  translationRequestId: number; // ID of the translation request this translation belongs to
-  translatorUserName: string; // Username of the user who submitted the translation
-  isGuest: boolean; // Indicates if the translator was a guest user
-  translatedText: string; // The actual translated text
+  id: number;                       // Unique identifier for the translation
+  translationRequestId: number;    // ID of the translation request this translation belongs to
+  translatorUserName: string;     // Username of the user who submitted the translation
+  isGuest: boolean;              // Indicates if the translator was a guest user
+  translatedText: string;       // The actual translated text
+  translatorUserId: number;
+  language: string;
+  isApproved: boolean;
+  mediaId: number;
 }
 
 // -----------------------------------------------------------------------------
@@ -176,12 +181,4 @@ export interface ITranslation {
 
 export interface IRequestTranslation {}
 
-export interface IAddTranslation {
-  translationRequestId: number;
-  translatorUserId: number;
-  translatedText: string;
-  language: string;
-  isApproved: boolean;
-  isGuest: boolean;
-  mediaId: number;
-}
+

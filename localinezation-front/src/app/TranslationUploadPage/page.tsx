@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ILanguageData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
+import { getTranslationRequestsByMediaId, getTranslationsByRequestId } from "@/utils/Dataservices";
 
 const TranslationUploadPage = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const TranslationUploadPage = () => {
   };
 
   const requestsDefault = Array<{
+    id: -1;
     requestName: "string";
     requestDialogue: "string";
     requestReferences: Array<"string">;
@@ -34,6 +36,9 @@ const TranslationUploadPage = () => {
   const [referenceIndex, setReferenceIndex] = useState<number>(0);
   const [translationIndex, setTranslationIndex] = useState<number>(0);
   const [formattedLang, setFormattedLang] = useState<string>("");
+  const [requestTranslations, setRequestTranslations] = useState<any>();
+  const [requestId, setRequestId] = useState<any>();
+  const [currentUsername, setCurrentUsername] = useState<string | null>(null);
 
   useEffect(() => {
     const idQueryEffect = new URLSearchParams(window.location.search).get("id");
@@ -43,46 +48,80 @@ const TranslationUploadPage = () => {
     const langQueryEffect = new URLSearchParams(window.location.search).get(
       "language"
     );
+    const requestIdQueryEffect = new URLSearchParams(
+      window.location.search
+    ).get("id");
+
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
     if (requestIndexEffect) setRequestIndex(parseInt(requestIndexEffect));
     if (langQueryEffect) setLangQuery(langQueryEffect);
-    setFormattedLang(langFormat(langQueryEffect))
+    if (requestIdQueryEffect) setQueryNum(parseInt(requestIdQueryEffect));
+
+    setFormattedLang(langFormat(langQueryEffect));
   }, []);
 
   useEffect(() => {
-    function findLanguage(obj: object) {
-      return Object.keys(obj)[0] == langQuery;
+    const init = async () => {
+      if (localStorage.getItem("username")) {
+        setCurrentUsername(localStorage.getItem("username"));
+      }
+    };
+    init();
+  }, [router]);
+
+  useEffect(() => {
+    if(requestId > -1 && requestIndex){
+
     }
-    try {
-      const requestData =
-        mediaRequests[queryNum].requestLanguage.find(findLanguage)[
-          `${langQuery}`
-        ][0];
-      setRequestsArray(requestData.openRequests);
-    } catch (error) {
-      console.log(`error caught: ${error}`);
+  }, [requestId, requestIndex]);
+
+    useEffect(() => {
+    if (queryNum != -1) {
+      const loadMedia = async () => {
+        const submittedRequests = await getTranslationRequestsByMediaId(
+          queryNum
+        );
+        setRequestsArray(submittedRequests);
+        console.log('Current Requests: ', submittedRequests)
+      };
+      loadMedia();
     }
-    if (requestsArray && requestsArray.length != 0) {
-      const requestListJsx = requestsArray.map(
-        (request: any, index: number) => {
-          return (
-            <li key={index}>
-              <button
-                className="text-blue-600 italic underline"
-                onClick={() => {
-                  setReferenceIndex(0);
-                  setRequestIndex(index);
-                }}
-              >
-                {request.requestName}
-              </button>
-            </li>
-          );
-        }
-      );
-      setRequestList(requestListJsx);
-    }
-  }, [queryNum, langQuery, mediaRequests, requestsArray]);
+  }, [queryNum]);
+
+  // useEffect(() => {
+  //   function findLanguage(obj: object) {
+  //     return Object.keys(obj)[0] == langQuery;
+  //   }
+  //   try {
+  //     const requestData =
+  //       mediaRequests[queryNum].requestLanguage.find(findLanguage)[
+  //         `${langQuery}`
+  //       ][0];
+  //     setRequestsArray(requestData.openRequests);
+  //   } catch (error) {
+  //     console.log(`error caught: ${error}`);
+  //   }
+  //   if (requestsArray && requestsArray.length != 0) {
+  //     const requestListJsx = requestsArray.map(
+  //       (request: any, index: number) => {
+  //         return (
+  //           <li key={index}>
+  //             <button
+  //               className="text-blue-600 italic underline"
+  //               onClick={() => {
+  //                 setReferenceIndex(0);
+  //                 setRequestIndex(index);
+  //               }}
+  //             >
+  //               {request.requestName}
+  //             </button>
+  //           </li>
+  //         );
+  //       }
+  //     );
+  //     setRequestList(requestListJsx);
+  //   }
+  // }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
   const youtube_parser = (url: string) => {
     const regExp =
@@ -149,15 +188,16 @@ const TranslationUploadPage = () => {
     <div className="grid grid-cols-2 m-5 gap-5">
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="requestName" value="Submitting as..." />
-        </div>
-        <TextInput
+          <p>Submitting as...</p>
+        {/* <TextInput
           // onChange={handleTitle}
           id="requestName"
           type="text"
           // placeholder="Enter Title"
           required
-        />
+        /> */}
+        <p className=" font-bold">{currentUsername}</p>
+        </div>
         <p>Translating Into...</p>
         <p className="font-bold">{formattedLang}</p>
 
@@ -198,24 +238,17 @@ const TranslationUploadPage = () => {
       <div>
         <div className="bg-purple-600 text-white p-2">
           <p>
-            <span className="font-bold">
-            Request:{" "}
-              </span>
-              {" "}
-              {requestsArray && requestsArray.length != 0
-                ? requestsArray[requestIndex]?.requestName
-                : "null"}
+            <span className="font-bold">Request: </span>{" "}
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestName
+              : "N/A"}
           </p>
           <p>
-            <span className="font-bold">
-            Original Dialogue:{" "}
-              </span>
-              {" "}
-              {requestsArray && requestsArray.length != 0
-                ? requestsArray[requestIndex]?.requestDialogue
-                : "null"}
+            <span className="font-bold">Original Dialogue: </span>{" "}
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestDialogue
+              : "null"}
           </p>
-
         </div>
         <div className="mb-2 block">
           <Label htmlFor="userTranslation" value="Your Interpretation" />

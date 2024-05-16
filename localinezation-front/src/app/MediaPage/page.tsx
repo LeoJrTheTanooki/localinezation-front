@@ -39,15 +39,17 @@ const MediaPage = () => {
 
   useEffect(() => {
     const fetchTransFunction = async () => {
-      let translations = await getTranslationRequestsByMediaId(queryNum);
-      const translationsMapped = translations.map((e: any, index: number) => {
+      let translationRequests = await getTranslationRequestsByMediaId(queryNum);
+      console.log(translationRequests)
+      const translationsMapped = translationRequests.map((e: any, index: number) => {
         return (
           <div
             className="border border-t-0 border-black flex flex-col flex-wrap p-3 bg-fuchsia-200 text-gray-700 cursor-pointer hover:bg-fuchsia-50"
             key={index}
             onClick={() => {
               handlePageChange(
-                `/OpenRequestsPage?id=${queryNum}&language=${e.requestLanguage}&index=${index}`
+                `/OpenRequestsPage?id=${queryNum}&language=${e.requestLanguage}&index=${index}&requestId=${e.id}
+                `
               );
             }}
           >

@@ -1,4 +1,4 @@
-export const langFormat = (language: string | null) => {
+export const langFormat = /* (language: string | null) */ (language: any) => {
   switch (language) {
     case "englishUsa":
       return "English (US)";
@@ -23,7 +23,7 @@ export const langFormat = (language: string | null) => {
     case "irish":
       return "Irish";
     default:
-      return "Language Format Error";
+      return language;
   }
 };
 

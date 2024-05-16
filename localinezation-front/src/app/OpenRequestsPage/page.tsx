@@ -5,10 +5,16 @@ import { Button, Dropdown, Rating } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
-import { getAllMediaItems, getTranslationRequestsByMediaId, getMediaItemsByMediaId, getTranslationsByRequestId } from "@/utils/Dataservices";
+import {
+  getAllMediaItems,
+  getTranslationRequestsByMediaId,
+  getMediaItemsByMediaId,
+  getTranslationsByRequestId,
+} from "@/utils/Dataservices";
 
 const OpenRequestsPage = () => {
   const requestsDefault = Array<{
+    id: -1;
     requestName: "string";
     requestDialogue: "string";
     requestReferences: Array<"string">;
@@ -29,8 +35,9 @@ const OpenRequestsPage = () => {
   };
 
   // <Array<ILanguageData["openRequests"]>
-  const [requestsArray, setRequestsArray] =
-    useState<ILanguageData["openRequests"]>(requestsDefault);
+  // const [requestsArray, setRequestsArray] =
+  //   useState<ILanguageData["openRequests"]>(requestsDefault);
+  const [requestsArray, setRequestsArray] = useState<any>(requestsDefault);
   const [mediaRequests, setMediaRequests] = useState<any>();
   const [queryNum, setQueryNum] = useState<number>(-1);
   const [langQuery, setLangQuery] = useState<string>("");
@@ -44,6 +51,9 @@ const OpenRequestsPage = () => {
   const [yourScore, setYourScore] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
+
+  const [requestTranslations, setRequestTranslations] = useState<any>();
+  const [requestId, setRequestId] = useState<any>();
 
   useEffect(() => {
     const loadMedia = async () => {
@@ -64,29 +74,36 @@ const OpenRequestsPage = () => {
     const langQueryEffect = new URLSearchParams(window.location.search).get(
       "language"
     );
+    const indexQueryEffect = new URLSearchParams(window.location.search).get(
+      "index"
+    );
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
     if (langQueryEffect) setLangQuery(langQueryEffect);
+    if (indexQueryEffect) setRequestIndex(parseInt(indexQueryEffect));
   }, []);
 
   useEffect(() => {
     if (queryNum != -1) {
       const loadMedia = async () => {
         const foundMedia = await getMediaItemsByMediaId(queryNum);
-        console.log('Current Media: ', foundMedia);
+        // console.log('Current Media: ', foundMedia);
         setCurrentMedia(foundMedia);
-        const submittedRequests = await getTranslationRequestsByMediaId(queryNum)
-        setRequestsArray(submittedRequests)
+        const submittedRequests = await getTranslationRequestsByMediaId(
+          queryNum
+        );
+        setRequestsArray(submittedRequests);
         // console.log('Current Requests: ', submittedRequests)
-        const submittedTranslations = await getTranslationsByRequestId(queryNum)
-        console.log('Submitted Translations', submittedTranslations);
+        // const submittedTranslations = await getTranslationsByRequestId(queryNum)
+        // console.log('Submitted Translations', submittedTranslations);
       };
       loadMedia();
     }
   }, [queryNum]);
 
   useEffect(() => {
-    console.log('Current Requests: ', requestsArray)
+    // console.log('Current Requests: ', requestsArray)
     if (requestsArray && requestsArray.length != 0) {
+      setRequestId(requestsArray[requestIndex].id);
       const requestListJsx = requestsArray.map(
         (request: any, index: number) => {
           return (
@@ -95,7 +112,14 @@ const OpenRequestsPage = () => {
                 className="text-blue-600 italic underline"
                 onClick={() => {
                   setReferenceIndex(0);
+                  setLangQuery(request.requestLanguage);
                   setRequestIndex(index);
+                  setRequestId(request.id);
+                  window.history.pushState(
+                    null,
+                    `Change Queries`,
+                    `OpenRequestsPage?id=${queryNum}&language=${request.requestLanguage}&index=${index}&requestId=${request.id}`
+                  );
                 }}
               >
                 {request.requestName}
@@ -106,9 +130,35 @@ const OpenRequestsPage = () => {
       );
       setRequestList(requestListJsx);
     }
-  }, [requestsArray])
+  }, [requestsArray]);
+
+  useEffect(() => {
+    // console.log(requestId);
+    const translationLoad = async () => {
+      try {
+        const translations = await getTranslationsByRequestId(requestId);
+        // console.log(`Translations `, translations);
+        setRequestTranslations(translations);
+      } catch (error) {
+        setRequestTranslations(null);
+      }
+    };
+    if (requestId) {
+      translationLoad();
+    }
+  }, [requestId, translationIndex]);
+
+  useEffect(() => {
+    if (requestTranslations) {
+      // console.log(
+      //   `Translator's user ID: `,
+      //   requestTranslations[translationIndex].translatorUserId
+      // );
+    }
+  }, [requestTranslations, translationIndex]);
 
   // Setting data to variables based on set query variables
+
   // useEffect(() => {
   //   function findLanguage(obj: object) {
   //     return Object.keys(obj)[0] == langQuery;
@@ -150,39 +200,38 @@ const OpenRequestsPage = () => {
   //   } catch (error) {
   //     console.log(`error caught: ${error}`);
   //   }
-    // if (requestsArray && requestsArray.length != 0) {
+  // if (requestsArray && requestsArray.length != 0) {
 
-    //   // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
-    //   requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
-    //     console.log(e.userScore)
-    //   })
-    // // }
+  //   // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
+  //   requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
+  //     console.log(e.userScore)
+  //   })
+  // // }
 
-    //   const requestListJsx = requestsArray.map(
-    //     (request: any, index: number) => {
-    //       return (
-    //         <li key={index}>
-    //           <button
-    //             className="text-blue-600 italic underline"
-    //             onClick={() => {
-    //               setReferenceIndex(0);
-    //               setRequestIndex(index);
-    //             }}
-    //           >
-    //             {request.requestName}
-    //           </button>
-    //         </li>
-    //       );
-    //     }
-    //   );
-    //   setRequestList(requestListJsx);
+  //   const requestListJsx = requestsArray.map(
+  //     (request: any, index: number) => {
+  //       return (
+  //         <li key={index}>
+  //           <button
+  //             className="text-blue-600 italic underline"
+  //             onClick={() => {
+  //               setReferenceIndex(0);
+  //               setRequestIndex(index);
+  //             }}
+  //           >
+  //             {request.requestName}
+  //           </button>
+  //         </li>
+  //       );
+  //     }
+  //   );
+  //   setRequestList(requestListJsx);
 
-    // }
+  // }
   // }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
   useEffect(() => {
     setCoverArt(currentMedia.coverArt);
-
   }, [currentMedia]);
 
   // Function source: https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url#8260383
@@ -342,7 +391,7 @@ const OpenRequestsPage = () => {
             Other User Translations for “
             {requestsArray && requestsArray.length != 0
               ? requestsArray[requestIndex]?.requestName
-              : "null"}
+              : "N/A"}
             ”
           </div>
           <div className="border-2 border-b-0 border-black p-1">
@@ -355,6 +404,19 @@ const OpenRequestsPage = () => {
                   translationIndex
                 ]?.translatedDialogue
               : ""} */}
+
+            {requestTranslations && requestTranslations.length > 0 ? (
+              <>
+                User {requestTranslations[translationIndex].translatorUserId}:{" "}
+                {requestTranslations[translationIndex]?.translatedText}
+              </>
+            ) : (
+              <span className=" font-bold">
+                No translations submitted... click on Submit a Translation to
+                make one!
+              </span>
+            )}
+
             {/* <span className="font-bold">
               {requestsArray && requestsArray.length > 0
                 ? requestsArray[requestIndex]?.submittedTranslations[
@@ -376,6 +438,7 @@ const OpenRequestsPage = () => {
                   translationIndex
                 ]?.translatedDialogue
               : ""}{" "} */}
+
             <div className="flex">
               {/* <div className="mr-3 flex">
                 User Score:
@@ -499,12 +562,17 @@ const OpenRequestsPage = () => {
               onClick={() => {
                 if (requestsArray)
                   indexLoop(
-                    requestsArray[requestIndex]?.submittedTranslations,
+                    requestTranslations,
                     translationIndex,
                     setTranslationIndex,
                     false
                   );
               }}
+              disabled={
+                requestTranslations && requestTranslations.length > 1
+                  ? false
+                  : true
+              }
             >
               Previous User{" "}
             </Button>
@@ -515,12 +583,17 @@ const OpenRequestsPage = () => {
               onClick={() => {
                 if (requestsArray)
                   indexLoop(
-                    requestsArray[requestIndex]?.submittedTranslations,
+                    requestTranslations,
                     translationIndex,
                     setTranslationIndex,
                     true
                   );
               }}
+              disabled={
+                requestTranslations && requestTranslations.length > 1
+                  ? false
+                  : true
+              }
             >
               Next User
             </Button>
@@ -548,7 +621,7 @@ const OpenRequestsPage = () => {
               className="bg-indigo-900 enabled:hover:bg-indigo-950"
               onClick={() =>
                 handlePageChange(
-                  `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&request=${requestIndex}`
+                  `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`
                 )
               }
             >

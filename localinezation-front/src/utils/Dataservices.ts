@@ -6,7 +6,6 @@ import {
   ITranslation,
   IUserData,
   IUserInfo,
-  IAddTranslation,
 } from "@/Interfaces/Interfaces";
 
 const url = "https://localinazationapi.azurewebsites.net";
@@ -222,7 +221,6 @@ export const addTranslationRequest = async (request: ITranslationRequest) => {
   return await response.json();
 };
 
-
 /*
 
 {
@@ -247,7 +245,7 @@ export const addTranslationRequest = async (request: ITranslationRequest) => {
 
 // ---------------------------------------------------------------------------------------------------------
 // 12-  add translations text; you can add as many translations languages or versions for each translation request submitted:
-export const addTranslation = async (request: IAddTranslation) => {
+export const addTranslation = async (request: ITranslation) => {
   const response = await fetch(`${url}/Media/AddTranslation`, {
     method: "POST",
     headers: {
@@ -270,7 +268,7 @@ export const addTranslation = async (request: IAddTranslation) => {
   "translatedText": "Lorem Emsom Translated text here",             // The translation text
   "language": "Spanish",                                            // The language of the translation
   "isApproved": true,                                               // Whether the translation is approved
-  "isGuest": false                                                  // Whether the translator is a guest user
+  "isGuest": false,                                                  // Whether the translator is a guest user
   "mediaId": 1                                                      //
 }                                                                   //
 
@@ -346,3 +344,11 @@ export const getTranslationsByMediaId = async (mediaId: number) => {
   const data = await res.json();
   return data;
 };
+
+/* 
+
+So you -> Post addTranslation with a requestID -> Call all requests on the media page with getTranslationsbyMediaID by passing in the mediaID -> When you click on a request you call getTranslationsbyRequestID and pass in the ID of the request you clicked.
+
+POST Point #12 with translationRequestId -> GET Point #17 by passing mediaId -> GET Point #14 with requestId
+
+*/
