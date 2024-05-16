@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 
 const Homepage = () => {
   
-  // Convert any to Array or to Custom Interface without error
   const [mediaList, setMediaList] = useState<IMedia[]>([]);
 
   const [error, setError] = useState<string | null>(null);
