@@ -1,6 +1,6 @@
 "use client";
 
-import { IMedia, IMediaItems, IUserInfo } from "@/Interfaces/Interfaces";
+import {IMediaItems, IUserInfo } from "@/Interfaces/Interfaces";
 import {
   checkToken,
   getLoggedInUserData,

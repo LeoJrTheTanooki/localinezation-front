@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 const Homepage = () => {
   
   const [mediaList, setMediaList] = useState<IMedia[]>([]);
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   const [error, setError] = useState<string | null>(null);
 

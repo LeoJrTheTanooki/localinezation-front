@@ -1,6 +1,6 @@
 "use client";
 
-import { Label, FileInput, TextInput, Button, Dropdown } from "flowbite-react";
+import {FileInput, TextInput, Button, Dropdown } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
