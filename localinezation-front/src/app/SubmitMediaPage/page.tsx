@@ -1,12 +1,7 @@
 "use client";
-import {
-  TextInput,
-  FileInput,
-  Button,
-  Dropdown,
-} from "flowbite-react";
+import { TextInput, FileInput, Button, Dropdown } from "flowbite-react";
 import { useRouter } from "next/navigation";
-
+import imageCompression from "browser-image-compression";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
 import { addMediaItem } from "@/utils/Dataservices";
@@ -27,9 +22,14 @@ const SubmitMediaPage = () => {
   const [submission, setSubmission] = useState<any>();
 
   useEffect(() => {
+    let userId = localStorage.getItem("userId");
+    let parsedUserId;
+    if (userId) {
+      parsedUserId = parseInt(userId);
+    }
     let submitEffect = {
       id: 0,
-      userId: localStorage.getItem('userId'),
+      userId: parsedUserId,
       title: title,
       coverArt: coverArt,
       originalLanguage: originalLanguage,
@@ -39,44 +39,61 @@ const SubmitMediaPage = () => {
     setSubmission(submitEffect);
   }, [title, coverArt, originalLanguage, type, platform]);
 
-
   //Thank you Sinatha and Halley from MangaDiction for letting me use this function for out image reader
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) =>{
-    const file = e.target.files?.[0];
-    
-     // Check if a file is selected
-     if (!file) {
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    let file = e.target.files?.[0];
+    console.log(`${file!.size / 1024 / 1024} MB`);
+
+    // Check if a file is selected
+    if (!file) {
       alert("Please select a file.");
       return;
-  }
+    }
 
-  // Check file size (limit to 5MB)
-  const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-  if (file.size > maxSizeInBytes) {
-      alert("File size exceeds the limit. Please choose a smaller file.");
-      e.target.value = ''; // Clear the input value
-      return;
-  }
+    //compress the image - Added by Zach
+    const options = {
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 512,
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      console.log(
+        "compressedFile instanceof Blob",
+        compressedFile instanceof Blob
+      ); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      ); // smaller than maxSizeMB
+      file = compressedFile;
+    } catch (error) {
+      console.log(error);
+      e.target.value = ""; //Clear the input value
+    }
 
-  // Check file type (accept only PNG and JPEG)
-  const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
-  if (!acceptedTypes.includes(file.type)) {
+    // Check file type (accept only PNG and JPEG)
+    const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    if (!acceptedTypes.includes(file.type)) {
       alert("Please select a PNG or JPEG file.");
-      e.target.value = ''; // Clear the input value
+      e.target.value = ""; // Clear the input value
       return;
-  }
+    }
 
-  let reader = new FileReader();
-  reader.onload = () => {
+    let reader = new FileReader();
+    reader.onload = () => {
       setCoverArt(reader.result as string);
-  }
-  reader.readAsDataURL(file);
-  }
+      console.log(reader.result);
+    };
+    console.log(`${file.size / 1024} KB`);
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div className="flex flex-col items-center flex-wrap p-4 select-none">
       <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
-        <h1 className="text-center font-bold text-gray-700 text-4xl py-7">Submit Media</h1>
+        <h1 className="text-center font-bold text-gray-700 text-4xl py-7">
+          Submit Media
+        </h1>
       </div>
       <div className="flex w-3/4 flex-wrap gap-y-4 justify-evenly">
         <form className="max-w-md h-fit flex flex-col items-between bg-purple-600 p-6 rounded-lg">
@@ -151,7 +168,9 @@ const SubmitMediaPage = () => {
                 <Dropdown
                   id="type"
                   label={
-                    originalLanguage ? langFormat(originalLanguage) : "Select Language"
+                    originalLanguage
+                      ? langFormat(originalLanguage)
+                      : "Select Language"
                   }
                   inline
                 >
@@ -248,33 +267,46 @@ const SubmitMediaPage = () => {
               />
               <p className="text-white ">PNG or JPG (MAX. 5mb).</p>
             </div>
-            <button className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400" onClick={()=> {addMediaItem(submission), handlePageChange("/TranslationsPage")}}>Submit Media</button>
+            <button
+              className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400"
+              onClick={(e) => {
+                e.preventDefault(),
+                  addMediaItem(submission),
+                  handlePageChange("/TranslationsPage");
+              }}
+            >
+              Submit Media
+            </button>
           </div>
         </form>
         <div
-          className={`flex ${displayRequest ? "" : ""
-            } justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4`}
+          className={`flex ${
+            displayRequest ? "" : ""
+          } justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4`}
         >
           <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
-            <img className="max-h-80 max-w-64 min-w-48 bg-fuchsia-300 p-4 rounded-lg text-gray-700" src={coverArt} alt=" Image" />
+            <img
+              className="max-h-80 max-w-64 min-w-48 bg-fuchsia-300 p-4 rounded-lg text-gray-700"
+              src={coverArt}
+              alt=" Image"
+            />
             <div className=" font-semibold flex gap-4 flex-col">
               <p>Name: {title}</p>
               <p>Type: {type}</p>
               <p>Platform: {platform}</p>
-              <p>Original Language: {originalLanguage ? langFormat(originalLanguage) : ''}</p>
+              <p>
+                Original Language:{" "}
+                {originalLanguage ? langFormat(originalLanguage) : ""}
+              </p>
               <p>Current Translations: None</p>
             </div>
           </div>
           <div>
             <div className="flex justify-evenly mb-4">
-              <Button
-                className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
-              >
+              <Button className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2">
                 Request a Line to Translate
               </Button>
-              <Button
-                className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2"
-              >
+              <Button className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2">
                 Submit a Translation
               </Button>
             </div>
@@ -296,7 +328,6 @@ const SubmitMediaPage = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
