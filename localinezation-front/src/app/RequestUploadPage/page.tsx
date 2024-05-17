@@ -169,12 +169,12 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
 
   return (
     <>
-      <div>
-        <form className="max-w-md flex flex-col gap-4">
-          <div>
+      <div className="flex justify-center my-8">
+        <form className="max-w-md flex flex-col bg-purple-600 text-white font-semibold rounded-lg p-4">
+          <div className="flex flex-col gap-y-4">
             <div className="mb-2 block">
-              <p className="text-gray-900">
-                Request <span className="text-red-600">*</span>
+              <p className=" ">
+                Request Title<span className="text-red-600">*</span>
               </p>
               <TextInput
                 id="requestName"
@@ -184,13 +184,15 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
                   setRequestName(e.target.value);
                 }}
                 value={requestName}
+                className="font-normal"
+                placeholder="Request Title..."
               />
             </div>
             <div className="mb-2 block">
-              <p className="text-gray-900">
+              <p className=" ">
                 Language <span className="text-red-600">*</span>
               </p>
-              <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
+              <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50   focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 text-gray-700 font-normal ">
                 <Dropdown
                   id="type"
                   label={
@@ -218,7 +220,7 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
               </div>
             </div>
             <div className="mb-2 block">
-              <p className="text-gray-900">Original Dialogue</p>
+              <p className=" ">Original Text</p>
               <TextInput
                 id="dialogueRequest"
                 type="text"
@@ -226,20 +228,22 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
                   setDialogueRequest(e.target.value);
                 }}
                 value={dialogueRequest}
+                className="font-normal"
+                placeholder="Original Text..."
               />
             </div>
-            <div className="mb-2 block">
-              <p className="text-gray-900">Screenshots</p>
+            <div className="mb-2 block font-normal">
+              <p className=" ">Screenshots</p>
               <FileInput
                 id="screenshots"
                 // multiple
                 accept="image/png, image/jpeg, image/webp"
-                helperText="PNG, JPG or GIF (MAX. ???x???px)."
+                //helperText="PNG, JPG or GIF (MAX. ???x???px)."
                 onChange={handleImage}
               />{" "}
             </div>
             <div className="mb-2 block">
-              <p className="text-gray-900">Video Link</p>
+              <p className=" ">Video Link</p>
               <TextInput
                 id="videoLink"
                 type="text"
@@ -247,16 +251,19 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
                   setVideoLink(e.target.value);
                 }}
                 value={videoLink}
+                className="font-normal"
+                placeholder="Video URL..."
               />
             </div>
-            <Button
+            <button
+            className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 text-gray-700 mx-auto"
               onClick={() => {
                 addTranslationRequest(requestObj);
                 handlePageChange(`/MediaPage?id=${queryNum}`);
               }}
             >
               Submit Request
-            </Button>
+            </button>
           </div>
         </form>
       </div>
