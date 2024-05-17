@@ -1,6 +1,6 @@
 "use client";
 
-import {FileInput, TextInput, Button, Dropdown } from "flowbite-react";
+import { FileInput, TextInput, Button, Dropdown } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
@@ -9,6 +9,7 @@ import {
   getLoggedInUserData,
   addTranslationRequest,
 } from "@/utils/Dataservices";
+import imageCompression from "browser-image-compression";
 
 const RequestUploadPage = () => {
   const router = useRouter();
@@ -19,8 +20,8 @@ const RequestUploadPage = () => {
   const [requestName, setRequestName] = useState<string>("");
   const [languageSelect, setLanguageSelect] = useState<string>("");
   const [dialogueRequest, setDialogueRequest] = useState<string>("");
-  const [screenshots, setScreenshots] = useState<Array<any>>([]);
-  const [videoLink, setVideoLink] = useState<string>("");
+  const [screenshots, setScreenshots] = useState<any>();
+  const [videoLink, setVideoLink] = useState<string>();
   const [queryNum, setQueryNum] = useState<number>(-1);
   const [requestObj, setRequestObj] = useState<any>();
   const [mediaUserId, setMediaUserId] = useState<number>(-1);
@@ -81,19 +82,90 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
 
   useEffect(() => {
     if (requestName && languageSelect) {
+      let screenshotsEffect;
+      let videoEffect;
+
+      if (screenshots) {
+        screenshotsEffect = {
+          src: screenshots,
+          isVideo: false,
+        };
+      }
+
+      if (videoLink) {
+        videoEffect = {
+          src: videoLink,
+          isVideo: true,
+        };
+      }
+
+      let referencesEffect = [
+        screenshots ? screenshotsEffect : null,
+        videoEffect ? videoEffect : null,
+      ]
+
       let requestEffect = {
         requestorUserId: mediaUserId,
         mediaId: queryNum,
-        requestName: requestName,
         requestLanguage: languageSelect,
+        requestName: requestName,
         requestDialogue: dialogueRequest,
+        requestReferences: referencesEffect
         // screenshots: screenshots,
         // "videoLink": videoLink,
       };
       setRequestObj(requestEffect);
       console.log(requestEffect);
     }
-  }, [requestName, languageSelect, dialogueRequest, videoLink]);
+  }, [requestName, languageSelect, dialogueRequest, screenshots, videoLink, mediaUserId, queryNum]);
+
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    let file = e.target.files?.[0];
+    console.log(`${file!.size / 1024 / 1024} MB`);
+
+    // Check if a file is selected
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+
+    //compress the image - Added by Zach
+    const options = {
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 512,
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      console.log(
+        "compressedFile instanceof Blob",
+        compressedFile instanceof Blob
+      ); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      ); // smaller than maxSizeMB
+      file = compressedFile;
+    } catch (error) {
+      console.log(error);
+      e.target.value = ""; //Clear the input value
+    }
+
+    // Check file type (accept only PNG and JPEG)
+    const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    if (!acceptedTypes.includes(file.type)) {
+      alert("Please select a PNG or JPEG file.");
+      e.target.value = ""; // Clear the input value
+      return;
+    }
+
+    let reader = new FileReader();
+    reader.onload = () => {
+      setScreenshots(reader.result as string);
+      console.log(reader.result);
+    };
+    console.log(`${file.size / 1024} KB`);
+    reader.readAsDataURL(file);
+  };
 
   return (
     <>
@@ -160,9 +232,10 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
               <p className="text-gray-900">Screenshots</p>
               <FileInput
                 id="screenshots"
-                multiple
+                // multiple
                 accept="image/png, image/jpeg, image/webp"
                 helperText="PNG, JPG or GIF (MAX. ???x???px)."
+                onChange={handleImage}
               />{" "}
             </div>
             <div className="mb-2 block">

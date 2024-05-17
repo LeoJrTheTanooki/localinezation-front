@@ -1,6 +1,8 @@
 import { IMedia } from "@/Interfaces/Interfaces";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { langFormat } from "./CustomFunctions";
 
 interface IProp {
   mediaObject: IMedia;
@@ -25,19 +27,23 @@ const MediaCard = (props: IProp) => {
         }
       >
         <div className="flex h-fit min-w-80 flex-col justify-between gap-2 p-6">
-          <img
-            className="self-center max-h-96 bg-fuchsia-300 rounded-lg p-4"
+          <Image
+            width="0"
+            height="0"
+            className="self-center max-h-96 bg-fuchsia-300 rounded-lg p-4 w-auto h-auto"
             style={{ maxHeight: "250px" }}
             src={props.mediaObject.coverArt}
             alt={props.mediaObject.title + " cover"}
           />
           <div className="mb-4 bg-fuchsia-300 border border-black">
-          <p className=" mt-3 mb-2 font-bold text-wrap">{props.mediaObject.title}</p>
-          <p className="bg-fuchsia-200 py-2 border-t border-black">
-            {props.mediaObject.originalLanguage +
-              " | " +
-              props.mediaObject.type}
-          </p>
+            <p className=" mt-3 mb-2 font-bold text-wrap">
+              {props.mediaObject.title}
+            </p>
+            <p className="bg-fuchsia-200 py-2 border-t border-black">
+              { langFormat(props.mediaObject.originalLanguage) +
+                " | " +
+                props.mediaObject.type}
+            </p>
           </div>
         </div>
       </div>

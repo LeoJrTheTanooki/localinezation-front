@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
 import {
-  getAllMediaItems,
   getTranslationRequestsByMediaId,
   getMediaItemsByMediaId,
 } from "@/utils/Dataservices";

@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { langFormat } from "../components/CustomFunctions";
 import {
-  getAllMediaItems,
+  getPublishedItems,
   getTranslationRequestsByMediaId,
   getMediaItemsByMediaId,
   getTranslationsByRequestId,
+  getUserByUserId,
 } from "@/utils/Dataservices";
 
 const OpenRequestsPage = () => {
@@ -51,6 +52,7 @@ const OpenRequestsPage = () => {
   const [yourScore, setYourScore] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
+  const [translatorUsername, setTranslatorUsername] = useState<string>('');
 
   const [requestTranslations, setRequestTranslations] = useState<any>();
   const [requestId, setRequestId] = useState<any>();
@@ -58,7 +60,7 @@ const OpenRequestsPage = () => {
   useEffect(() => {
     const loadMedia = async () => {
       try {
-        const media = await getAllMediaItems();
+        const media = await getPublishedItems();
         setMediaRequests(media);
       } catch (error) {
         setError("Failed to fetch media. Please try again later.");
@@ -115,6 +117,7 @@ const OpenRequestsPage = () => {
                   setLangQuery(request.requestLanguage);
                   setRequestIndex(index);
                   setRequestId(request.id);
+                  setTranslationIndex(0)
                   window.history.pushState(
                     null,
                     `Change Queries`,
@@ -130,7 +133,7 @@ const OpenRequestsPage = () => {
       );
       setRequestList(requestListJsx);
     }
-  }, [requestsArray]);
+  }, [queryNum, requestIndex, requestsArray]);
 
   useEffect(() => {
     // console.log(requestId);
@@ -150,6 +153,18 @@ const OpenRequestsPage = () => {
 
   useEffect(() => {
     if (requestTranslations) {
+      const translatorId =
+        requestTranslations[translationIndex].translatorUserId;
+      const translatorLoad = async () => {
+        try {
+          let translatorInfo = await getUserByUserId(translatorId);
+          setTranslatorUsername(translatorInfo.publisherName);
+        } catch (error) {
+          setTranslatorUsername(`User ${translatorId}`)
+        }
+      };
+      translatorLoad();
+      // getUserByUserId
       // console.log(
       //   `Translator's user ID: `,
       //   requestTranslations[translationIndex].translatorUserId
@@ -407,7 +422,7 @@ const OpenRequestsPage = () => {
 
             {requestTranslations && requestTranslations.length > 0 ? (
               <>
-                User {requestTranslations[translationIndex].translatorUserId}:{" "}
+                <span className=" font-semibold">{translatorUsername}</span>:{" "}
                 {requestTranslations[translationIndex]?.translatedText}
               </>
             ) : (

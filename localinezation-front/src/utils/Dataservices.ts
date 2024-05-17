@@ -433,10 +433,27 @@ export const getTranslationsByMediaId = async (mediaId: number) => {
   return data;
 };
 
-/* 
+// 18- this endpoint is to search/GET a user by username
+export const getUserByUsername = async (username: string) => {
+  const res = await fetch(url + "/User/GetUserByUsername/" + username);
+  const data = await res.json();
+  return data;
+};
 
+// 19- this endpoint is to search/GET a user by UserId
+export const getUserByUserId = async (userId: number) => {
+  const res = await fetch(url + "/User/GetUserByUserId/" + userId);
+  const data = await res.json();
+  return data;
+};
+
+/* 
+How to get Translations
+
+Description by Zach:
 So you -> Post addTranslation with a requestID -> Call all requests on the media page with getTranslationsbyMediaID by passing in the mediaID -> When you click on a request you call getTranslationsbyRequestID and pass in the ID of the request you clicked.
 
+In Postman Chain Terms:
 POST Point #12 with translationRequestId -> GET Point #17 by passing mediaId -> GET Point #14 with requestId
 
 */

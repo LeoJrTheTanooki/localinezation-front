@@ -1,7 +1,7 @@
 "use client";
 
 import { IMedia } from "@/Interfaces/Interfaces";
-import { getAllMediaItems } from "@/utils/Dataservices";
+import { getPublishedItems } from "@/utils/Dataservices";
 import MediaCard from "@/app/components/MediaCard";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ const Homepage = () => {
     // Define an asynchronous function to fetch media from the backend
     const loadMedia = async () => {
       try {
-        const media = await getAllMediaItems(); // Attempt to fetch media
+        const media = await getPublishedItems(); // Attempt to fetch media
         setMediaList(media); // If successful, update the state with the fetched media
       } catch (error) {
         setError("Failed to fetch media. Please try again later."); // If an error occurs, set an error message

@@ -35,6 +35,7 @@ const SubmitMediaPage = () => {
       originalLanguage: originalLanguage,
       type: type,
       platform: platform,
+      isPublished: true
     };
     setSubmission(submitEffect);
   }, [title, coverArt, originalLanguage, type, platform]);

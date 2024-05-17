@@ -31,7 +31,7 @@ const AccountDashboardPage = () => {
       };
       setNewLogin(loginEffect);
     }
-  }, [newUsername, newPassword]);
+  }, [newUsername, newPassword, mediaUserId]);
 
   // useRouter from next/navigation
   const router = useRouter();
