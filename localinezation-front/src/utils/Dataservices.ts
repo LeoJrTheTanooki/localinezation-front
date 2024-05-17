@@ -76,6 +76,16 @@ export const addUser = async (createdUser: IUserInfo) => {
   }
   return data;
 };
+
+/*
+
+{                                                                         //
+  "username": "Leo",                                                      //
+  "password": "Leo"                                                       //
+}                                                                         //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 2-  User login
 export const login = async (loginUser: IUserInfo) => {
@@ -95,6 +105,16 @@ export const login = async (loginUser: IUserInfo) => {
   const data: IToken = await res.json();
   return data;
 };
+
+/*
+
+{                                                                        //
+  "username": "Leo",                                                     //
+  "password": "Leo"                                                      //
+}                                                                        //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 3- Update user's credentials:
 // Update account
@@ -111,6 +131,17 @@ export const updateCredentials = async (updatedUser: IUserInfo) => {
     throw new Error(message);
   }
 };
+
+/*
+
+{                                                                        //
+  "id": 2,                                                               //provide user's id and change the rest
+  "username": "Leo2",                                                    //
+  "password": "Leo2"                                                     //
+}                                                                        //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 4- Add Media item; a user can add as many media-item as needed; (they are not "Requests" yet though):
 // Submit a media
@@ -128,6 +159,24 @@ export const addMediaItem = async (Media: IMedia) => {
   }
   return await response.json();
 };
+
+/*
+
+ {                                                                          //
+    "userID": 2,                                                            //
+    "title": "Leo's Title",                                                 //
+    "coverArt": "conver image to string first and added here",              //
+    "originalLanguage": "Spanish",                                          //
+    "tags": "string",                                                       //
+    "categories": "string",                                                 //
+    "type": "Video",                                                        //
+    "platform": "YouTube",                                                  //
+    "isPublished": true,                                                    //
+    "isDeleted": false                                                      //
+  }                                                                         //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 5- Get the media by User ID:
 //Dashboard fetches ashur 05/06/2024
@@ -175,17 +224,22 @@ export const updateMediaItem = async (updatedUser: IUserInfo) => {
   }
 };
 
-//  {
-//      "id": 1, //Media item id
-//     "userID": 0,
-//     "title": "Leo's updated",
-//     "coverArt": "conver image to string first and added here",
-//     "originalLanguage": "Spanish",
-//     "type": "Video",
-//     "platform": "YouTube",
-//     "isPublished": true,
-//     "isDeleted": false
-//   }
+/* 
+
+{                                                                         //
+    "id": 1,                                                              // Media item id
+   "userID": 0,                                                           //
+   "title": "Leo's updated",                                              //
+   "coverArt": "conver image to string first and added here",             //
+   "originalLanguage": "Spanish",                                         //
+   "type": "Video",                                                       //
+   "platform": "YouTube",                                                 //
+   "isPublished": true,                                                   //
+   "isDeleted": false                                                     //
+}                                                                         //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 9- GET all media items
 // Fetch all media from the backend
@@ -226,10 +280,10 @@ export const addTranslationRequest = async (request: ITranslationRequest) => {
 {
   "requestorUserId": 1,                                                 // Loged in user id
   "mediaId": 1,                                                         //
-  "requestLanguage": "Spanish",                                         //"string"; i suggest to use dropdown options to input as string; or a text input field to put whatever text
+  "requestLanguage": "Spanish",                                         // "string"; i suggest to use dropdown options to input as string; or a text input field to put whatever text
   "requestName": "Main Menu Text",                                      // as explained in the previous zach text in the beginning of this chat
-  "requestDialogue": "Start | Settings | Quit",                         //same: zach text earlier
-  "requestReferences": [                                                //the following goes to defferent table; refere to zach for the purpose.. you can add as many objects as you like in this array
+  "requestDialogue": "Start | Settings | Quit",                         // same: zach text earlier
+  "requestReferences": [                                                // the following goes to defferent table; refere to zach for the purpose.. you can add as many objects as you like in this array
     {                                                                   //
       "src": "a string or /path/to/media",                              //
       "isVideo": false                                                  //
@@ -262,15 +316,15 @@ export const addTranslation = async (request: ITranslation) => {
 
 /*
 
-{                                                                   //
-  "translationRequestId": 3,                                        // ID of the translation request
-  "translatorUserId": 2,                                            // Loged in User ID of the translator
-  "translatedText": "Lorem Emsom Translated text here",             // The translation text
-  "language": "Spanish",                                            // The language of the translation
-  "isApproved": true,                                               // Whether the translation is approved
-  "isGuest": false,                                                  // Whether the translator is a guest user
-  "mediaId": 1                                                      //
-}                                                                   //
+{                                                                         //
+  "translationRequestId": 3,                                              // ID of the translation request
+  "translatorUserId": 2,                                                  // Loged in User ID of the translator
+  "translatedText": "Lorem Emsom Translated text here",                   // The translation text
+  "language": "Spanish",                                                  // The language of the translation
+  "isApproved": true,                                                     // Whether the translation is approved
+  "isGuest": false,                                                       // Whether the translator is a guest user
+  "mediaId": 1                                                            //
+}                                                                         //
 
 */
 
@@ -285,6 +339,30 @@ export const getTranslationRequestsByMediaId = async (mediaId: number) => {
   return data;
 };
 
+/*
+
+[                                                                 //
+  {                                                               //
+    "id": 0,                                                      // id of the the TranslationRequests
+    "requestorUserId": 8,                                         //
+    "requestLanguage": "string: German",                          //
+    "requestName": "string",                                      // per Zach request //requestName is the name of the piece of the media to be translated (I.E. "Main Menu Text" for a video game);
+    "requestDialogue": "string",                                  // per Zach request //requestDialogue is the text from that piece (I.E. "Start | Settings | Quit"). This should be optional in case the user only has an   image/video available.
+    "media": {                                                    // the media here is for confirmation purposes to make sure you are getting the right data (i can remove this if you want)
+      "id": 0,                                                    //this is Media Id
+      "title": "string"                                           // Media Title
+    },                                                            //
+    "requestReferences": [                                        // per Zach request:  //requestReferences is what is being used to show the piece to be translated. (see Zach original explanation in the beginning of this chat
+      {                                                           //
+        "src": "string",                                          //
+        "isVideo": true                                           //
+      }                                                           //
+    ]                                                             //
+  }                                                               //
+]                                                                 //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 14- Get Translations By Request Id:
 export const getTranslationsByRequestId = async (requestId: number) => {
@@ -295,18 +373,22 @@ export const getTranslationsByRequestId = async (requestId: number) => {
   return data;
 };
 
-// response body:
-// [
-//   {
-//     "id": 3,                                                  //id of the translation
-//     "translationRequestId": 3,
-//     "translatorUserId": 2,
-//     "translatedText": "Lorem Emsom Translated text here",
-//     "isApproved": true,
-//     "language": "Spanish",
-//     "isGuest": false
-//  }
-// ]
+/*
+
+[                                                                           //
+  {                                                                         //
+    "id": 3,                                                                // id of the translation
+    "translationRequestId": 3,                                              //
+    "translatorUserId": 2,                                                  //
+    "translatedText": "Lorem Emsom Translated text here",                   //
+    "isApproved": true,                                                     //
+    "language": "Spanish",                                                  //
+    "isGuest": false                                                        //
+ }                                                                          //
+]                                                                           //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 15- Get Translations By Translator UserId:
 export const getTranslationsByTranslatorUserId = async (userId: number) => {
@@ -316,18 +398,24 @@ export const getTranslationsByTranslatorUserId = async (userId: number) => {
   const data = await res.json();
   return data;
 };
-// response body:
-// [
-//   {
-//     "id": 3,                                                  //id of the translation
-//     "translationRequestId": 3,
-//     "translatorUserId": 2,
-//     "translatedText": "Lorem Emsom Translated text here",
-//     "isApproved": true,
-//     "language": "Spanish",
-//     "isGuest": false
-//  }
-// ]
+
+/*
+
+response body:
+[                                                                   //
+  {                                                                 //
+    "id": 3,                                                        // id of the translation
+    "translationRequestId": 3,                                      //
+    "translatorUserId": 2,                                          //
+    "translatedText": "Lorem Emsom Translated text here",           //
+    "isApproved": true,                                             //
+    "language": "Spanish",                                          //
+    "isGuest": false                                                //
+ }                                                                  //
+]                                                                   //
+
+*/
+
 // ---------------------------------------------------------------------------------------------------------
 // 16- GET Translation Requests by User Id
 export const getTranslationRequestsByUserId = async (userId: number) => {

@@ -5,7 +5,11 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ILanguageData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
-import { getTranslationRequestsByMediaId, getTranslationsByRequestId } from "@/utils/Dataservices";
+import {
+  addTranslation,
+  getTranslationRequestsByMediaId,
+  getTranslationsByRequestId,
+} from "@/utils/Dataservices";
 
 const TranslationUploadPage = () => {
   const router = useRouter();
@@ -28,34 +32,34 @@ const TranslationUploadPage = () => {
 
   const [requestsArray, setRequestsArray] =
     useState<ILanguageData["openRequests"]>(requestsDefault);
-  const [mediaRequests, setMediaRequests] = useState<any>();
   const [queryNum, setQueryNum] = useState<number>(-1);
   const [langQuery, setLangQuery] = useState<string>("");
-  const [requestList, setRequestList] = useState<React.JSX.Element[]>();
   const [requestIndex, setRequestIndex] = useState<number>(0);
   const [referenceIndex, setReferenceIndex] = useState<number>(0);
-  const [translationIndex, setTranslationIndex] = useState<number>(0);
   const [formattedLang, setFormattedLang] = useState<string>("");
-  const [requestTranslations, setRequestTranslations] = useState<any>();
   const [requestId, setRequestId] = useState<any>();
   const [currentUsername, setCurrentUsername] = useState<string | null>(null);
+  const [userInterpretation, setUserInterpretation] = useState<string>("");
+  const [translationObj, setTranslationObj] = useState<any>();
 
   useEffect(() => {
     const idQueryEffect = new URLSearchParams(window.location.search).get("id");
     const requestIndexEffect = new URLSearchParams(window.location.search).get(
-      "request"
+      "index"
     );
     const langQueryEffect = new URLSearchParams(window.location.search).get(
       "language"
     );
     const requestIdQueryEffect = new URLSearchParams(
       window.location.search
-    ).get("id");
+    ).get("requestId");
 
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
-    if (requestIndexEffect) setRequestIndex(parseInt(requestIndexEffect));
+    if (requestIndexEffect) {
+      setRequestIndex(parseInt(requestIndexEffect));
+    }
     if (langQueryEffect) setLangQuery(langQueryEffect);
-    if (requestIdQueryEffect) setQueryNum(parseInt(requestIdQueryEffect));
+    if (requestIdQueryEffect) setRequestId(parseInt(requestIdQueryEffect));
 
     setFormattedLang(langFormat(langQueryEffect));
   }, []);
@@ -70,58 +74,39 @@ const TranslationUploadPage = () => {
   }, [router]);
 
   useEffect(() => {
-    if(requestId > -1 && requestIndex){
-
+    let guestCheck;
+    currentUsername ? (guestCheck = false) : (guestCheck = true);
+    let userId = localStorage.getItem("userId");
+    let parsedUserId;
+    if(userId){
+      parsedUserId = parseInt(userId)
     }
-  }, [requestId, requestIndex]);
+    
 
-    useEffect(() => {
+    let translationEffect = {
+      translationRequestId: requestId,
+      translatorUserId: parsedUserId,
+      translatedText: userInterpretation,
+      language: langQuery,
+      isApproved: true,
+      isGuest: guestCheck,
+    };
+    console.log(translationEffect);
+    setTranslationObj(translationEffect);
+  }, [userInterpretation]);
+
+  useEffect(() => {
     if (queryNum != -1) {
       const loadMedia = async () => {
         const submittedRequests = await getTranslationRequestsByMediaId(
           queryNum
         );
         setRequestsArray(submittedRequests);
-        console.log('Current Requests: ', submittedRequests)
+        console.log("Current Request: ", submittedRequests[requestIndex]);
       };
       loadMedia();
     }
-  }, [queryNum]);
-
-  // useEffect(() => {
-  //   function findLanguage(obj: object) {
-  //     return Object.keys(obj)[0] == langQuery;
-  //   }
-  //   try {
-  //     const requestData =
-  //       mediaRequests[queryNum].requestLanguage.find(findLanguage)[
-  //         `${langQuery}`
-  //       ][0];
-  //     setRequestsArray(requestData.openRequests);
-  //   } catch (error) {
-  //     console.log(`error caught: ${error}`);
-  //   }
-  //   if (requestsArray && requestsArray.length != 0) {
-  //     const requestListJsx = requestsArray.map(
-  //       (request: any, index: number) => {
-  //         return (
-  //           <li key={index}>
-  //             <button
-  //               className="text-blue-600 italic underline"
-  //               onClick={() => {
-  //                 setReferenceIndex(0);
-  //                 setRequestIndex(index);
-  //               }}
-  //             >
-  //               {request.requestName}
-  //             </button>
-  //           </li>
-  //         );
-  //       }
-  //     );
-  //     setRequestList(requestListJsx);
-  //   }
-  // }, [queryNum, langQuery, mediaRequests, requestsArray]);
+  }, [queryNum, requestIndex]);
 
   const youtube_parser = (url: string) => {
     const regExp =
@@ -141,23 +126,25 @@ const TranslationUploadPage = () => {
 
   const srcFormat = (param: any) => {
     const currentReference = param.requestReferences[referenceIndex];
-    if (currentReference.isVideo) {
-      const videoSrc = youtube_parser(currentReference.src);
+    if (currentReference) {
+      if (currentReference.isVideo) {
+        const videoSrc = youtube_parser(currentReference.src);
 
-      return (
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube-nocookie.com/embed/${videoSrc}`}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          className="bg-slate-600"
-        />
-      );
-    } else {
-      return <img src={currentReference.src} className="h-[315px]" alt="" />;
+        return (
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube-nocookie.com/embed/${videoSrc}`}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="bg-slate-600"
+          />
+        );
+      } else {
+        return <img src={currentReference.src} className="h-[315px]" alt="" />;
+      }
     }
   };
 
@@ -189,14 +176,14 @@ const TranslationUploadPage = () => {
       <div>
         <div className="mb-2 block">
           <p>Submitting as...</p>
-        {/* <TextInput
+          {/* <TextInput
           // onChange={handleTitle}
           id="requestName"
           type="text"
           // placeholder="Enter Title"
           required
         /> */}
-        <p className=" font-bold">{currentUsername}</p>
+          <p className=" font-bold">{currentUsername}</p>
         </div>
         <p>Translating Into...</p>
         <p className="font-bold">{formattedLang}</p>
@@ -253,8 +240,20 @@ const TranslationUploadPage = () => {
         <div className="mb-2 block">
           <Label htmlFor="userTranslation" value="Your Interpretation" />
         </div>
-        <Textarea id="userTranslation" />
-        <Button onClick={() => handlePageChange("/OpenRequestsPage")}>
+        <Textarea id="userTranslation"
+        onChange={(e) => {
+          setUserInterpretation(e.target.value)
+        }}
+        value={userInterpretation}
+        />
+        <Button
+          onClick={() => {
+            addTranslation(translationObj)
+            handlePageChange(
+              `/OpenRequestsPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`
+            );
+          }}
+        >
           Submit
         </Button>
       </div>
