@@ -32,14 +32,12 @@ const MediaCard = (props: IProp) => {
             alt={props.mediaObject.title + " cover"}
           />
           <div className="mb-4 bg-fuchsia-300 border border-black">
-            <p className=" mt-3 mb-2 font-bold text-wrap">
-              {props.mediaObject.title}
-            </p>
-            <p className="bg-fuchsia-200 py-2 border-t border-black">
-              {props.mediaObject.originalLanguage +
-                " | " +
-                props.mediaObject.type}
-            </p>
+          <p className=" mt-3 mb-2 font-bold text-wrap">{props.mediaObject.title}</p>
+          <p className="bg-fuchsia-200 py-2 border-t border-black">
+            {props.mediaObject.originalLanguage +
+              " | " +
+              props.mediaObject.type}
+          </p>
           </div>
         </div>
       </div>
