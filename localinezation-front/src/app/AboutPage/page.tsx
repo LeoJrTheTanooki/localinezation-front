@@ -3,6 +3,9 @@
 import React from "react";
 
 const AboutPage = () => {
+
+  
+
   const englishText = [
     <h1 key={0} className="text-center font-bold text-gray-700 text-4xl py-7">
       About Us
@@ -50,54 +53,54 @@ const AboutPage = () => {
     </p>,
   ];
 
-  // const spanishText = [
-  //   <h1 key={0} className="text-center font-bold text-gray-700 text-4xl py-7"
-  //   >
-  //     Sobre Nosotros
-  //   </h1>,
-  //   <p>¿Qué es LocaLINEzation?</p>,
-  //   <p key={0} className="indent-8">
-  //     LocaLINEzation es un sitio web y comunidad dedicado a traducir partes de
-  //     medios extranjeros para los fanáticos que tal vez no conozcan el idioma.
-  //     Usamos un sistema de respuesta abierto para hacer posible que cualquier
-  //     traductor dispuesto encuentra donde se puede usar su experiencia. Así
-  //     creando un LINE entre el solicitante y la comunidad de traducción.
-  //   </p>,
-  //   <p>Como utilizar LocaLINEzation</p>,
-  //   <>
-  //     <p key={0} className="indent-8 mb-8">
-  //       Si usted quiere <span key={0} className="font-bold">SOLICITAR</span> un medio
-  //       para ser enviado, primero fijase en la página de traducciones recientes
-  //       o use la búsqueda para ver si ese medio se ha enviado antes. Si no se ha
-  //       enviado antes, puede usar la página de{" "}
-  //       <span key={0} className="font-bold">ENVIAR UN MEDIO</span>.
-  //     </p>
-  //     <p key={0} className="indent-8">
-  //       Si quiere <span key={0} className="font-bold">TRADUCIR</span>, asegurese que ha
-  //       elegido bien el idioma de origen y el idioma al que quiere traducir. Se
-  //       puede elegir su idioma a la izquierda de su nombre en el esquina
-  //       superior de la página y luego ¡busque algo para traducir!
-  //     </p>
-  //   </>,
-  //   <p>¿Por qué existe LocaLINEzation?</p>,
-  //   <p key={0} className="indent-8">
-  //     LocaLINEzation fue creado para superar el obstáculo del idioma para los
-  //     fanáticos extranjeros de cualquier medio. Aunque no provee traducciones
-  //     completos, aumenta en hacer que ese obstáculo sea menos difícil con la
-  //     esperanza que eventualmente ese medio sea traducido por completo y/o
-  //     localización de ese medio. Individuos pueden participar en la traducción y
-  //     a la misma vez, mejorando sus habilidades, y tal vez también ser un parte
-  //     vital en la traducción completa.
-  //   </p>,
-  //   <p>¿Por qué se ve así este sitio?</p>,
-  //   <p key={0} className="indent-8">
-  //     Estamos capturando un estilo de foro web de las décadas 2000 a 2010 con
-  //     nuestro sitio web. Como nuestros usuarios objectivo tal vez se recuerdan
-  //     de esa era con nostalgia, queremos fomentar esa energía en nuestro sitio
-  //     web para que puedan tener una experiencia genial. En pocas palabras, este
-  //     sitio web se ve de forma anticuado a propósito.
-  //   </p>,
-  // ];
+  const spanishText = [
+    <h1 key={0} className="text-center font-bold text-gray-700 text-4xl py-7"
+    >
+      Sobre Nosotros
+    </h1>,
+    <p key={1}>¿Qué es LocaLINEzation?</p>,
+    <p key={2} className="indent-8">
+      LocaLINEzation es un sitio web y comunidad dedicado a traducir partes de
+      medios extranjeros para los fanáticos que tal vez no conozcan el idioma.
+      Usamos un sistema de respuesta abierto para hacer posible que cualquier
+      traductor dispuesto encuentra donde se puede usar su experiencia. Así
+      creando un LINE entre el solicitante y la comunidad de traducción.
+    </p>,
+    <p key={3}>Como utilizar LocaLINEzation</p>,
+    <>
+      <p key={4} className="indent-8 mb-8">
+        Si usted quiere <span className="font-bold">SOLICITAR</span> un medio
+        para ser enviado, primero fijase en la página de traducciones recientes
+        o use la búsqueda para ver si ese medio se ha enviado antes. Si no se ha
+        enviado antes, puede usar la página de{" "}
+        <span className="font-bold">ENVIAR UN MEDIO</span>.
+      </p>
+      <p className="indent-8">
+        Si quiere <span className="font-bold">TRADUCIR</span>, asegurese que ha
+        elegido bien el idioma de origen y el idioma al que quiere traducir. Se
+        puede elegir su idioma a la izquierda de su nombre en el esquina
+        superior de la página y luego ¡busque algo para traducir!
+      </p>
+    </>,
+    <p key={5}>¿Por qué existe LocaLINEzation?</p>,
+    <p key={6} className="indent-8">
+      LocaLINEzation fue creado para superar el obstáculo del idioma para los
+      fanáticos extranjeros de cualquier medio. Aunque no provee traducciones
+      completos, aumenta en hacer que ese obstáculo sea menos difícil con la
+      esperanza que eventualmente ese medio sea traducido por completo y/o
+      localización de ese medio. Individuos pueden participar en la traducción y
+      a la misma vez, mejorando sus habilidades, y tal vez también ser un parte
+      vital en la traducción completa.
+    </p>,
+    <p key={7}>¿Por qué se ve así este sitio?</p>,
+    <p key={8} className="indent-8">
+      Estamos capturando un estilo de foro web de las décadas 2000 a 2010 con
+      nuestro sitio web. Como nuestros usuarios objectivo tal vez se recuerdan
+      de esa era con nostalgia, queremos fomentar esa energía en nuestro sitio
+      web para que puedan tener una experiencia genial. En pocas palabras, este
+      sitio web se ve de forma anticuado a propósito.
+    </p>,
+  ];
 
   return (
     <div className="flex flex-col h-fit justify-center items-center py-10">

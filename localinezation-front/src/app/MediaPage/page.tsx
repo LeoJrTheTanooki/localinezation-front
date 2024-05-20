@@ -41,7 +41,6 @@ const MediaPage = () => {
   useEffect(() => {
     const fetchTransFunction = async () => {
       let translationRequests = await getTranslationRequestsByMediaId(queryNum);
-      console.log(translationRequests)
       const translationsMapped = translationRequests.map((e: any, index: number) => {
         return (
           <div

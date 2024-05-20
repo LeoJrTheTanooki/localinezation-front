@@ -20,6 +20,7 @@ const NavbarComponent = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchDropdown, setSearchDropdown] = useState<any>();
   const [mediaList, setMediaList] = useState<IMedia[]>([]);
+  const [userLanguage, setUserLanguage] = useState<string>("");
 
   useEffect(() => {
     const loadMedia = async () => {
@@ -30,8 +31,14 @@ const NavbarComponent = () => {
         console.error(error);
       }
     };
-
     loadMedia();
+    const languageCheck = localStorage.getItem("userLanguage");
+    if (languageCheck) {
+      window.addEventListener("storage", () => setUserLanguage(languageCheck));
+    } else {
+      localStorage.setItem("userLanguage", "englishUsa");
+      window.addEventListener("storage", () => setUserLanguage('englishUsa'));
+    }
   }, []);
 
   const router = useRouter();
@@ -149,9 +156,23 @@ const NavbarComponent = () => {
               </>
             }
           >
-            <Dropdown.Item className="gap-2">
+            <Dropdown.Item
+              className="gap-2"
+              onClick={() => {
+                localStorage.setItem("userLanguage", "englishUsa");
+              }}
+            >
               <Avatar img="/assets/americanFlag.png" rounded />
               <span>English (US)</span>
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="gap-2"
+              onClick={() => {
+                localStorage.setItem("userLanguage", "spanishLatAm");
+              }}
+            >
+              <Avatar img="/assets/mexicanFlag.png" rounded />
+              <span>Spanish (Latin American)</span>
             </Dropdown.Item>
           </Dropdown>
 

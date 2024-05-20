@@ -7,6 +7,7 @@ import { ILanguageData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
 import {
   addTranslation,
+  getLoggedInUserData,
   getTranslationRequestsByMediaId,
   getTranslationsByRequestId,
 } from "@/utils/Dataservices";
@@ -41,6 +42,7 @@ const TranslationUploadPage = () => {
   const [currentUsername, setCurrentUsername] = useState<string | null>(null);
   const [userInterpretation, setUserInterpretation] = useState<string>("");
   const [translationObj, setTranslationObj] = useState<any>();
+  const [userId, setUserId] = useState<number>(-1);
 
   useEffect(() => {
     const idQueryEffect = new URLSearchParams(window.location.search).get("id");
@@ -77,16 +79,15 @@ const TranslationUploadPage = () => {
     let guestCheck;
     currentUsername ? (guestCheck = false) : (guestCheck = true);
     // getLoggedInUserData
-    let userId = localStorage.getItem("userId");
-    let parsedUserId;
-    if(userId){
-      parsedUserId = parseInt(userId)
-    }
-    
+    const loadUserData = async () => {
+      const userData = await getLoggedInUserData();
+      setUserId(userData.userId);
+    };
+    loadUserData();
 
     let translationEffect = {
       translationRequestId: requestId,
-      translatorUserId: parsedUserId,
+      translatorUserId: userId,
       translatedText: userInterpretation,
       language: langQuery,
       isApproved: true,
@@ -241,15 +242,16 @@ const TranslationUploadPage = () => {
         <div className="mb-2 block">
           <Label htmlFor="userTranslation" value="Your Interpretation" />
         </div>
-        <Textarea id="userTranslation"
-        onChange={(e) => {
-          setUserInterpretation(e.target.value)
-        }}
-        value={userInterpretation}
+        <Textarea
+          id="userTranslation"
+          onChange={(e) => {
+            setUserInterpretation(e.target.value);
+          }}
+          value={userInterpretation}
         />
         <Button
           onClick={() => {
-            addTranslation(translationObj)
+            addTranslation(translationObj);
             handlePageChange(
               `/OpenRequestsPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`
             );
