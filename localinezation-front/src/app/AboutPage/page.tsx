@@ -100,44 +100,44 @@ const AboutPage = () => {
   // ];
 
   return (
-    <div key={0} className="flex flex-col h-fit justify-center items-center py-10">
+    <div className="flex flex-col h-fit justify-center items-center py-10">
       <div
         id="pageHeader"
-        key={0} className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border border-black"
+        className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border border-black"
       >
         {englishText[0]}
       </div>
 
-      <div key={0} className="rounded-lg text-gray-200 font-semibold py-8 max-w-[1440px] w-2/3 min-w-min flex flex-col gap-y-6">
-        <div key={0} className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
-          <div key={0} className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
+      <div className="rounded-lg text-gray-200 font-semibold py-8 max-w-[1440px] w-2/3 min-w-min flex flex-col gap-y-6">
+        <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
+          <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
             {englishText[1]}
           </div>
-          <div key={0} className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
+          <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
             {englishText[2]}
           </div>
         </div>
-        <div key={0} className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
-          <div key={0} className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
+        <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
+          <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
             {englishText[3]}
           </div>
-          <div key={0} className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
+          <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
             {englishText[4]}
           </div>
         </div>
-        <div key={0} className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
-          <div key={0} className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
+        <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
+          <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
             {englishText[5]}
           </div>
-          <div key={0} className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
+          <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
             {englishText[6]}
           </div>
         </div>
-        <div key={0} className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
-          <div key={0} className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
+        <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
+          <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
             {englishText[7]}
           </div>
-          <div key={0} className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
+          <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
             {englishText[8]}
           </div>
         </div>

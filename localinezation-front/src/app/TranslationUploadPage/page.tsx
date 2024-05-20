@@ -76,6 +76,7 @@ const TranslationUploadPage = () => {
   useEffect(() => {
     let guestCheck;
     currentUsername ? (guestCheck = false) : (guestCheck = true);
+    // getLoggedInUserData
     let userId = localStorage.getItem("userId");
     let parsedUserId;
     if(userId){

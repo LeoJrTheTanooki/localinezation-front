@@ -26,7 +26,6 @@ export const getLoggedInUserData = async () => {
     }
     const data = await res.json();
     localStorage.setItem("userId", data.userId);
-    console.log("(dataservice.ts:75); Received data: ", data);
     return data;
   } catch (error) {
     console.error("Error fetching user data: ", error);
@@ -183,7 +182,6 @@ export const addMediaItem = async (Media: IMedia) => {
 export const getMediaItemsByUserId = async (userId: number) => {
   const res = await fetch(url + "/Media/GetItemsByUserId/" + userId);
   const data = await res.json();
-  console.log("line 109: " + data);
   return data;
 };
 // ---------------------------------------------------------------------------------------------------------
@@ -193,7 +191,6 @@ export const getItemsByOriginalLanguage = async (language: string) => {
     url + "/Media/GetItemsByOriginalLanguage/" + language
   );
   const data = await res.json();
-  console.log("line 109: " + data);
   return data;
 };
 
@@ -202,7 +199,6 @@ export const getItemsByOriginalLanguage = async (language: string) => {
 export const getPublishedItems = async () => {
   const res = await fetch(url + "/Media/GetPublishedItems/");
   const data = await res.json();
-  console.log("line 109: " + data);
   return data;
 };
 
@@ -255,7 +251,6 @@ export const getAllMediaItems = async (): Promise<IMedia[]> => {
 export const getMediaItemsByMediaId = async (mediaId: number) => {
   const res = await fetch(url + "/Media/GetMediaItemById/" + mediaId);
   const data = await res.json();
-  console.log("line 109: " + data);
   return data;
 };
 // ---------------------------------------------------------------------------------------------------------

@@ -22,6 +22,7 @@ const SubmitMediaPage = () => {
   const [submission, setSubmission] = useState<any>();
 
   useEffect(() => {
+    // getLoggedInUserData
     let userId = localStorage.getItem("userId");
     let parsedUserId;
     if (userId) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "flowbite-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
@@ -15,6 +15,7 @@ const MediaPage = () => {
   const handlePageChange = (route: string) => {
     router.push(route);
   };
+  const searchParams = useSearchParams();
 
   const DataDefault = {
     title: "Unknown",
@@ -30,11 +31,12 @@ const MediaPage = () => {
   const [listedLanguages, setListedLanguages] = useState<React.JSX.Element[]>();
   const [error, setError] = useState<string | null>(null);
   const [translationsMappedJsx, setTranslationsMappedJsx] = useState<any>();
+  const pathname = usePathname();
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
     if (query) setQueryNum(parseInt(query));
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchTransFunction = async () => {
@@ -70,6 +72,8 @@ const MediaPage = () => {
       fetchTransFunction();
     }
   }, [queryNum]);
+
+
 
   useEffect(() => {
     if (currentMedia.requestLanguage) {
