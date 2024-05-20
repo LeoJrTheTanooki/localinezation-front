@@ -54,7 +54,7 @@ const MediaPage = () => {
           >
             <p>Request: {e.requestName}</p>
             <p>Dialogue: {e.requestDialogue}</p>
-            <p>Language: {e.requestLanguage}</p>
+            <p>Language: {langFormat(e.requestLanguage)}</p>
           </div>
         );
       });
@@ -100,7 +100,7 @@ const MediaPage = () => {
       );
       setListedLanguages(languageListJsx);
     }
-  }, [currentMedia]);
+  }, [currentMedia, queryNum]);
 
   return (
     <div
@@ -116,7 +116,7 @@ const MediaPage = () => {
           <p>Name: {currentMedia.title}</p>
           <p>Type: {currentMedia.type}</p>
           <p>Platform: {currentMedia.platform}</p>
-          <p>Original Language: {currentMedia.originalLanguage}</p>
+          <p>Original Language: {langFormat(currentMedia.originalLanguage)}</p>
           <p>Current Translations</p>
           <ul className="font-normal">
             {currentMedia.requestLanguage ? (
