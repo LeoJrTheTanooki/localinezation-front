@@ -32,7 +32,7 @@ const LoginPage = () => {
           <div className="text-center p-5">
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
               <svg
-                className="h-6 w-6 text-green-600"
+                className="h-6 w-6 text-red-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -51,7 +51,7 @@ const LoginPage = () => {
             <div className="mt-5">
               <button
                 onClick={() => handleModal()}
-                className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                className="w-24 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
                 type="button"
               >
                 OK
