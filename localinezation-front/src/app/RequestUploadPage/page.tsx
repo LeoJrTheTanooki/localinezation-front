@@ -102,7 +102,7 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
       let referencesEffect = [
         screenshots ? screenshotsEffect : null,
         videoEffect ? videoEffect : null,
-      ]
+      ];
 
       let requestEffect = {
         requestorUserId: mediaUserId,
@@ -110,14 +110,22 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
         requestLanguage: languageSelect,
         requestName: requestName,
         requestDialogue: dialogueRequest,
-        requestReferences: referencesEffect
+        requestReferences: referencesEffect,
         // screenshots: screenshots,
         // "videoLink": videoLink,
       };
       setRequestObj(requestEffect);
       console.log(requestEffect);
     }
-  }, [requestName, languageSelect, dialogueRequest, screenshots, videoLink, mediaUserId, queryNum]);
+  }, [
+    requestName,
+    languageSelect,
+    dialogueRequest,
+    screenshots,
+    videoLink,
+    mediaUserId,
+    queryNum,
+  ]);
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     let file = e.target.files?.[0];
@@ -198,7 +206,7 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
                   label={
                     languageSelect
                       ? langFormat(languageSelect)
-                      : "Select a Language"
+                      : "Select Language"
                   }
                   inline
                 >
@@ -214,7 +222,70 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
                       setLanguageSelect("spanishLatAm");
                     }}
                   >
-                    Spanish (Latin American)
+                    Spanish (Latin American){" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("spanishEu");
+                    }}
+                  >
+                    Spanish (European){" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("englishUk");
+                    }}
+                  >
+                    English (UK){" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("french");
+                    }}
+                  >
+                    French{" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("japanese");
+                    }}
+                  >
+                    Japanese{" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("chineseTrad");
+                    }}
+                  >
+                    Traditional Chinese{" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("chineseSimple");
+                    }}
+                  >
+                    Simplified Chinese{" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("norwegian");
+                    }}
+                  >
+                    Norwegian{" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("swedish");
+                    }}
+                  >
+                    Swedish{" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setLanguageSelect("irish");
+                    }}
+                  >
+                    Irish{" "}
                   </Dropdown.Item>
                 </Dropdown>
               </div>
@@ -256,7 +327,7 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
               />
             </div>
             <button
-            className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 text-gray-700 mx-auto"
+              className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 text-gray-700 mx-auto"
               onClick={() => {
                 addTranslationRequest(requestObj);
                 handlePageChange(`/MediaPage?id=${queryNum}`);
