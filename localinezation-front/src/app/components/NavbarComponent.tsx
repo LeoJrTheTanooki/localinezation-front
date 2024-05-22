@@ -127,6 +127,8 @@ const NavbarComponent = () => {
               </svg>
               <span className="sr-only">Search icon</span>
             </div>
+            <form>
+            <label className="invisible">Search for Titles</label>
             <input
               type="text"
               id="search-navbar"
@@ -137,6 +139,7 @@ const NavbarComponent = () => {
               }}
               value={searchInput}
             />
+            </form>
             <div className=" absolute bg-white w-full text-gray-700">
               {searchDropdown}
             </div>
