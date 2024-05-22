@@ -2,7 +2,7 @@
 
 import { Button } from "flowbite-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
 import {
@@ -106,56 +106,50 @@ const MediaPage = () => {
   }, [currentMedia, queryNum]);
 
   return (
-    <div
-      className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 max-w-2xl mx-auto mt-12`}
-    >
-      <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
-        <img
-          className="max-h-80 max-w-64 min-w-48 bg-fuchsia-300 p-4 rounded-lg text-gray-700"
-          src={currentMedia.coverArt}
-          alt=" Image"
-        />
-        <div className=" font-semibold flex gap-4 flex-col">
-          <p>Name: {currentMedia.title}</p>
-          <p>Type: {currentMedia.type}</p>
-          <p>Platform: {currentMedia.platform}</p>
-          <p>Original Language: {langFormat(currentMedia.originalLanguage)}</p>
-          <p>Current Translations</p>
-          <ul className="font-normal">
-            {currentMedia.requestLanguage ? (
-              <>{listedLanguages}</>
-            ) : (
-              <li>No Available Languages</li>
-            )}
-          </ul>
+    <Suspense>
+      <div className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 max-w-2xl mx-auto mt-12`}>
+        <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
+          <img
+            className="max-h-80 max-w-64 min-w-48 bg-fuchsia-300 p-4 rounded-lg text-gray-700"
+            src={currentMedia.coverArt}
+            alt=" Image"
+          />
+          <div className=" font-semibold flex gap-4 flex-col">
+            <p>Name: {currentMedia.title}</p>
+            <p>Type: {currentMedia.type}</p>
+            <p>Platform: {currentMedia.platform}</p>
+            <p>Original Language: {langFormat(currentMedia.originalLanguage)}</p>
+            <p>Current Translations</p>
+            <ul className="font-normal">
+              {currentMedia.requestLanguage ? (
+                <>{listedLanguages}</>
+              ) : (
+                <li>No Available Languages</li>
+              )}
+            </ul>
+          </div>
         </div>
-      </div>
-      <div>
-        <div className="flex justify-evenly mb-4">
-          <button
-            className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2 p-3"
-            onClick={() =>
-              handlePageChange(`/RequestUploadPage?id=${queryNum}`)
-            }
-          >
-            Create a Request
-          </button>
-          {/* <button
-            className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2 p-3"
-            onClick={() => handlePageChange("/TranslationUploadPage")}
-          >
-            Submit a Translation
-          </button> */}
+        <div>
+          <div className="flex justify-evenly mb-4">
+            <button
+              className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2 p-3"
+              onClick={() =>
+                handlePageChange(`/RequestUploadPage?id=${queryNum}`)
+              }
+            >
+              Create a Request
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="">
-        <div className="bg-fuchsia-300 text-center text-gray-700 py-3 font-semibold border-black border">
-          Current Translation Requests
-        </div>
+        <div className="">
+          <div className="bg-fuchsia-300 text-center text-gray-700 py-3 font-semibold border-black border">
+            Current Translation Requests
+          </div>
 
-        {translationsMappedJsx}
+          {translationsMappedJsx}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 

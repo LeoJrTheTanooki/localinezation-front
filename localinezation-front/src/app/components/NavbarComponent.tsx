@@ -12,7 +12,7 @@ import {
 } from "flowbite-react";
 import { Permanent_Marker } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 
 const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
 const NavbarComponent = () => {
@@ -127,7 +127,6 @@ const NavbarComponent = () => {
               </svg>
               <span className="sr-only">Search icon</span>
             </div>
-            <Suspense>
             <form>
               <label className="invisible">Search for Titles</label>
               <input
@@ -141,7 +140,6 @@ const NavbarComponent = () => {
                 value={searchInput}
               />
             </form>
-            </Suspense>
             <div className=" absolute bg-white w-full text-gray-700">
               {searchDropdown}
             </div>
