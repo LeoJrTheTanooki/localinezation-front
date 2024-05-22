@@ -2,7 +2,7 @@
 
 import { Button } from "flowbite-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import { IMediaData } from "@/Interfaces/Interfaces";
 import { langFormat } from "../components/CustomFunctions";
 import {
@@ -106,7 +106,6 @@ const MediaPage = () => {
   }, [currentMedia, queryNum]);
 
   return (
-    <Suspense>
       <div className={`flex justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 max-w-2xl mx-auto mt-12`}>
         <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
           <img
@@ -149,7 +148,6 @@ const MediaPage = () => {
           {translationsMappedJsx}
         </div>
       </div>
-    </Suspense>
   );
 };
 
