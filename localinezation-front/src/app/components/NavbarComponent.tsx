@@ -12,7 +12,7 @@ import {
 } from "flowbite-react";
 import { Permanent_Marker } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 
 const permanentMarker = Permanent_Marker({ weight: "400", subsets: ["latin"] });
 const NavbarComponent = () => {
@@ -109,7 +109,7 @@ const NavbarComponent = () => {
         </button>
         <div className="flex w-full max-w-[550px] gap-5 justify-between items-center ">
           <div className="relative hidden md:block">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <div className="flex items-center ps-3 pointer-events-none h-8 w-fit absolute top-6">
               <svg
                 className="w-4 h-4 text-gray-500 dark:text-gray-400"
                 aria-hidden="true"
@@ -127,19 +127,21 @@ const NavbarComponent = () => {
               </svg>
               <span className="sr-only">Search icon</span>
             </div>
+            <Suspense>
             <form>
-            <label className="invisible">Search for Titles</label>
-            <input
-              type="text"
-              id="search-navbar"
-              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search..."
-              onChange={(e) => {
-                setSearchInput(e.target.value);
-              }}
-              value={searchInput}
-            />
+              <label className="invisible">Search for Titles</label>
+              <input
+                type="text"
+                id="search-navbar"
+                className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search..."
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                }}
+                value={searchInput}
+              />
             </form>
+            </Suspense>
             <div className=" absolute bg-white w-full text-gray-700">
               {searchDropdown}
             </div>
