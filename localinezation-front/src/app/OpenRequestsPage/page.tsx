@@ -194,11 +194,11 @@ const OpenRequestsPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className=" bg-fuchsia-300 rounded-lg p-4 w-[100%]"
+            className=" bg-fuchsia-300 rounded-lg p-4 w-[100%] h-fit"
           />
         );
       } else {
-        return <img src={currentReference.src} className="h-[315px] " alt="" />;
+        return <img src={currentReference.src} className="h-fit bg-fuchsia-300 rounded-lg p-4 w-full" alt={currentReference.src} />;
       }
     }
   };
@@ -232,16 +232,16 @@ const OpenRequestsPage = () => {
   };
 
   return (
-    <div className="flex flex-col m-5 gap-5 bg-purple-600 p-6 rounded-xl w-fit xl:min-w-[768px] max-w-[1080px] mx-auto font-semibold text-gray-700">
+    <div className="flex flex-col m-5 gap-5 bg-purple-600 py-4 sm:p-6 rounded-xl w-fit xl:min-w-[768px] max-w-[1080px] mx-auto font-semibold text-gray-700">
       {/*<div className="justify-self-center">
           <img src={coverArt} alt="" className="bg-fuchsia-300 rounded-lg p-4" />
   </div>*/}
       <div>
         {requestsArray && requestsArray.length != 0 ?
-          <h2 className="bg-fuchsia-300 text-center mb-4 p-2 rounded-xl h-20 pt-5    ">
-            Request for
+          <h2 className="bg-fuchsia-300 text-center mb-4 p-2 rounded-xl h-20 pt-5">
+            <span className="hidden md:visible">Request for</span>
             <span className="text-3xl"> {requestsArray[requestIndex]?.requestName} </span>
-            <span>on {currentMedia.title}</span>
+            <span  className="hidden md:visible">on {currentMedia.title}</span>
           </h2> : "null"
         }
         <div className="flex justify-between max-w-[768px]">
@@ -259,9 +259,9 @@ const OpenRequestsPage = () => {
                     false
                   );
               }}
-              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl"
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl mr-2"
             >
-              Left
+              Prev.
             </button>
           ) : (
             ""
@@ -289,10 +289,10 @@ const OpenRequestsPage = () => {
                     true
                   );
               }}
-              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl"
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl ml-2"
 
             >
-              Right
+              Next
             </button>
           ) : (
             ""
@@ -379,7 +379,7 @@ const OpenRequestsPage = () => {
           </div>
           <div className="">
             <button
-              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-950"
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-700"
               disabled
             >
               Report Translation

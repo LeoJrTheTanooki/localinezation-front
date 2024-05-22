@@ -93,7 +93,7 @@ const NavbarComponent = () => {
   }, [mediaList, searchInput]);
 
   return (
-    <>
+    <div>
       <Navbar
         fluid
         className=" bg-purple-600 text-white border-purple-800 border-t-4"
@@ -107,7 +107,7 @@ const NavbarComponent = () => {
             />
           </Navbar.Brand>
         </button>
-        <div className="flex w-full max-w-[550px] gap-5 justify-between items-center ">
+        <div className="flex w-full max-w-[550px] gap-5 justify-between items-end ">
           <div className="relative hidden md:block">
             <div className="flex items-center ps-3 pointer-events-none h-8 w-fit absolute top-6">
               <svg
@@ -220,7 +220,7 @@ const NavbarComponent = () => {
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-    </>
+    </div>
   );
 };
 

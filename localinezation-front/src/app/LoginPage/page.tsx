@@ -182,20 +182,20 @@ const LoginPage = () => {
             </div>
             <a
               href=""
-              className="underline italic text-white hover:text-gray-200"
+              className="underline italic text-white hover:text-gray-200 w-fit mx-auto"
             >
               Having trouble logging in?
             </a>
             <br />
             <button
               onClick={handleSubmit}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
+              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none"
             >
               Login
             </button>
           </div>
           <div className="mt-4">
-            <p className="text-white">Dont have an account?</p>
+            <p className="text-white select-none">Dont have an account?</p>
             <button
               onClick={() => setLoginSwitchBool(false)}
               className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"

@@ -71,6 +71,9 @@ const TranslationUploadPage = () => {
       if (localStorage.getItem("username")) {
         setCurrentUsername(localStorage.getItem("username"));
       }
+      else{
+        handlePageChange("/LoginPage")
+      }
     };
     init();
   }, [router]);
@@ -134,8 +137,8 @@ const TranslationUploadPage = () => {
 
         return (
           <iframe
-            width="560"
-            height="315"
+            max-width="300"
+            max-height="150"
             src={`https://www.youtube-nocookie.com/embed/${videoSrc}`}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -145,7 +148,7 @@ const TranslationUploadPage = () => {
           />
         );
       } else {
-        return <img src={currentReference.src} className="h-[315px]" alt="" />;
+        return <img src={currentReference.src} className="max-w-[300px] max-h-[150px]" alt={currentReference} />;
       }
     }
   };
@@ -174,64 +177,85 @@ const TranslationUploadPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 m-5 gap-5">
-      <div>
-        <div className="mb-2 block">
-          <p>Submitting as...</p>
-          {/* <TextInput
-          // onChange={handleTitle}
-          id="requestName"
-          type="text"
-          // placeholder="Enter Title"
-          required
-        /> */}
-          <p className=" font-bold">{currentUsername}</p>
-        </div>
-        <p>Translating Into...</p>
-        <p className="font-bold">{formattedLang}</p>
+    <div className="flex flex-col bg-purple-600 m-5 gap-5 text-xl text-gray-700 font-semibold w-fit mx-auto rounded-xl p-4">
 
-        <p>References</p>
-        <div className="flex justify-between">
-          <button
-            onClick={() => {
-              if (requestsArray)
-                indexLoop(
-                  requestsArray[requestIndex].requestReferences,
-                  referenceIndex,
-                  setReferenceIndex,
-                  false
-                );
-            }}
-          >
-            Left
-          </button>
-          {requestsArray && requestsArray.length != 0
-            ? srcFormat(requestsArray[requestIndex])
-            : "null"}
-          <button
-            onClick={() => {
-              if (requestsArray)
-                indexLoop(
-                  requestsArray[requestIndex].requestReferences,
-                  referenceIndex,
-                  setReferenceIndex,
-                  true
-                );
-            }}
-          >
-            Right
-          </button>
+      <div className="flex flex-col lg:flex-row gap-2 lg:max-h-56">
+        <div className="w-full flex justify-between lg:w-60  lg:flex-col gap-x-2">
+          <div className="w-full">
+            <div className="block p-2 bg-fuchsia-300 border border-black">
+              <p>Submitting as...</p>
+            </div>
+            <div className=" block p-2 bg-fuchsia-200 border border-black border-t-0">
+              <p className=" font-bold ">{currentUsername ? currentUsername : 'Guest'}</p>
+            </div>
+          </div>
+
+          <div className="w-full">
+            <div className="block p-2 bg-fuchsia-300 border border-black">
+              <p>Translating Into...</p>
+            </div>
+            <div className=" block p-2 bg-fuchsia-200 border border-black border-t-0">
+              <p className="font-bold">{formattedLang}</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="text-center hidden md:flex flex-col justify-center items-center lg:w-2/3 max-w-[550px] lg:min-w-[550px]">
+          <p className="bg-fuchsia-300 p-2 w-full border border-black">References</p>
+          <div className="flex justify-center w-full bg-fuchsia-200 border border-black border-t-0 p-1 h-full lg:min-h-44">
+            <button
+              onClick={() => {
+                if (requestsArray)
+                  indexLoop(
+                    requestsArray[requestIndex].requestReferences,
+                    referenceIndex,
+                    setReferenceIndex,
+                    false
+                  );
+              }}
+              className="w-20 bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl"
+            >
+              Left
+            </button>
+
+            <div className="w-fit flex justify-center min-w-[50%] mx-2">
+              {requestsArray &&
+                requestsArray.length != 0 &&
+                requestsArray[requestIndex].requestReferences?.length != 0
+                ? srcFormat(requestsArray[requestIndex])
+                : "No Provided References"}
+            </div>
+
+            <button
+              onClick={() => {
+                if (requestsArray)
+                  indexLoop(
+                    requestsArray[requestIndex].requestReferences,
+                    referenceIndex,
+                    setReferenceIndex,
+                    true
+                  );
+              }}
+              className="w-20 bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl"
+
+            >
+              Right
+            </button>
+          </div>
         </div>
       </div>
 
       <div>
-        <div className="bg-purple-600 text-white p-2">
+        <div className="bg-fuchsia-300 p-2 border border-black">
           <p>
             <span className="font-bold">Request: </span>{" "}
             {requestsArray && requestsArray.length != 0
               ? requestsArray[requestIndex]?.requestName
               : "N/A"}
           </p>
+        </div>
+        <div className="bg-fuchsia-200 p-2 border text-lg border-black border-t-0 text-md">
           <p>
             <span className="font-bold">Original Dialogue: </span>{" "}
             {requestsArray && requestsArray.length != 0
@@ -239,8 +263,9 @@ const TranslationUploadPage = () => {
               : "null"}
           </p>
         </div>
-        <div className="mb-2 block">
-          <Label htmlFor="userTranslation" value="Your Interpretation" />
+
+        <div className="block bg-fuchsia-300 mt-4 h-12 border border-black">
+          <Label className="p-2 text-xl font-semibold flex items-center" htmlFor="userTranslation" value="Your Interpretation" />
         </div>
         <Textarea
           id="userTranslation"
@@ -248,17 +273,19 @@ const TranslationUploadPage = () => {
             setUserInterpretation(e.target.value);
           }}
           value={userInterpretation}
+          className="rounded-t-none border border-black border-t-0"
         />
-        <Button
+        <button
           onClick={() => {
             addTranslation(translationObj);
             handlePageChange(
               `/OpenRequestsPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`
             );
           }}
+          className="w-48 bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 rounded-2xl my-2"
         >
           Submit
-        </Button>
+        </button>
       </div>
     </div>
   );
