@@ -102,12 +102,12 @@ const NavbarComponent = () => {
           <Navbar.Brand onClick={() => handlePageChange("/TranslationsPage")}>
             <img
               src="/assets/localinezationLogo.png"
-              className="mr-3 text-center"
+              className="text-center"
               alt="Flowbite React Logo"
             />
           </Navbar.Brand>
         </button>
-        <div className="flex w-full max-w-[550px] gap-5 justify-between items-end ">
+        <div className="flex w-2/4 gap-5 justify-end items-end ">
           <div className="relative hidden md:block">
             <div className="flex items-center ps-3 pointer-events-none h-8 w-fit absolute top-6">
               <svg
@@ -144,40 +144,6 @@ const NavbarComponent = () => {
               {searchDropdown}
             </div>
           </div>
-          <Dropdown
-            arrowIcon={false}
-            inline
-            className=" font-bold gap-2"
-            label={
-              <>
-                <Avatar
-                  alt="User settings"
-                  img="/assets/americanFlag.png"
-                  rounded
-                />
-                <span className=" font-bold pl-2">English (US)</span>
-              </>
-            }
-          >
-            <Dropdown.Item
-              className="gap-2"
-              onClick={() => {
-                localStorage.setItem("userLanguage", "englishUsa");
-              }}
-            >
-              <Avatar img="/assets/americanFlag.png" rounded />
-              <span>English (US)</span>
-            </Dropdown.Item>
-            <Dropdown.Item
-              className="gap-2"
-              onClick={() => {
-                localStorage.setItem("userLanguage", "spanishLatAm");
-              }}
-            >
-              <Avatar img="/assets/mexicanFlag.png" rounded />
-              <span>Spanish (Latin American)</span>
-            </Dropdown.Item>
-          </Dropdown>
 
           <Button
             className="font-bold self-end bg-fuchsia-300 text-black enabled:hover:bg-purple-900 enabled:hover:text-white"
