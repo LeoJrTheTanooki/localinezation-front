@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { addUser, getLoggedInUserData, login} from "@/utils/Dataservices";
+import { addUser, getLoggedInUserData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 
 interface ModalProps {
@@ -94,7 +94,7 @@ const LoginPage = () => {
         setModalMessage("An error occurred while creating the account.");
         setIsModalOpen(true);
       }
-    }  else {
+    } else {
       try {
         // Login logic in here
         let token: IToken = await login(userData);
@@ -115,7 +115,7 @@ const LoginPage = () => {
         setSwitchBool(false);
       }
     }
-};
+  };
 
   const [loginSwitchBool, setLoginSwitchBool] = useState<boolean>(true);
   const router = useRouter();
@@ -133,149 +133,49 @@ const LoginPage = () => {
   };
 
   return loginSwitchBool ? (
-    <div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
+    <div className="min-w-screen flex justify-center items-center md:p-8">
       {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          message={modalMessage}
-          onClose={handleCloseModalAndSwitchToLogin}
-
-        />
+        <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />
       )}
-      <div
-        id="heroImg"
-        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[75vw] h-[85vh] flex justify-center items-center rounded-3xl"
-      >
-        <div
-          id="loginBG"
-          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-fit flex flex-col justify-around items-center text-center rounded-3xl p-12"
-        >
-          <div className="flex flex-col">
-            <h1 className="text-3xl text-white font-bold mb-2">Login</h1>
-            <div className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                Username
-              </label>
-
-              <input
-                id="username"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
-                type="text"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
+      <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover w-full md:w-2/3 h-full flex justify-center items-center rounded-3xl py-24 my-auto">
+        <div id="loginBG" className="bg-purple-600 h-fit flex flex-col justify-around items-center text-center rounded-3xl p-6 lg:p-12">
+          <div className="flex flex-col gap-y-4">
+            <div>
+              <h1 className="text-3xl text-gray-700 font-bold bg-fuchsia-300 p-2 border border-black">Login</h1>
+              <form className="bg-fuchsia-200 p-2 pb-4 border border-black border-t-0 text-gray-700">
+                <label className="block mt-2 text-lg text-start font-bold">Username</label>
+                <input id="username" required onChange={(e) => setUsername(e.target.value)} placeholder="Enter username" type="text" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <label className="block mt-4 text-lg text-start font-bold">Password</label>
+                <input id="password" onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Enter password" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              </form>
             </div>
-            <div className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white  dark:text-white">
-                Password
-              </label>
-
-              <input
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                type="password"
-                placeholder="Enter password"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-            </div>
-            <a
-              href=""
-              className="underline italic text-white hover:text-gray-200 w-fit mx-auto"
-            >
-              Having trouble logging in?
-            </a>
-            <br />
-            <button
-              onClick={handleSubmit}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none"
-            >
-              Login
-            </button>
+            <button onClick={handleSubmit} className="max-w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none">Login</button>
+            <p className="text-white select-none">Trouble logging in?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer">Contact Us</span></p>
+            <p className="text-white select-none">Dont have an account?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer" onClick={() => setLoginSwitchBool(false)}>Sign Up</span></p>
           </div>
-          <div className="mt-4">
-            <p className="text-white select-none">Dont have an account?</p>
-            <button
-              onClick={() => setLoginSwitchBool(false)}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Sign Up
-            </button>
-          </div>
-          <div></div>
         </div>
       </div>
     </div>
   ) : (
-    <div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
+    <div className="min-w-screen flex justify-center items-center md:p-8">
       {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          message={modalMessage}
-          onClose={handleCloseModalAndSwitchToLogin}
-        />
+        <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />
       )}
-
-      <div
-        id="heroImg"
-        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[75vw] h-[85vh] flex justify-center items-center rounded-3xl"
-      >
-        <div
-          id="loginBG"
-          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-fit flex flex-col justify-around items-center text-center rounded-3xl p-12"
-        >
-          <div className="flex flex-col">
-            <h1 className="text-3xl text-white font-bold mb-2">
-              Create Account
-            </h1>
-            <div id="username" className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                Username
-              </label>
-              <input
-                id="username"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
-                type="text"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
+      <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover w-full md:w-2/3 h-full flex justify-center items-center rounded-3xl py-24 my-auto">
+        <div id="loginBG" className="bg-purple-600 h-fit flex flex-col justify-around items-center text-center rounded-3xl p-6 lg:p-12">
+          <div className="flex flex-col gap-y-4">
+            <div>
+              <h1 className="text-3xl text-gray-700 font-bold bg-fuchsia-300 p-2 border border-black">Create Account</h1>
+              <form className="bg-fuchsia-200 p-2 pb-4 border border-black border-t-0 text-gray-700">
+                <label className="block mt-2 text-lg text-start font-bold">Username</label>
+                <input id="username" required onChange={(e) => setUsername(e.target.value)} placeholder="Enter username" type="text" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <label className="block mt-4 text-lg text-start font-bold">Password</label>
+                <input id="password" onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Enter password" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              </form>
             </div>
-            <div id="password" className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                Password
-              </label>
-              <input
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                type="password"
-                placeholder="Enter password"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-            </div>
-            <a href="" className="underline italic text-white">
-              Having trouble logging in?
-            </a>
-            <br />
-            <button
-              onClick={handleSubmit}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Create Account
-            </button>
+            <button onClick={handleSubmit} className="max-w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none">Create Account</button>
+            <p className="text-white select-none">Already have an account?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer" onClick={() => setLoginSwitchBool(true)}>Log In</span></p>
           </div>
-          <div className="mt-4">
-            <p className="text-white">Already have an account?</p>
-            <button
-              onClick={() => setLoginSwitchBool(true)}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Log In Instead
-            </button>
-          </div>
-          <div></div>
         </div>
       </div>
     </div>
