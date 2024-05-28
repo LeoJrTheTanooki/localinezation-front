@@ -9,7 +9,6 @@ import {
   addTranslation,
   getLoggedInUserData,
   getTranslationRequestsByMediaId,
-  getTranslationsByRequestId,
 } from "@/utils/Dataservices";
 
 const TranslationUploadPage = () => {
@@ -178,7 +177,6 @@ const TranslationUploadPage = () => {
 
   return (
     <div className="flex flex-col bg-purple-600 m-5 gap-5 text-xl text-gray-700 font-semibold w-fit mx-auto rounded-xl p-4">
-
       <div className="flex flex-col lg:flex-row gap-2 lg:max-h-56">
         <div className="w-full flex justify-between lg:w-60  lg:flex-col gap-x-2">
           <div className="w-full">
@@ -269,6 +267,7 @@ const TranslationUploadPage = () => {
         </div>
         <Textarea
           id="userTranslation"
+          required
           onChange={(e) => {
             setUserInterpretation(e.target.value);
           }}
@@ -276,7 +275,7 @@ const TranslationUploadPage = () => {
           className="rounded-t-none border border-black border-t-0"
         />
         <button
-          onClick={() => {
+          onClick={() => { 
             addTranslation(translationObj);
             handlePageChange(
               `/OpenRequestsPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`

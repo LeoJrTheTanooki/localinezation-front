@@ -4,10 +4,6 @@ import { IMedia } from "@/Interfaces/Interfaces";
 import { getPublishedItems } from "@/utils/Dataservices";
 import {
   Navbar,
-  Dropdown,
-  Avatar,
-  NavbarLink,
-  TextInput,
   Button,
 } from "flowbite-react";
 import { Permanent_Marker } from "next/font/google";
@@ -69,20 +65,20 @@ const NavbarComponent = () => {
   useEffect(() => {
     if (searchInput.length > 0) {
       const searchArray = mediaList.filter((e) => {
-        return e.title.toLowerCase().includes(searchInput);
+        return e.title.includes(searchInput);
       });
-      const dropdownJsx = searchArray.map((e, index) => {
+      const dropdownJsx = searchArray.filter((item, idx) => idx < 12).map((e, index) => {
         return (
           <div
             key={index}
-            className=" border-b-2 border-gray-500 hover:cursor-pointer hover:bg-gray-300"
+            className="p-2 border-2 border-t-0 border-black hover:cursor-pointer hover:bg-gray-300"
             onClick={() => {
               //
               handlePageChange(`/MediaPage?id=${e.id}`);
               setSearchInput("");
             }}
           >
-            {e.title}
+            {e.title.substring(0, 22)}...
           </div>
         );
       });
@@ -99,7 +95,7 @@ const NavbarComponent = () => {
         className=" bg-purple-600 text-white border-purple-800 border-t-4"
       >
         <button className=" self-center">
-          <Navbar.Brand onClick={() => handlePageChange("/TranslationsPage")}>
+          <Navbar.Brand onClick={() => localStorage.getItem("Token") ? handlePageChange("/TranslationsPage") : ""}>
             <img
               src="/assets/localinezationLogo.png"
               className="text-center"
@@ -107,7 +103,7 @@ const NavbarComponent = () => {
             />
           </Navbar.Brand>
         </button>
-        <div className="flex w-2/4 gap-5 justify-end items-end ">
+        <div className="flex w-max px-2 gap-5 justify-end items-end ">
           <div className="relative hidden md:block">
             <div className="flex items-center ps-3 pointer-events-none h-8 w-fit absolute top-6">
               <svg
@@ -132,7 +128,7 @@ const NavbarComponent = () => {
               <input
                 type="text"
                 id="search-navbar"
-                className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className={`block w-full p-2 ps-10 ${searchInput ? "rounded-b-none" : ''} text-sm text-gray-900 border-2 border-black focus:ring-0 focus:border-black rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
                 placeholder="Search..."
                 onChange={(e) => {
                   setSearchInput(e.target.value);
@@ -166,21 +162,21 @@ const NavbarComponent = () => {
         <Navbar.Collapse>
           <Navbar.Link
             className="font-bold cursor-pointer"
-            onClick={() => handlePageChange("/TranslationsPage")}
+            onClick={() =>  localStorage.getItem("Token") ? handlePageChange("/TranslationsPage") : ""}
           >
             Translation Requests
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
           <Navbar.Link
             className="font-bold cursor-pointer"
-            onClick={() => handlePageChange("/SubmitMediaPage")}
+            onClick={() =>  localStorage.getItem("Token") ? handlePageChange("/SubmitMediaPage") :  ""}
           >
             Submit a Media
           </Navbar.Link>
           <li className=" hidden md:list-item">-</li>
           <Navbar.Link
             className="font-bold cursor-pointer"
-            onClick={() => handlePageChange("/AboutPage")}
+            onClick={() =>  localStorage.getItem("Token") ? handlePageChange("/AboutPage") :  ""}
           >
             About Us
           </Navbar.Link>

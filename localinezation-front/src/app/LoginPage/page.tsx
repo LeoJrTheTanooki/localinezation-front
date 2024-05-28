@@ -130,8 +130,8 @@ const LoginPage = () => {
 
   };
 
-  useEffect(()=>{
-    if(localStorage.getItem('Token')){
+  useEffect(() => {
+    if (localStorage.getItem('Token')) {
       router.push("/TranslationsPage")
     }
   }, [])
@@ -154,7 +154,11 @@ const LoginPage = () => {
               </form>
             </div>
             <button onClick={handleSubmit} className="max-w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none">Login</button>
-            <p className="text-white select-none">Trouble logging in?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer">Contact Us</span></p>
+            <p data-tooltip-target="info" className="text-white select-none">Trouble logging in?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer">Contact Us</span></p>
+            <div id="info" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              Email: localinezation@gmail.com
+              <div className="tooltip-arrow" data-popper-arrow></div>
+            </div>
             <p className="text-white select-none">Dont have an account?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer" onClick={() => setLoginSwitchBool(false)}>Sign Up</span></p>
           </div>
         </div>
