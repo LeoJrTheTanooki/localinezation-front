@@ -48,7 +48,7 @@ const MediaPage = () => {
             key={index}
             onClick={() => {
               handlePageChange(
-                `/OpenRequestsPage?id=${queryNum}&language=${e.requestLanguage}&index=${index}&requestId=${e.id}
+                `/OpenRequestsPage?id=${queryNum}&language=${e.requestLanguage}&requestId=${e.id}
                 `
               );
             }}

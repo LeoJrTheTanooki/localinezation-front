@@ -384,7 +384,7 @@ export const getTranslationsByRequestId = async (requestId: number) => {
 */
 
 // ---------------------------------------------------------------------------------------------------------
-// 15- Get Translations By Translator UserId:
+// 15- Get Translations By Translator User ID:
 export const getTranslationsByTranslatorUserId = async (userId: number) => {
   const res = await fetch(
     url + "/Media/GetTranslationsByTranslatorUserId/" + userId
@@ -420,7 +420,7 @@ export const getTranslationRequestsByUserId = async (userId: number) => {
   return data;
 };
 
-// 17- Get Translations by MediaId
+// 17- GET Translations by MediaId
 export const getTranslationsByMediaId = async (mediaId: number) => {
   const res = await fetch(url + "/Media/GetTranslationsByMediaId/" + mediaId);
   const data = await res.json();

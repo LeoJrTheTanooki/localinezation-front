@@ -52,7 +52,7 @@ const OpenRequestsPage = () => {
   const [yourScore, setYourScore] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
-  const [translatorUsername, setTranslatorUsername] = useState<string>('');
+  const [translatorUsername, setTranslatorUsername] = useState<string>("");
 
   const [requestTranslations, setRequestTranslations] = useState<any>();
   const [requestId, setRequestId] = useState<any>();
@@ -79,9 +79,18 @@ const OpenRequestsPage = () => {
     const indexQueryEffect = new URLSearchParams(window.location.search).get(
       "index"
     );
+    const requestIdQueryEffect = new URLSearchParams(
+      window.location.search
+    ).get("requestId");
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
     if (langQueryEffect) setLangQuery(langQueryEffect);
     if (indexQueryEffect) setRequestIndex(parseInt(indexQueryEffect));
+    if (requestIdQueryEffect) setRequestId(parseInt(requestIdQueryEffect));
+    if(indexQueryEffect){
+      // console.log('Index Pass')
+    } else {
+      // console.log('ID Pass', requestIdQueryEffect)
+    }
   }, []);
 
   useEffect(() => {
@@ -94,13 +103,17 @@ const OpenRequestsPage = () => {
           queryNum
         );
         setRequestsArray(submittedRequests);
-        // console.log('Current Requests: ', submittedRequests)
+        console.log('Current Requests: ', submittedRequests)
+        console.log(requestId)
+        setRequestIndex(submittedRequests.findIndex((e: any) => {
+          return e.id == requestId;
+        }))
         // const submittedTranslations = await getTranslationsByRequestId(queryNum)
         // console.log('Submitted Translations', submittedTranslations);
       };
       loadMedia();
     }
-  }, [queryNum]);
+  }, [queryNum, requestId]);
 
   useEffect(() => {
     // console.log('Current Requests: ', requestsArray)
@@ -117,7 +130,7 @@ const OpenRequestsPage = () => {
                   setLangQuery(request.requestLanguage);
                   setRequestIndex(index);
                   setRequestId(request.id);
-                  setTranslationIndex(0)
+                  setTranslationIndex(0);
                   window.history.pushState(
                     null,
                     `Change Queries`,
@@ -132,6 +145,7 @@ const OpenRequestsPage = () => {
         }
       );
       setRequestList(requestListJsx);
+      // requestsArray[requestIndex]?.requestName
     }
   }, [queryNum, requestIndex, requestsArray]);
 
@@ -160,90 +174,14 @@ const OpenRequestsPage = () => {
           let translatorInfo = await getUserByUserId(translatorId);
           setTranslatorUsername(translatorInfo.publisherName);
         } catch (error) {
-          setTranslatorUsername(`User ${translatorId}`)
+          setTranslatorUsername(`User ${translatorId}`);
         }
       };
       translatorLoad();
-      // getUserByUserId
-      // console.log(
-      //   `Translator's user ID: `,
-      //   requestTranslations[translationIndex].translatorUserId
-      // );
     }
   }, [requestTranslations, translationIndex]);
 
   // Setting data to variables based on set query variables
-
-  // useEffect(() => {
-  //   function findLanguage(obj: object) {
-  //     return Object.keys(obj)[0] == langQuery;
-  //   }
-
-  //   try {
-  //     setCoverArt(currentMedia.coverArt);
-  //     const requestData =
-  //       mediaRequests[queryNum].requestLanguage.find(findLanguage)[
-  //         `${langQuery}`
-  //       ][0];
-
-  //     setRequestsArray(requestData.openRequests);
-  //     const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
-  //       (language: object, index: number) => {
-  //         let currentLanguage = Object.keys(language)[0];
-  //         let formattedLang = langFormat(currentLanguage);
-
-  //         if (currentLanguage) {
-  //           return (
-  //             <Dropdown.Item
-  //               key={index}
-  //               onClick={() => {
-  //                 setLangQuery(currentLanguage);
-  //                 window.history.pushState(
-  //                   null,
-  //                   `Change to ${formattedLang}`,
-  //                   `OpenRequestsPage?id=${queryNum}&language=${currentLanguage}`
-  //                 );
-  //               }}
-  //             >
-  //               {formattedLang}
-  //             </Dropdown.Item>
-  //           );
-  //         }
-  //       }
-  //     );
-  //     setDropdownItems(dropdownJsx);
-  //   } catch (error) {
-  //     console.log(`error caught: ${error}`);
-  //   }
-  // if (requestsArray && requestsArray.length != 0) {
-
-  //   // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
-  //   requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
-  //     console.log(e.userScore)
-  //   })
-  // // }
-
-  //   const requestListJsx = requestsArray.map(
-  //     (request: any, index: number) => {
-  //       return (
-  //         <li key={index}>
-  //           <button
-  //             className="text-blue-600 italic underline"
-  //             onClick={() => {
-  //               setReferenceIndex(0);
-  //               setRequestIndex(index);
-  //             }}
-  //           >
-  //             {request.requestName}
-  //           </button>
-  //         </li>
-  //       );
-  //     }
-  //   );
-  //   setRequestList(requestListJsx);
-
-  // }
-  // }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
   useEffect(() => {
     setCoverArt(currentMedia.coverArt);
