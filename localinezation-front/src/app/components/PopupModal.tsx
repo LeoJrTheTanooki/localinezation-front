@@ -64,7 +64,7 @@ const PopupModal: React.FC<ModalProps> = ({
                   onClickParam;
                 }
               }}
-              className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
               type="button"
             >
               OK

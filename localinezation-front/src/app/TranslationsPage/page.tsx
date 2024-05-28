@@ -7,10 +7,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Homepage = () => {
-  
   const [mediaList, setMediaList] = useState<IMedia[]>([]);
   const [loaded, setLoaded] = useState<boolean>(false)
-
   const [error, setError] = useState<string | null>(null);
 
   // This effect runs when the component mounts to the DOM

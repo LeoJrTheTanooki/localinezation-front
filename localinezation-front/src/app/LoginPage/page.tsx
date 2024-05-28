@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { addUser, getLoggedInUserData, login} from "@/utils/Dataservices";
+import React, { useEffect, useState } from "react";
+import { addUser, getLoggedInUserData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 
 interface ModalProps {
@@ -14,7 +14,6 @@ interface ModalProps {
 const LoginPage = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  3
   const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
     if (!isOpen) return null;
 
@@ -32,7 +31,7 @@ const LoginPage = () => {
           <div className="text-center p-5">
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
               <svg
-                className="h-6 w-6 text-green-600"
+                className="h-6 w-6 text-red-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -51,7 +50,7 @@ const LoginPage = () => {
             <div className="mt-5">
               <button
                 onClick={() => handleModal()}
-                className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                className="w-24 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
                 type="button"
               >
                 OK
@@ -62,7 +61,6 @@ const LoginPage = () => {
       </div>
     );
   };
-
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -94,7 +92,7 @@ const LoginPage = () => {
         setModalMessage("An error occurred while creating the account.");
         setIsModalOpen(true);
       }
-    }  else {
+    } else {
       try {
         // Login logic in here
         let token: IToken = await login(userData);
@@ -103,7 +101,7 @@ const LoginPage = () => {
           localStorage.setItem("Token", token.token);
           localStorage.setItem("username", username); // Ensuring username is correctly set
           await getLoggedInUserData(); // no 'username' parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
-          router.push("/AccountDashboardPage");
+          router.push("/AboutPage");
         } else {
           alert("Login Failed");
         }
@@ -115,7 +113,7 @@ const LoginPage = () => {
         setSwitchBool(false);
       }
     }
-};
+  };
 
   const [loginSwitchBool, setLoginSwitchBool] = useState<boolean>(true);
   const router = useRouter();
@@ -132,150 +130,60 @@ const LoginPage = () => {
 
   };
 
+  useEffect(() => {
+    if (localStorage.getItem('Token')) {
+      router.push("/TranslationsPage")
+    }
+  }, [])
+
   return loginSwitchBool ? (
-    <div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
+    <div className="min-w-screen flex justify-center items-center md:p-8">
       {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          message={modalMessage}
-          onClose={handleCloseModalAndSwitchToLogin}
-
-        />
+        <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />
       )}
-      <div
-        id="heroImg"
-        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[75vw] h-[85vh] flex justify-center items-center rounded-3xl"
-      >
-        <div
-          id="loginBG"
-          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-fit flex flex-col justify-around items-center text-center rounded-3xl p-12"
-        >
-          <div className="flex flex-col">
-            <h1 className="text-3xl text-white font-bold mb-2">Login</h1>
-            <div className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                Username
-              </label>
-
-              <input
-                id="username"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
-                type="text"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
+      <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover w-full md:w-2/3 h-full flex justify-center items-center rounded-3xl py-24 my-auto">
+        <div id="loginBG" className="bg-purple-600 h-fit flex flex-col justify-around items-center text-center rounded-3xl p-6 lg:p-12">
+          <div className="flex flex-col gap-y-4">
+            <div>
+              <h1 className="text-3xl text-gray-700 font-bold bg-fuchsia-300 p-2 border border-black">Login</h1>
+              <form className="bg-fuchsia-200 p-2 pb-4 border border-black border-t-0 text-gray-700">
+                <label className="block mt-2 text-lg text-start font-bold">Username</label>
+                <input id="username" required onChange={(e) => setUsername(e.target.value)} placeholder="Enter username" type="text" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <label className="block mt-4 text-lg text-start font-bold">Password</label>
+                <input id="password" onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Enter password" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              </form>
             </div>
-            <div className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white  dark:text-white">
-                Password
-              </label>
-
-              <input
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                type="password"
-                placeholder="Enter password"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
+            <button onClick={handleSubmit} className="max-w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none">Login</button>
+            <p data-tooltip-target="info" className="text-white select-none">Trouble logging in?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer">Contact Us</span></p>
+            <div id="info" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              Email: localinezation@gmail.com
+              <div className="tooltip-arrow" data-popper-arrow></div>
             </div>
-            <a
-              href=""
-              className="underline italic text-white hover:text-gray-200"
-            >
-              Having trouble logging in?
-            </a>
-            <br />
-            <button
-              onClick={handleSubmit}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Login
-            </button>
+            <p className="text-white select-none">Dont have an account?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer" onClick={() => setLoginSwitchBool(false)}>Sign Up</span></p>
           </div>
-          <div className="mt-4">
-            <p className="text-white">Dont have an account?</p>
-            <button
-              onClick={() => setLoginSwitchBool(false)}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Sign Up
-            </button>
-          </div>
-          <div></div>
         </div>
       </div>
     </div>
   ) : (
-    <div className="min-w-screen min-h-[89vh] flex justify-center items-center px-24">
+    <div className="min-w-screen flex justify-center items-center md:p-8">
       {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          message={modalMessage}
-          onClose={handleCloseModalAndSwitchToLogin}
-        />
+        <Modal isOpen={isModalOpen} message={modalMessage} onClose={handleCloseModalAndSwitchToLogin} />
       )}
-
-      <div
-        id="heroImg"
-        className="bg-flagBG bg-no-repeat bg-cover min-w-80 min-h-[75vh] w-[75vw] h-[85vh] flex justify-center items-center rounded-3xl"
-      >
-        <div
-          id="loginBG"
-          className="bg-purple-600 min-w-80 min-h-[80%] w-[40%] h-fit flex flex-col justify-around items-center text-center rounded-3xl p-12"
-        >
-          <div className="flex flex-col">
-            <h1 className="text-3xl text-white font-bold mb-2">
-              Create Account
-            </h1>
-            <div id="username" className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                Username
-              </label>
-              <input
-                id="username"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
-                type="text"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
+      <div id="heroImg" className="bg-flagBG bg-no-repeat bg-cover w-full md:w-2/3 h-full flex justify-center items-center rounded-3xl py-24 my-auto">
+        <div id="loginBG" className="bg-purple-600 h-fit flex flex-col justify-around items-center text-center rounded-3xl p-6 lg:p-12">
+          <div className="flex flex-col gap-y-4">
+            <div>
+              <h1 className="text-3xl text-gray-700 font-bold bg-fuchsia-300 p-2 border border-black">Create Account</h1>
+              <form className="bg-fuchsia-200 p-2 pb-4 border border-black border-t-0 text-gray-700">
+                <label className="block mt-2 text-lg text-start font-bold">Username</label>
+                <input id="username" required onChange={(e) => setUsername(e.target.value)} placeholder="Enter username" type="text" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <label className="block mt-4 text-lg text-start font-bold">Password</label>
+                <input id="password" onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Enter password" className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-800 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              </form>
             </div>
-            <div id="password" className="mb-6">
-              <label className="block mb-2 text-lg text-start font-bold text-white dark:text-white">
-                Password
-              </label>
-              <input
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                type="password"
-                placeholder="Enter password"
-                className="required bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-            </div>
-            <a href="" className="underline italic text-white">
-              Having trouble logging in?
-            </a>
-            <br />
-            <button
-              onClick={handleSubmit}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Create Account
-            </button>
+            <button onClick={handleSubmit} className="max-w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400 select-none">Create Account</button>
+            <p className="text-white select-none">Already have an account?<span className="mx-4 underline hover:text-gray-300 hover:cursor-pointer" onClick={() => setLoginSwitchBool(true)}>Log In</span></p>
           </div>
-          <div className="mt-4">
-            <p className="text-white">Already have an account?</p>
-            <button
-              onClick={() => setLoginSwitchBool(true)}
-              className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold hover:bg-fuchsia-400"
-            >
-              Log In Instead
-            </button>
-          </div>
-          <div></div>
         </div>
       </div>
     </div>
