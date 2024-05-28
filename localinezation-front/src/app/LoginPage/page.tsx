@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addUser, getLoggedInUserData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 
@@ -14,7 +14,6 @@ interface ModalProps {
 const LoginPage = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  3
   const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
     if (!isOpen) return null;
 
@@ -62,7 +61,6 @@ const LoginPage = () => {
       </div>
     );
   };
-
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -103,7 +101,7 @@ const LoginPage = () => {
           localStorage.setItem("Token", token.token);
           localStorage.setItem("username", username); // Ensuring username is correctly set
           await getLoggedInUserData(); // no 'username' parameter required since we are fetch the usernamen from localstorage..because the function now handles the username internally.
-          router.push("/AccountDashboardPage");
+          router.push("/AboutPage");
         } else {
           alert("Login Failed");
         }
@@ -131,6 +129,12 @@ const LoginPage = () => {
     //  to switch to the login form after closing the modal
 
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem('Token')){
+      router.push("/TranslationsPage")
+    }
+  }, [])
 
   return loginSwitchBool ? (
     <div className="min-w-screen flex justify-center items-center md:p-8">

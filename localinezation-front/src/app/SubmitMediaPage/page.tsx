@@ -90,6 +90,16 @@ const SubmitMediaPage = () => {
     reader.readAsDataURL(file);
   };
 
+  const handleSubmit = () =>{
+    if(submission.title !== '' && submission.coverArt !== '' && submission.originalLanguage !== '' && submission.type !== '' && submission.platform !== ''){
+      addMediaItem(submission),
+      handlePageChange("/TranslationsPage");
+    }
+    else{
+      alert('Required Form Items not Added')
+    }
+  }
+
   return (
     <div className="flex flex-col items-center flex-wrap p-4 select-none">
       <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
@@ -108,7 +118,7 @@ const SubmitMediaPage = () => {
                 id="title"
                 type="text"
                 required
-                placeholder="Set Title..."
+                placeholder="Title..."
                 onChange={(e) => {
                   setTitle(e.target.value);
                 }}
@@ -155,6 +165,7 @@ const SubmitMediaPage = () => {
               <TextInput
                 id="platform"
                 type="text"
+                placeholder="Netflix, Hulu..."
                 required
                 onChange={(e) => {
                   setPlatform(e.target.value);
@@ -271,10 +282,8 @@ const SubmitMediaPage = () => {
             </div>
             <button
               className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400"
-              onClick={(e) => {
-                e.preventDefault(),
-                  addMediaItem(submission),
-                  handlePageChange("/TranslationsPage");
+              onClick={() => {
+                handleSubmit();
               }}
             >
               Submit Media

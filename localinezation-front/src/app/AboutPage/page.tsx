@@ -1,9 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const AboutPage = () => {
 
+  const router = useRouter();
+  const handlePageChange = (route: string) => {
+    router.push(route);
+  };
   
 
   const englishText = [
@@ -21,17 +26,16 @@ const AboutPage = () => {
     <p key={3}>How to use LocaLINEzation</p>,
     <>
       <p key={4} className="indent-8 mb-8">
-        If you want to <span className="font-bold">REQUEST</span> a media to be
-        submitted, first check the recent translations page or use the search
+        If you want to <span className="font-bold underline">REQUEST</span> a media to be
+        submitted, first check the <span className="font-bold italic cursor-pointer text-lg mx-1" onClick={()=> router.push("/TranslationsPage")}>Translation Requests</span>{" "} page or use the search
         bar to see if that media has already been requested before, and if it
-        hasnt then use the <span className="font-bold">SUBMIT A MEDIA</span>{" "}
+        hasnt then use the <span className="font-bold italic cursor-pointer text-lg mx-1" onClick={()=> router.push("/SubmitMediaPage")}>SUBMIT A MEDIA</span>{" "}
         page.
       </p>
       <p className="indent-8">
-        If you are looking to <span className="font-bold">TRANSLATE</span>, make
-        sure that you have correctly selected your origin language and language
-        to translate to, located to the left of your name in the top corner of
-        the page, and then find something to translate!
+        If you are looking to <span className="font-bold underline">TRANSLATE</span>, find a piece of 
+        media on the <span className="font-bold italic cursor-pointer text-lg mx-1" onClick={()=> router.push("/TranslationsPage")}>Translation Requests</span>{" "} page and click on it to see all the current requests 
+        for that media, and translate away! 
       </p>
     </>,
     <p key={5}>Why is LocaLINEzation?</p>,
@@ -106,7 +110,7 @@ const AboutPage = () => {
     <div className="flex flex-col h-fit justify-center items-center py-10">
       <div
         id="pageHeader"
-        className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border border-black"
+        className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border"
       >
         {englishText[0]}
       </div>
@@ -114,18 +118,18 @@ const AboutPage = () => {
       <div className="rounded-lg text-gray-200 font-semibold py-8 max-w-[1440px] w-2/3 min-w-min flex flex-col gap-y-6">
         <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
           <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
-            {englishText[1]}
-          </div>
-          <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
-            {englishText[2]}
-          </div>
-        </div>
-        <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
-          <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
             {englishText[3]}
           </div>
           <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
             {englishText[4]}
+          </div>
+        </div>
+        <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
+          <div className="bg-fuchsia-300 text-3xl h-fit w-full min-w-64 text-center text-gray-700 py-3 font-semibold border-black border">
+            {englishText[1]}
+          </div>
+          <div className="border border-t-0 h-fit w-full min-w-64 border-black flex flex-col flex-wrap p-4 bg-fuchsia-200 text-gray-700">
+            {englishText[2]}
           </div>
         </div>
         <div className="bg-purple-600 p-8 flex flex-col items-center rounded-xl">
