@@ -9,7 +9,6 @@ import {
 } from "@/Interfaces/Interfaces";
 
 const url = "https://localinazationapi.azurewebsites.net";
-// const url = "http://localhost:5071"
 
 let userData: IUserData;
 
