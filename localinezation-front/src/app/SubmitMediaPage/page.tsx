@@ -106,7 +106,7 @@ const SubmitMediaPage = () => {
 
   return (
     <div className="flex flex-col items-center flex-wrap p-4 select-none">
-      <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
+      <div className="headerBG flex items-center w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-4">
         <h1 className="text-center font-bold text-gray-700 text-4xl py-7">
           Submit Media
         </h1>

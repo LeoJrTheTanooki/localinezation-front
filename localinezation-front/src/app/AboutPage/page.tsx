@@ -110,7 +110,7 @@ const AboutPage = () => {
   ];
 
   return (
-    <div className="flex flex-col h-fit justify-center items-center py-10">
+    <div className="flex flex-col h-fit justify-center items-center py-6">
       <div
         id="pageHeader"
         className="flex items-center h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg mt-2 mb-10 border"
