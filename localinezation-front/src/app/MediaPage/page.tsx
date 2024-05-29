@@ -33,6 +33,10 @@ const MediaPage = () => {
   const [translationsMappedJsx, setTranslationsMappedJsx] = useState<any>();
   const pathname = usePathname();
 
+  useEffect(()=>{
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
+  }, []);
+
   useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
     if (query) setQueryNum(parseInt(query));

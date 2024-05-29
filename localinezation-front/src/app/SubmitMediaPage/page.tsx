@@ -22,6 +22,10 @@ const SubmitMediaPage = () => {
   const [submission, setSubmission] = useState<any>();
   const [userId, setUserId] = useState<number>(-1);
 
+  useEffect(()=>{
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
+  }, []);
+
   useEffect(() => {
     const loadUserData = async () => {
       const userData = await getLoggedInUserData();

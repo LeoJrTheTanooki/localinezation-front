@@ -25,6 +25,10 @@ const AccountDashboardPage = () => {
   const [submittedTranslationsJsx, setSubmittedTranslationsJsx] =
     useState<any>();
 
+  useEffect(()=>{
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
+  });
+
   useEffect(() => {
     if (newUsername && newPassword) {
       let loginEffect = {
@@ -78,13 +82,6 @@ const AccountDashboardPage = () => {
             </div>
           );
         });
-        // const translationsMapped = userTranslations.map(
-        //   async (e: any, index: number) => {
-        //     console.log(e);
-        //     console.log(e.translationRequestId);
-        //     // getTranslationsByRequestId(e.translationRequestId)
-        //   }
-        // );
         setRequestedLinesJsx(requestsMapped);
       } else {
         console.log("User data is not available.");

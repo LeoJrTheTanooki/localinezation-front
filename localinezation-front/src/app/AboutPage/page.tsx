@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const AboutPage = () => {
 
@@ -10,6 +10,9 @@ const AboutPage = () => {
     router.push(route);
   };
   
+  useEffect(()=>{
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
+  });
 
   const englishText = [
     <h1 key={0} className="text-center font-bold text-gray-700 text-4xl py-7">

@@ -13,6 +13,7 @@ const Homepage = () => {
 
   // This effect runs when the component mounts to the DOM
   useEffect(() => {
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
     // Define an asynchronous function to fetch media from the backend
     const loadMedia = async () => {
       try {

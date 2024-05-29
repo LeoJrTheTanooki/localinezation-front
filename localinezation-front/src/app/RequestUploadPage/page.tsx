@@ -36,8 +36,8 @@ const RequestUploadPage = () => {
       }
     }
   };
-
   useEffect(() => {
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
     const getUserId = async () => {
       if (checkToken()) {
         const userData = await getLoggedInUserData();
@@ -50,30 +50,6 @@ const RequestUploadPage = () => {
     };
     getUserId();
   }, []);
-
-  // useEffect(() => {
-  //   const init = async () => {
-  //     if (localStorage.getItem("username")) {
-  //       // setCurrentUsername(localStorage.getItem("username"));
-  //       await getLoggedInData(); // This function needs to be defined outside useEffect or here within it
-  //     } else {
-  //       // setCurrentUsername(null);
-  //       // router.push("/LoginPage");
-  //     }
-  //   };
-  //   init();
-  // }, [router]);
-
-  /* 
-https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
-{
-  "requestorUserId": 15,
-  "mediaId": 1,
-  "requestName": "qwertyuiop",
-  "requestLanguage": "englishUsa",
-  "requestDialogue": "qwertyuiop"
-}
-*/
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search).get("id");
@@ -111,8 +87,6 @@ https://localinazationapi.azurewebsites.net/Media/AddTranslationRequest
         requestName: requestName,
         requestDialogue: dialogueRequest,
         requestReferences: referencesEffect,
-        // screenshots: screenshots,
-        // "videoLink": videoLink,
       };
       setRequestObj(requestEffect);
       console.log(requestEffect);

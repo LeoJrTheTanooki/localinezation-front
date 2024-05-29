@@ -55,6 +55,7 @@ const OpenRequestsPage = () => {
   const [requestId, setRequestId] = useState<any>();
 
   useEffect(() => {
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
     const loadMedia = async () => {
       try {
         const media = await getPublishedItems();
