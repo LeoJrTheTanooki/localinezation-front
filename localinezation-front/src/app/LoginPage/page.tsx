@@ -14,7 +14,6 @@ interface ModalProps {
 const LoginPage = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  3
   const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
     if (!isOpen) return null;
 
