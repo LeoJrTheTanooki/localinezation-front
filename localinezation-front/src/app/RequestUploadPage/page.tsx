@@ -80,6 +80,12 @@ const RequestUploadPage = () => {
         videoEffect ? videoEffect : null,
       ];
 
+      const checkNull = (e: any) => {
+        return e !== null;
+      };
+
+      referencesEffect = referencesEffect.filter(checkNull);
+
       let requestEffect = {
         requestorUserId: mediaUserId,
         mediaId: queryNum,
@@ -304,7 +310,7 @@ const RequestUploadPage = () => {
               className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 text-gray-700 mx-auto"
               onClick={(e) => {
                 e.preventDefault();
-                console.log(requestObj)
+                console.log(requestObj);
                 addTranslationRequest(requestObj);
                 handlePageChange(`/MediaPage?id=${queryNum}`);
               }}
