@@ -49,7 +49,7 @@ const OpenRequestsPage = () => {
   const [yourScore, setYourScore] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
-  const [translatorUsername, setTranslatorUsername] = useState<string>('');
+  const [translatorUsername, setTranslatorUsername] = useState<string>("");
 
   const [requestTranslations, setRequestTranslations] = useState<any>();
   const [requestId, setRequestId] = useState<any>();
@@ -77,9 +77,18 @@ const OpenRequestsPage = () => {
     const indexQueryEffect = new URLSearchParams(window.location.search).get(
       "index"
     );
+    const requestIdQueryEffect = new URLSearchParams(
+      window.location.search
+    ).get("requestId");
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
     if (langQueryEffect) setLangQuery(langQueryEffect);
     if (indexQueryEffect) setRequestIndex(parseInt(indexQueryEffect));
+    if (requestIdQueryEffect) setRequestId(parseInt(requestIdQueryEffect));
+    if(indexQueryEffect){
+      // console.log('Index Pass')
+    } else {
+      // console.log('ID Pass', requestIdQueryEffect)
+    }
   }, []);
 
   useEffect(() => {
@@ -91,10 +100,17 @@ const OpenRequestsPage = () => {
           queryNum
         );
         setRequestsArray(submittedRequests);
+        console.log('Current Requests: ', submittedRequests)
+        console.log(requestId)
+        setRequestIndex(submittedRequests.findIndex((e: any) => {
+          return e.id == requestId;
+        }))
+        // const submittedTranslations = await getTranslationsByRequestId(queryNum)
+        // console.log('Submitted Translations', submittedTranslations);
       };
       loadMedia();
     }
-  }, [queryNum]);
+  }, [queryNum, requestId]);
 
   useEffect(() => {
     if (requestsArray && requestsArray.length != 0) {
@@ -110,7 +126,7 @@ const OpenRequestsPage = () => {
                   setLangQuery(request.requestLanguage);
                   setRequestIndex(index);
                   setRequestId(request.id);
-                  setTranslationIndex(0)
+                  setTranslationIndex(0);
                   window.history.pushState(
                     null,
                     `Change Queries`,
@@ -125,6 +141,7 @@ const OpenRequestsPage = () => {
         }
       );
       setRequestList(requestListJsx);
+      // requestsArray[requestIndex]?.requestName
     }
   }, [queryNum, requestIndex, requestsArray]);
 
@@ -151,7 +168,7 @@ const OpenRequestsPage = () => {
           let translatorInfo = await getUserByUserId(translatorId);
           setTranslatorUsername(translatorInfo.publisherName);
         } catch (error) {
-          setTranslatorUsername(`User ${translatorId}`)
+          setTranslatorUsername(`User ${translatorId}`);
         }
       };
       translatorLoad();
