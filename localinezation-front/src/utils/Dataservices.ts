@@ -254,7 +254,7 @@ export const getMediaItemsByMediaId = async (mediaId: number) => {
 // ---------------------------------------------------------------------------------------------------------
 // 11- To request a  Translation; you can add as many languages requests  as you like for each Media:
 export const addTranslationRequest = async (request: ITranslationRequest) => {
-  const response = await fetch(`${url}/Media/AddTranslationRequest`, {
+  const response = await fetch(url + `/Media/AddTranslationRequest`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

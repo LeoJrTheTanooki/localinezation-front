@@ -132,7 +132,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (localStorage.getItem('Token')) {
-      router.push("/TranslationsPage")
+      router.push("/AccountDashboardPage")
     }
   }, [])
 

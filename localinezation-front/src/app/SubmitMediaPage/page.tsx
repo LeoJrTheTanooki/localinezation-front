@@ -286,7 +286,8 @@ const SubmitMediaPage = () => {
             </div>
             <button
               className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 handleSubmit();
               }}
             >
@@ -297,7 +298,7 @@ const SubmitMediaPage = () => {
         <div
           className={`flex ${
             displayRequest ? "" : ""
-          } justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4`}
+          } justify-between flex-col bg-purple-600 rounded-lg text-gray-200 font-semibold p-4 h-fit my-auto`}
         >
           <div className="flex flex-col md:flex-row gap-5 pb-4 w-max mx-auto">
             <img
@@ -319,10 +320,7 @@ const SubmitMediaPage = () => {
           <div>
             <div className="flex justify-evenly mb-4">
               <Button className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2">
-                Request a Line to Translate
-              </Button>
-              <Button className="text-gray-700 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 mx-2">
-                Submit a Translation
+                Create Request
               </Button>
             </div>
           </div>

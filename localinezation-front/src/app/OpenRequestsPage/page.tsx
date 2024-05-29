@@ -216,7 +216,7 @@ const OpenRequestsPage = () => {
           />
         );
       } else {
-        return <img src={currentReference.src} className="h-fit bg-fuchsia-300 rounded-lg p-4 w-full" alt={currentReference.src} />;
+        return <img src={currentReference.src} className="h-fit bg-fuchsia-300 rounded-lg p-4 w-full" alt={currentReference.src ? currentReference.src : "No Reference Added"} />;
       }
     }
   };
@@ -329,7 +329,7 @@ const OpenRequestsPage = () => {
           <div className="bg-fuchsia-200 border border-black p-1 px-4">
             {requestsArray && requestsArray.length != 0
               ? requestsArray[requestIndex]?.requestDialogue
-              : "null"}
+              : "No Dialogue Added"}
           </div>
         </div>
         <div className="flex justify-center">
@@ -375,7 +375,7 @@ const OpenRequestsPage = () => {
         <div className="flex justify-around">
           <div>
             <button
-              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-slate-700"
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-700"
               onClick={() => {
                 if (requestsArray)
                   indexLoop(
@@ -405,7 +405,7 @@ const OpenRequestsPage = () => {
           </div>{" "}
           <div>
             <button
-              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-slate-700"
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-700"
               onClick={() => {
                 if (requestsArray)
                   indexLoop(

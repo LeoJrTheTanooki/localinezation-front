@@ -302,7 +302,9 @@ const RequestUploadPage = () => {
             </div>
             <button
               className="w-48 h-12 bg-fuchsia-300 rounded-xl font-semibold hover:bg-fuchsia-400 text-gray-700 mx-auto"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(requestObj)
                 addTranslationRequest(requestObj);
                 handlePageChange(`/MediaPage?id=${queryNum}`);
               }}
