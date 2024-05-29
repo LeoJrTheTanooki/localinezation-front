@@ -31,7 +31,7 @@ const LoginPage = () => {
           <div className="text-center p-5">
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
               <svg
-                className="h-6 w-6 text-green-600"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
