@@ -62,9 +62,6 @@ const AccountDashboardPage = () => {
         const userRequests = await getTranslationRequestsByUserId(
           userData.userId
         );
-        const userTranslations = await getTranslationsByTranslatorUserId(
-          userData.userId
-        );
         const requestsMapped = userRequests.map((e: any, index: number) => {
           return (
             <div

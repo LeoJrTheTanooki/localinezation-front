@@ -99,7 +99,7 @@ const NavbarComponent = () => {
             <img
               src="/assets/localinezationLogo.png"
               className="text-center"
-              alt="Flowbite React Logo"
+              alt="LocalinezationLogo"
             />
           </Navbar.Brand>
         </button>
