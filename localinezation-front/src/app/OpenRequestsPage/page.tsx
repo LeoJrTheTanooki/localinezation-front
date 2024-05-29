@@ -35,9 +35,6 @@ const OpenRequestsPage = () => {
     platform: "No Known Platform",
   };
 
-  // <Array<ILanguageData["openRequests"]>
-  // const [requestsArray, setRequestsArray] =
-  //   useState<ILanguageData["openRequests"]>(requestsDefault);
   const [requestsArray, setRequestsArray] = useState<any>(requestsDefault);
   const [mediaRequests, setMediaRequests] = useState<any>();
   const [queryNum, setQueryNum] = useState<number>(-1);
@@ -52,12 +49,13 @@ const OpenRequestsPage = () => {
   const [yourScore, setYourScore] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const [currentMedia, setCurrentMedia] = useState<IMediaData>(DataDefault);
-  const [translatorUsername, setTranslatorUsername] = useState<string>('');
+  const [translatorUsername, setTranslatorUsername] = useState<string>("");
 
   const [requestTranslations, setRequestTranslations] = useState<any>();
   const [requestId, setRequestId] = useState<any>();
 
   useEffect(() => {
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
     const loadMedia = async () => {
       try {
         const media = await getPublishedItems();
@@ -79,31 +77,42 @@ const OpenRequestsPage = () => {
     const indexQueryEffect = new URLSearchParams(window.location.search).get(
       "index"
     );
+    const requestIdQueryEffect = new URLSearchParams(
+      window.location.search
+    ).get("requestId");
     if (idQueryEffect) setQueryNum(parseInt(idQueryEffect));
     if (langQueryEffect) setLangQuery(langQueryEffect);
     if (indexQueryEffect) setRequestIndex(parseInt(indexQueryEffect));
+    if (requestIdQueryEffect) setRequestId(parseInt(requestIdQueryEffect));
+    if(indexQueryEffect){
+      // console.log('Index Pass')
+    } else {
+      // console.log('ID Pass', requestIdQueryEffect)
+    }
   }, []);
 
   useEffect(() => {
     if (queryNum != -1) {
       const loadMedia = async () => {
         const foundMedia = await getMediaItemsByMediaId(queryNum);
-        // console.log('Current Media: ', foundMedia);
         setCurrentMedia(foundMedia);
         const submittedRequests = await getTranslationRequestsByMediaId(
           queryNum
         );
         setRequestsArray(submittedRequests);
-        // console.log('Current Requests: ', submittedRequests)
+        console.log('Current Requests: ', submittedRequests)
+        console.log(requestId)
+        setRequestIndex(submittedRequests.findIndex((e: any) => {
+          return e.id == requestId;
+        }))
         // const submittedTranslations = await getTranslationsByRequestId(queryNum)
         // console.log('Submitted Translations', submittedTranslations);
       };
       loadMedia();
     }
-  }, [queryNum]);
+  }, [queryNum, requestId]);
 
   useEffect(() => {
-    // console.log('Current Requests: ', requestsArray)
     if (requestsArray && requestsArray.length != 0) {
       setRequestId(requestsArray[requestIndex].id);
       const requestListJsx = requestsArray.map(
@@ -117,7 +126,7 @@ const OpenRequestsPage = () => {
                   setLangQuery(request.requestLanguage);
                   setRequestIndex(index);
                   setRequestId(request.id);
-                  setTranslationIndex(0)
+                  setTranslationIndex(0);
                   window.history.pushState(
                     null,
                     `Change Queries`,
@@ -132,15 +141,14 @@ const OpenRequestsPage = () => {
         }
       );
       setRequestList(requestListJsx);
+      // requestsArray[requestIndex]?.requestName
     }
   }, [queryNum, requestIndex, requestsArray]);
 
   useEffect(() => {
-    // console.log(requestId);
     const translationLoad = async () => {
       try {
         const translations = await getTranslationsByRequestId(requestId);
-        // console.log(`Translations `, translations);
         setRequestTranslations(translations);
       } catch (error) {
         setRequestTranslations(null);
@@ -160,90 +168,12 @@ const OpenRequestsPage = () => {
           let translatorInfo = await getUserByUserId(translatorId);
           setTranslatorUsername(translatorInfo.publisherName);
         } catch (error) {
-          setTranslatorUsername(`User ${translatorId}`)
+          setTranslatorUsername(`User ${translatorId}`);
         }
       };
       translatorLoad();
-      // getUserByUserId
-      // console.log(
-      //   `Translator's user ID: `,
-      //   requestTranslations[translationIndex].translatorUserId
-      // );
     }
   }, [requestTranslations, translationIndex]);
-
-  // Setting data to variables based on set query variables
-
-  // useEffect(() => {
-  //   function findLanguage(obj: object) {
-  //     return Object.keys(obj)[0] == langQuery;
-  //   }
-
-  //   try {
-  //     setCoverArt(currentMedia.coverArt);
-  //     const requestData =
-  //       mediaRequests[queryNum].requestLanguage.find(findLanguage)[
-  //         `${langQuery}`
-  //       ][0];
-
-  //     setRequestsArray(requestData.openRequests);
-  //     const dropdownJsx = mediaRequests[queryNum].requestLanguage.map(
-  //       (language: object, index: number) => {
-  //         let currentLanguage = Object.keys(language)[0];
-  //         let formattedLang = langFormat(currentLanguage);
-
-  //         if (currentLanguage) {
-  //           return (
-  //             <Dropdown.Item
-  //               key={index}
-  //               onClick={() => {
-  //                 setLangQuery(currentLanguage);
-  //                 window.history.pushState(
-  //                   null,
-  //                   `Change to ${formattedLang}`,
-  //                   `OpenRequestsPage?id=${queryNum}&language=${currentLanguage}`
-  //                 );
-  //               }}
-  //             >
-  //               {formattedLang}
-  //             </Dropdown.Item>
-  //           );
-  //         }
-  //       }
-  //     );
-  //     setDropdownItems(dropdownJsx);
-  //   } catch (error) {
-  //     console.log(`error caught: ${error}`);
-  //   }
-  // if (requestsArray && requestsArray.length != 0) {
-
-  //   // if(requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores){
-  //   requestsArray[requestIndex]?.submittedTranslations[translationIndex].userScores?.map((e) => {
-  //     console.log(e.userScore)
-  //   })
-  // // }
-
-  //   const requestListJsx = requestsArray.map(
-  //     (request: any, index: number) => {
-  //       return (
-  //         <li key={index}>
-  //           <button
-  //             className="text-blue-600 italic underline"
-  //             onClick={() => {
-  //               setReferenceIndex(0);
-  //               setRequestIndex(index);
-  //             }}
-  //           >
-  //             {request.requestName}
-  //           </button>
-  //         </li>
-  //       );
-  //     }
-  //   );
-  //   setRequestList(requestListJsx);
-
-  // }
-  // }, [queryNum, langQuery, mediaRequests, requestsArray]);
 
   useEffect(() => {
     setCoverArt(currentMedia.coverArt);
@@ -282,11 +212,11 @@ const OpenRequestsPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className="bg-slate-600"
+            className=" bg-fuchsia-300 rounded-lg p-4 w-[100%] h-fit"
           />
         );
       } else {
-        return <img src={currentReference.src} className="h-[315px]" alt="" />;
+        return <img src={currentReference.src} className="h-fit bg-fuchsia-300 rounded-lg p-4 w-full" alt={currentReference.src ? currentReference.src : "No Reference Added"} />;
       }
     }
   };
@@ -320,44 +250,23 @@ const OpenRequestsPage = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-2 2 m-5 gap-5">
-      <div className="grid grid-cols-2">
-        <div className="justify-self-center">
-          <img src={coverArt} alt="" />
-        </div>
-        <div>
-          <h2 className="text-3xl">Open Requests For Title</h2>
-          <ul>
-            {requestsArray && requestsArray.length != 0 ? (
-              <>{requestList}</>
-            ) : (
-              <li>No Requests</li>
-            )}
-          </ul>
-        </div>
-        {/* <div className="mb-2 block justify-self-center">
-          <p>Current Language</p>
-          <div className="border w-max rounded-md p-1 disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 ">
-            <Dropdown
-              id="type"
-              label={langQuery ? langFormat(langQuery) : "null"}
-              inline
-            >
-              {dropdownItems}
-            </Dropdown>
-          </div>
-        </div> */}
-      </div>
+    <div className="flex flex-col m-5 gap-5 bg-purple-600 py-4 sm:p-6 rounded-xl w-fit xl:min-w-[768px] max-w-[1080px] mx-auto font-semibold text-gray-700">
+      {/*<div className="justify-self-center">
+          <img src={coverArt} alt="" className="bg-fuchsia-300 rounded-lg p-4" />
+  </div>*/}
       <div>
-        <h2 className="text-3xl">
-          {requestsArray && requestsArray.length != 0
-            ? requestsArray[requestIndex]?.requestName
-            : "null"}
-        </h2>
-        <div className="flex justify-between">
+        {requestsArray && requestsArray.length != 0 ?
+          <h2 className="bg-fuchsia-300 text-center mb-4 p-2 rounded-xl h-20 pt-5">
+            <span className="hidden md:visible">Request for</span>
+            <span className="text-3xl"> {requestsArray[requestIndex]?.requestName} </span>
+            <span  className="hidden md:visible">on {currentMedia.title}</span>
+          </h2> : "null"
+        }
+        <div className="flex justify-between max-w-[768px]">
+
           {requestsArray &&
-          requestsArray.length != 0 &&
-          requestsArray[requestIndex].requestReferences?.length != 0 ? (
+            requestsArray.length != 0 &&
+            requestsArray[requestIndex].requestReferences?.length != 0 ? (
             <button
               onClick={() => {
                 if (requestsArray)
@@ -368,19 +277,25 @@ const OpenRequestsPage = () => {
                     false
                   );
               }}
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl mr-2"
             >
-              Left
+              Prev.
             </button>
           ) : (
             ""
           )}
-          {requestsArray &&
-          requestsArray.length != 0 &&
-          requestsArray[requestIndex].requestReferences?.length != 0
-            ? srcFormat(requestsArray[requestIndex])
-            : "No Provided References"}
-          {requestsArray &&
-          requestsArray.length != 0 &&
+
+      
+          <div className="lg:w-full flex justify-center">
+            {requestsArray &&
+              requestsArray.length != 0 &&
+              requestsArray[requestIndex].requestReferences?.length != 0
+              ? srcFormat(requestsArray[requestIndex])
+              : "No Provided References"}
+          </div>
+          
+
+          {requestsArray && requestsArray.length != 0 &&
           requestsArray[requestIndex].requestReferences?.length != 0 ? (
             <button
               onClick={() => {
@@ -392,37 +307,60 @@ const OpenRequestsPage = () => {
                     true
                   );
               }}
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit p-4 m-auto rounded-2xl ml-2"
+
             >
-              Right
+              Next
             </button>
           ) : (
             ""
           )}
         </div>
       </div>
-      <div>
-        <div className="flex flex-col border-b-2 border-black col-span-2 mb-2">
-          <div className="bg-purple-600 text-center text-white p-2 font-bold">
-            Other User Translations for “
+      <div className="max-w-[650px] mx-auto lg:w-full">
+        <div className="flex flex-col border-black mb-2">
+          <div className="bg-fuchsia-300 text-center p-2     border border-black border-b-0">
+            Original dialogue for “{" "}
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestName
+              : "null"}
+            ”
+          </div>
+          <div className="bg-fuchsia-200 border border-black p-1 px-4">
+            {requestsArray && requestsArray.length != 0
+              ? requestsArray[requestIndex]?.requestDialogue
+              : "No Dialogue Added"}
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div>
+            <button
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 h-fit rounded-full p-3"
+              onClick={() =>
+                handlePageChange(
+                  `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`
+                )
+              }
+            >
+              Make a Translation
+            </button>{" "}
+          </div>
+        </div>
+      </div>
+      <div className="max-w-[650px] mx-auto lg:w-full">
+        <div className="flex flex-col col-span-2 mb-2">
+          <div className="bg-fuchsia-300 text-center p-2 border border-black border-b-0">
+            Other Translations for “
             {requestsArray && requestsArray.length != 0
               ? requestsArray[requestIndex]?.requestName
               : "N/A"}
             ”
           </div>
-          <div className="border-2 border-b-0 border-black p-1">
-            {/* {requestsArray && requestsArray.length > 0
-              ? requestsArray[requestIndex]?.submittedTranslations[
-                  translationIndex
-                ]?.translatorUserName +
-                ": " +
-                requestsArray[requestIndex]?.submittedTranslations[
-                  translationIndex
-                ]?.translatedDialogue
-              : ""} */}
+          <div className="bg-fuchsia-200 border border-black p-1">
 
             {requestTranslations && requestTranslations.length > 0 ? (
               <>
-                <span className=" font-semibold">{translatorUsername}</span>:{" "}
+                <span className="mx-2">{translatorUsername} :</span>{" "}
                 {requestTranslations[translationIndex]?.translatedText}
               </>
             ) : (
@@ -431,149 +369,13 @@ const OpenRequestsPage = () => {
                 make one!
               </span>
             )}
-
-            {/* <span className="font-bold">
-              {requestsArray && requestsArray.length > 0
-                ? requestsArray[requestIndex]?.submittedTranslations[
-                    translationIndex
-                  ]?.translatorUserName
-                : ""}
-
-              {requestsArray &&
-              requestsArray[requestIndex]?.submittedTranslations[
-                translationIndex
-              ].isGuest ? (
-                <span className="text-purple-600">(Guest)</span>
-              ) : (
-                ": "
-              )}
-            </span>
-            {requestsArray && requestsArray.length > 0
-              ? requestsArray[requestIndex]?.submittedTranslations[
-                  translationIndex
-                ]?.translatedDialogue
-              : ""}{" "} */}
-
-            <div className="flex">
-              {/* <div className="mr-3 flex">
-                User Score:
-                <Rating>
-                  <Rating.Star />
-                  <Rating.Star />
-                  <Rating.Star />
-                  <Rating.Star />
-                  <Rating.Star filled={false} />
-                  <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    4.95 out of 5
-                  </p>
-                </Rating>
-              </div>
-              <div className="flex">
-                Your Score:
-                <Rating>
-                  <Rating.Star
-                    filled={
-                      yourScoreHover >= 1 ||
-                      (yourScore >= 1 && yourScoreHover == 0)
-                        ? true
-                        : false
-                    }
-                    onMouseEnter={() => {
-                      setYourScoreHover(1);
-                    }}
-                    onMouseLeave={() => {
-                      setYourScoreHover(0);
-                    }}
-                    onClick={() => {
-                      setYourScore(1);
-                    }}
-                  />
-                  <Rating.Star
-                    filled={
-                      yourScoreHover >= 2 ||
-                      (yourScore >= 2 && yourScoreHover == 0)
-                        ? true
-                        : false
-                    }
-                    onMouseEnter={() => {
-                      setYourScoreHover(2);
-                    }}
-                    onMouseLeave={() => {
-                      setYourScoreHover(0);
-                    }}
-                    onClick={() => {
-                      setYourScore(2);
-                    }}
-                  />
-                  <Rating.Star
-                    filled={
-                      yourScoreHover >= 3 ||
-                      (yourScore >= 3 && yourScoreHover == 0)
-                        ? true
-                        : false
-                    }
-                    onMouseEnter={() => {
-                      setYourScoreHover(3);
-                    }}
-                    onMouseLeave={() => {
-                      setYourScoreHover(0);
-                    }}
-                    onClick={() => {
-                      setYourScore(3);
-                    }}
-                  />
-                  <Rating.Star
-                    filled={
-                      yourScoreHover >= 4 ||
-                      (yourScore >= 4 && yourScoreHover == 0)
-                        ? true
-                        : false
-                    }
-                    onMouseEnter={() => {
-                      setYourScoreHover(4);
-                    }}
-                    onMouseLeave={() => {
-                      setYourScoreHover(0);
-                    }}
-                    onClick={() => {
-                      setYourScore(4);
-                    }}
-                  />
-                  <Rating.Star
-                    filled={
-                      yourScoreHover >= 5 ||
-                      (yourScore >= 5 && yourScoreHover == 0)
-                        ? true
-                        : false
-                    }
-                    onMouseEnter={() => {
-                      setYourScoreHover(5);
-                    }}
-                    onMouseLeave={() => {
-                      setYourScoreHover(0);
-                    }}
-                    onClick={() => {
-                      setYourScore(5);
-                    }}
-                  />
-                </Rating>
-              </div> */}
-            </div>
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-around">
           <div>
-            <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950"
-              disabled
-            >
-              Report
-            </Button>
-          </div>{" "}
-          <div>
-            <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+            <button
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-700"
               onClick={() => {
                 if (requestsArray)
                   indexLoop(
@@ -588,13 +390,22 @@ const OpenRequestsPage = () => {
                   ? false
                   : true
               }
+
             >
               Previous User{" "}
-            </Button>
+            </button>
           </div>
+          <div className="">
+            <button
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-700"
+              disabled
+            >
+              Report Translation
+            </button>
+          </div>{" "}
           <div>
-            <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950"
+            <button
+              className="bg-fuchsia-300 hover:bg-fuchsia-400 rounded-full p-3 disabled:bg-fuchsia-700"
               onClick={() => {
                 if (requestsArray)
                   indexLoop(
@@ -611,40 +422,11 @@ const OpenRequestsPage = () => {
               }
             >
               Next User
-            </Button>
+            </button>
           </div>
         </div>
       </div>
-      <div>
-        <div className="flex flex-col border-b-2 border-black mb-2">
-          <div className="bg-purple-600 text-center text-white p-2 font-bold">
-            Original dialogue for “{" "}
-            {requestsArray && requestsArray.length != 0
-              ? requestsArray[requestIndex]?.requestName
-              : "null"}
-            ”
-          </div>
-          <div className="border-2 border-b-0 border-black p-1">
-            {requestsArray && requestsArray.length != 0
-              ? requestsArray[requestIndex]?.requestDialogue
-              : "null"}
-          </div>
-        </div>
-        <div className="flex justify-end">
-          <div>
-            <Button
-              className="bg-indigo-900 enabled:hover:bg-indigo-950"
-              onClick={() =>
-                handlePageChange(
-                  `/TranslationUploadPage?id=${queryNum}&language=${langQuery}&index=${requestIndex}&requestId=${requestId}`
-                )
-              }
-            >
-              Submit a Translation
-            </Button>{" "}
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 };

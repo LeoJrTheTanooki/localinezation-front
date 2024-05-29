@@ -1,10 +1,12 @@
 "use client";
 
-import {IMediaItems, IUserInfo } from "@/Interfaces/Interfaces";
+import { IMediaItems, IUserInfo } from "@/Interfaces/Interfaces";
 import {
   checkToken,
   getLoggedInUserData,
   getMediaItemsByUserId,
+  getTranslationRequestsByUserId,
+  getTranslationsByTranslatorUserId,
   updateCredentials,
 } from "@/utils/Dataservices";
 import { useRouter } from "next/navigation";
@@ -19,15 +21,20 @@ const AccountDashboardPage = () => {
   const [mediaUserId, setMediaUserId] = useState<number>(0);
   const [publisherName, setPublisherName] = useState<string>("");
   const [mediaItems, setMediaItems] = useState<IMediaItems[]>();
+  const [requestedLinesJsx, setRequestedLinesJsx] = useState<any>();
+  const [submittedTranslationsJsx, setSubmittedTranslationsJsx] =
+    useState<any>();
+
+  useEffect(()=>{
+    localStorage.getItem("Token") ? "" : router.push("/LoginPage");
+  });
 
   useEffect(() => {
-
     if (newUsername && newPassword) {
-
       let loginEffect = {
-        "id": mediaUserId,
-        "username": newUsername,
-        "password": newPassword,
+        id: mediaUserId,
+        username: newUsername,
+        password: newPassword,
       };
       setNewLogin(loginEffect);
     }
@@ -52,6 +59,30 @@ const AccountDashboardPage = () => {
         setMediaUserId(userData.userId);
         setPublisherName(userData.publisherName);
         setMediaItems(filteredMediaItems);
+        const userRequests = await getTranslationRequestsByUserId(
+          userData.userId
+        );
+        const userTranslations = await getTranslationsByTranslatorUserId(
+          userData.userId
+        );
+        const requestsMapped = userRequests.map((e: any, index: number) => {
+          return (
+            <div
+              key={index}
+              className="border border-t-0 border-black flex flex-col flex-wrap p-3 w-full text-left bg-fuchsia-200 text-gray-700 cursor-pointer hover:bg-fuchsia-50"
+              onClick={() => {
+                handlePageChange(
+                  `/OpenRequestsPage?id=${e.media.id}&language=${e.requestLanguage}&requestId=${e.id}
+                  `
+                );
+              }}
+            >
+              <p>Title: {e.media.title}</p>
+              <p>Request: {e.requestName}</p>
+            </div>
+          );
+        });
+        setRequestedLinesJsx(requestsMapped);
       } else {
         console.log("User data is not available.");
       }
@@ -78,23 +109,21 @@ const AccountDashboardPage = () => {
       <h1 className="text-center font-bold text-gray-700 text-4xl py-7 w-fit h-24 bg-fuchsia-300 p-12 mx-auto rounded-lg my-8">
         Welcome{currentUsername ? `, ${currentUsername}` : ""}
       </h1>
-      <div className="flex flex-row flex-wrap-reverse justify-evenly gap-8">
-        <div className="w-fit max-w-[768px] flex flex-col justify-between items-center">
-          <div
-            id=""
-            className="bg-purple-600 min-w-[542px] min-h-[40%] w-[80%] h-[40%] flex flex-col justify-around items-center text-center rounded-3xl p-12"
-          >
-            {/* <p>Requested Lines</p> */}
-            <p>Coming Soon</p>
-          </div>
-          <div
-            id=""
-            className="bg-purple-600 min-w-[542px] min-h-[40%] w-[80%] h-[40%] flex flex-col justify-around items-center text-center rounded-3xl p-12"
-          >
-            {/* <p>Submitted Translations</p> */}
-            <p>Coming Soon</p>
-          </div>
+      <div className="flex flex-row justify-evenly gap-8">
+        <div
+          id=""
+          className="bg-purple-600 min-w-[542px] min-h-[40%] w-[80%] h-[40%] flex flex-col justify-around items-center text-center rounded-3xl p-12"
+        >
+          <p>Requested Lines</p>
+          {requestedLinesJsx}
         </div>
+        {/* <div
+          id=""
+          className="bg-purple-600 min-w-[542px] min-h-[40%] w-[80%] h-[40%] flex flex-col justify-around items-center text-center rounded-3xl p-12"
+        >
+          <p>Submitted Translations</p>
+          {submittedTranslationsJsx}
+        </div> */}
         <div className="flex flex-col">
           <div className="flex justify-center items-center">
             <div
@@ -135,14 +164,14 @@ const AccountDashboardPage = () => {
                   onClick={() => {
                     if (newLogin) {
                       updateCredentials(newLogin);
-                      alert('User Info Successfully Changed')
-                      setCurrentUsername(newUsername)
-                      localStorage.setItem("username", newUsername)
+                      alert("User Info Successfully Changed");
+                      setCurrentUsername(newUsername);
+                      localStorage.setItem("username", newUsername);
                       // handlePageChange('/Homepage')
-                    } else if (!newUsername){
-                      alert('Please input a username')
-                    } else if (!newPassword){
-                      alert('Please input a password')
+                    } else if (!newUsername) {
+                      alert("Please input a username");
+                    } else if (!newPassword) {
+                      alert("Please input a password");
                     }
                   }}
                   className="w-64 h-12 bg-fuchsia-300 rounded-full font-bold enabled:hover:bg-fuchsia-400 disabled:bg-fuchsia-100 disabled:text-gray-500"

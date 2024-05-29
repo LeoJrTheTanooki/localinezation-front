@@ -26,18 +26,18 @@ const MediaCard = (props: IProp) => {
           handlePageChange(`/MediaPage?id=${props.mediaObject.id}`)
         }
       >
-        <div className="flex h-fit min-w-80 flex-col justify-between gap-2 p-6">
+        <div className="flex h-full min-w-80 flex-col justify-between gap-2 p-6">
           <Image
             width="0"
             height="0"
             className="self-center max-h-96 bg-fuchsia-300 rounded-lg p-4 w-auto h-auto"
-            style={{ maxHeight: "250px" }}
+            style={{ maxHeight: "200px" }}
             src={props.mediaObject.coverArt}
-            alt={props.mediaObject.title + " cover"}
+            alt={props.mediaObject.title.includes(" ") ? props.mediaObject.title.split(' ')[0] + " cover" : props.mediaObject.title.split('')[0] + " cover"}
           />
           <div className="mb-4 bg-fuchsia-300 border border-black">
             <p className=" mt-3 mb-2 font-bold text-wrap">
-              {props.mediaObject.title}
+              {props.mediaObject.title.substring(0, 26)}
             </p>
             <p className="bg-fuchsia-200 py-2 border-t border-black">
               { langFormat(props.mediaObject.originalLanguage) +
